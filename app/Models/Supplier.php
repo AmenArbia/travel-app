@@ -13,15 +13,14 @@ class Supplier extends Model
         'name',
         'email',
         'phone',
+        'supplier_type',
         'service_type',
         'contract_start_date',
         'contract_end_date',
-        'hotel_id',
-
     ];
 
     public function hotels()
     {
-        return $this->belongsToMany(Hotel::class, 'hotel_suplier');
+        return $this->hasMany(Hotel::class, "hotel_supplier",  'supplier_id');
     }
 }

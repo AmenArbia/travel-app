@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone');
+            $table->enum('supplier_type', ['direct', 'external']);
             $table->enum('service_type', ['food supplies', 'beverage', 'Cleaning', 'transportation',]);
             $table->date('contract_start_date')->nullable();
             $table->date('contract_end_date')->nullable();
-            $table->foreignId('hotel_id')->constrained('hotels')->onDelete('cascade');
             $table->timestamps();
         });
     }

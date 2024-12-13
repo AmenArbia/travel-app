@@ -50,6 +50,26 @@ class Hotel extends Model
 
     public function suppliers()
     {
-        return $this->hasMany(Supplier::class);
+        return $this->belongsToMany(Supplier::class, "hotel_supplier", 'hotel_id', 'supplier_id');
+    }
+
+    public function amenities()
+    {
+        return $this->belongsToMany(Amenities::class, 'hotel_amenity', 'hotel_id', 'amenity_id')->withPivot('is_free', 'price');
+    }
+
+    public function room()
+    {
+        return $this->belongsToMany(Room::class, 'hotel_room')->withPivot('code', 'description');
+    }
+
+    public function photo()
+    {
+        return $this->hasMany(Photo::class);
+    }
+
+    public function roomtype()
+    {
+        return $this->hasMany(TypeRoom::class);
     }
 }

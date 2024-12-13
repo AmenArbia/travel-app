@@ -4,6 +4,10 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\HotelResource\Pages;
 use App\Filament\Resources\HotelResource\RelationManagers;
+use App\Filament\Resources\HotelResource\RelationManagers\AmenitiesRelationManager;
+use App\Filament\Resources\HotelResource\RelationManagers\RoomsRelationManager;
+use App\Filament\Resources\PhotoRelationManagerResource\RelationManagers\PhotoRelationManager;
+use App\Filament\Resources\RoomTypeRelationManagerResource\RelationManagers\TypeRoomRelationManager;
 use App\Models\Hotel;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
@@ -21,6 +25,7 @@ use Filament\Forms\Form;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -151,14 +156,14 @@ class HotelResource extends Resource
                     ->badge()
                     ->sortable()
                     ->colors([
-                        'actif' => 'success',
-                        'fermé' => 'secondary',
-                        'en maintenance' => 'primary',
+                        'success' => 'actif',
+                        'secondary' => 'fermé',
+                        'primary' => 'en maintenance',
                     ])
                     ->icons([
-                        'actif' => 'heroicon-o-check-circle',
-                        'fermé' => 'heroicon-o-x-circle',
-                        'en maintenance' => 'heroicon-o-clock',
+                        'heroicon-o-check-circle'  => 'actif',
+                        'heroicon-o-x-circle'  => 'fermé',
+                        'heroicon-o-clock'  => 'en maintenance',
                     ])
                     ->default('gray'),
 
@@ -189,7 +194,12 @@ class HotelResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('status')
+                    ->options([
+                        'actif' => 'Active',
+                        'en maintenance' => 'On repair',
+                        'fermé' => 'Closed',
+                    ]),
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
@@ -208,8 +218,23 @@ class HotelResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            AmenitiesRelationManager::class,
+            // RoomsRelationManager::class,
+            PhotoRelationManager::class,
+            TypeRoomRelationManager::class
+
+
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return static::getModel()::count() > 10 ? 'success' : 'danger';
     }
 
     public static function getPages(): array

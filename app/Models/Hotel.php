@@ -4,11 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Hotel extends Model
 {
     use HasFactory;
+    use HasTranslations;
 
+    public $translatable = [
+        'name',
+        'slug',
+        'description',
+    ];
     protected $fillable = [
         'name',
         'slug',
@@ -23,11 +30,19 @@ class Hotel extends Model
         'chaine_id',
         'country_id',
         'city_id',
+        'rating',
+        'latitude',
+        'longitude',
+        'street',
     ];
 
     protected $casts = [
-        'contact' => 'array'
+        'contact' => 'array',
+        'name' => 'array',
+        'slug' => 'array',
+        'description' => 'array',
     ];
+
 
 
 
@@ -71,5 +86,10 @@ class Hotel extends Model
     public function roomtype()
     {
         return $this->hasMany(TypeRoom::class);
+    }
+
+    public function booking()
+    {
+        return $this->hasMany(Booking::class);
     }
 }

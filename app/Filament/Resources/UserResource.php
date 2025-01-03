@@ -6,6 +6,7 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Pages\Page;
 use Filament\Resources\Pages\CreateRecord;
@@ -43,6 +44,11 @@ class UserResource extends Resource
                     ->password()
                     ->dehydrated(fn($state) => filled($state))
                     ->required(fn(Page $livewire) => $livewire instanceof CreateRecord)
+                    ->required(),
+
+                Select::make('role')
+                    ->label('Role')
+                    ->relationship('roles', 'name')
                     ->required(),
 
             ]);

@@ -30,12 +30,19 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use Mokhosh\FilamentRating\Columns\RatingColumn;
+use Mokhosh\FilamentRating\Components\Rating;
+use Cheesegrits\FilamentGoogleMaps\Columns\MapColumn;
+use Filament\Resources\Concerns\Translatable;
+use Mokhosh\FilamentRating\RatingTheme;
+use Cheesegrits\FilamentGoogleMaps\Fields\Map;
 
 
 class HotelResource extends Resource
 {
-    protected static ?string $model = Hotel::class;
+    use Translatable;
 
+    protected static ?string $model = Hotel::class;
     protected static ?string $navigationIcon = 'heroicon-o-building-office';
 
     public static function form(Form $form): Form
@@ -53,12 +60,15 @@ class HotelResource extends Resource
                                             ->maxLength(255)
                                             ->live(true)
                                             ->required()
-                                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                            ->afterStateUpdated(function (Set $set, ?string $state, ?string $operation) {
+                                                $set('slug', $state);
+                                            }),
                                         TextInput::make('slug')
                                             ->label('Hotel slug')
                                             ->maxLength(255)
                                             ->dehydrated()
-                                            ->unique(Hotel::class, 'slug', ignoreRecord: true)
+                                            ->live()
+                                            ->unique(Hotel::class, 'slug->en' . 'slug->ar', ignoreRecord: true)
                                             ->required(),
                                         MarkdownEditor::make('description')
                                             ->label('Hotel description')
@@ -70,7 +80,6 @@ class HotelResource extends Resource
                                             ->directory('hotels')
 
                                     ])
-
                             ]),
 
                         Tabs\Tab::make('Contact Details')
@@ -89,12 +98,10 @@ class HotelResource extends Resource
                                     ->label('Email')
                                     ->email()
                                     ->required(),
-
                             ]),
 
                         Tabs\Tab::make('Additional Details')
                             ->schema([
-
                                 Radio::make('status')
                                     ->label('Status')
                                     ->options([
@@ -111,53 +118,102 @@ class HotelResource extends Resource
                                         'Guest House' => 'Guest House',
                                         'Resort' => 'Resort',
                                     ])
+                                    ->preload()
+                                    ->searchable()
                                     ->default('Hotel'),
                             ]),
 
-
                         Tabs\Tab::make('References')
                             ->schema([
-                                Select::make('country_id')
-                                    ->label('Hotel country')
-                                    ->relationship('country', 'name')
-                                    ->preload()
-                                    ->searchable()
-                                    ->required(),
-                                Select::make('city_id')
-                                    ->label('Hotel city')
-                                    ->relationship('city', 'name')
-                                    ->required(),
-                                Select::make('chaine_id')
-                                    ->label('Hotel chaine')
-                                    ->relationship('chaine', 'name')
-                                    ->preload()
-                                    ->searchable()
-                                    ->required(),
-                            ])
+                                Grid::make(3)
+                                    ->schema([
+                                        TextInput::make('address')
+                                            ->label('Hotel address')
+                                            ->columnSpanFull(),
+                                        Map::make('location')
+                                            ->mapControls([
+                                                'mapTypeControl' => true,
+                                                'scaleControl' => true,
+                                                'streetViewControl' => true,
+                                                'rotateControl' => true,
+                                                'fullscreenControl' => true,
+                                                'zoomControl' => true,
+                                            ])
+                                            ->columnSpanFull()
+                                            ->reactive()
+                                            ->afterStateUpdated(function ($state, callable $get, callable $set) {
+                                                $set('latitude', $state['lat']);
+                                                $set('longitude', $state['lng']);
+                                            })->lazy()
+                                            ->debug()
+                                            ->geolocate()
+                                            ->autocomplete('address', ['establishment'])
+                                            ->autocompleteReverse(true)
+                                            ->reverseGeocode([
+                                                'street' => '%n %S',
+                                                'city' => '%L',
+                                                'state' => '%A1',
+                                            ])->debug(),
+                                        TextInput::make('street')
+                                            ->label('Street'),
+                                        TextInput::make('latitude')
+                                            ->label('Latitude')
+                                            ->readOnly(),
+                                        TextInput::make('longitude')
+                                            ->label('Longitude')
+                                            ->readOnly(),
+                                        Select::make('country_id')
+                                            ->label('Hotel country')
+                                            ->relationship('country', 'name')
+                                            ->preload()
+                                            ->searchable()
+                                            ->required(),
+                                        Select::make('city_id')
+                                            ->label('Hotel city')
+                                            ->relationship('city', 'name')
+                                            ->preload()
+                                            ->searchable()
+                                            ->required(),
+                                        Select::make('chaine_id')
+                                            ->label('Hotel chaine')
+                                            ->relationship('chaine', 'name')
+                                            ->preload()
+                                            ->searchable()
+                                            ->required(),
+                                    ]),
+                            ]),
 
+
+                        Tab::make('Rating')
+                            ->schema([
+                                Rating::make('rating')
+                                    ->label('Rating')
+                                    ->theme(RatingTheme::HalfStars),
+                            ])
                     ])
                     ->columnSpanFull()
             ]);
     }
-
-
-
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Name ')
                     ->searchable(),
+
                 Tables\Columns\TextColumn::make('slug')
+                    ->label('Slug ')
                     ->searchable(),
+
                 Tables\Columns\TextColumn::make('status')
                     ->searchable()
                     ->badge()
                     ->sortable()
                     ->colors([
                         'success' => 'actif',
-                        'secondary' => 'fermé',
+                        'danger' => 'fermé',
                         'primary' => 'en maintenance',
                     ])
                     ->icons([
@@ -180,10 +236,12 @@ class HotelResource extends Resource
 
                 Tables\Columns\TextColumn::make('chaine.name')
                     ->sortable(),
+
                 Tables\Columns\TextColumn::make('country.name')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('city.name')
-                    ->sortable(),
+                RatingColumn::make('rating')
+                    ->theme(RatingTheme::HalfStars),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -208,6 +266,9 @@ class HotelResource extends Resource
                     Tables\Actions\DeleteAction::make(),
                 ])
             ])
+            ->headerActions([
+                Tables\Actions\LocaleSwitcher::make(),
+            ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
@@ -215,15 +276,17 @@ class HotelResource extends Resource
             ]);
     }
 
+    public static function getTranslatableLocales(): array
+    {
+        return ['en', 'ar'];
+    }
+
     public static function getRelations(): array
     {
         return [
             AmenitiesRelationManager::class,
-            // RoomsRelationManager::class,
             PhotoRelationManager::class,
             TypeRoomRelationManager::class
-
-
         ];
     }
 

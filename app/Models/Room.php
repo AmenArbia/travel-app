@@ -17,6 +17,7 @@ class Room extends Model
         'infants_capacity',
         'extra_capacity',
         'type',
+        'rating',
 
     ];
 
@@ -37,5 +38,14 @@ class Room extends Model
     public function roomtype()
     {
         return $this->hasMany(TypeRoom::class);
+    }
+
+    public function amenities()
+    {
+        return $this->hasMany(Amenities::class);
+    }
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
     }
 }

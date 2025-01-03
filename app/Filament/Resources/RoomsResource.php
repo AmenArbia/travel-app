@@ -25,10 +25,14 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use Mokhosh\FilamentRating\Columns\RatingColumn;
+use Mokhosh\FilamentRating\Components\Rating;
+use Mokhosh\FilamentRating\RatingTheme;
 
 
 class RoomsResource extends Resource
 {
+
     protected static ?string $model = Room::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
@@ -49,9 +53,9 @@ class RoomsResource extends Resource
                             ->preload()
                             ->required()
                             ->options([
-                                'Standard' =>  'Standard',
-                                'Deluxe' => 'Deluxe',
-                                'Suite' => 'Suite',
+                                'Standard ' =>  'Standard',
+                                'Deluxe ' => 'Deluxe',
+                                'Suite ' => 'Suite',
                             ])
                             ->default('Standard')
 
@@ -134,8 +138,6 @@ class RoomsResource extends Resource
                                     ->required(),
 
 
-
-
                             ]),
 
 
@@ -148,10 +150,7 @@ class RoomsResource extends Resource
                                     ->numeric()
                                     ->required(),
 
-
                             ]),
-
-
 
 
                         Section::make('Infants Capacity')
@@ -166,9 +165,6 @@ class RoomsResource extends Resource
                                     ->required(),
 
                             ]),
-
-
-
 
 
                         Section::make('Extra capacity')
@@ -196,6 +192,13 @@ class RoomsResource extends Resource
 
                             ]),
 
+                        Section::make('Rating')
+                            ->schema([
+                                Rating::make('rating')
+                                    ->color('warning')
+                                    ->theme(RatingTheme::HalfStars),
+                            ]),
+
 
                     ]),
             ]);
@@ -219,6 +222,9 @@ class RoomsResource extends Resource
                         'primary' => 'Deluxe ',
                         'warning' => 'Suite ',
                     ]),
+                RatingColumn::make('rating')
+                    ->color('warning')
+                    ->theme(RatingTheme::HalfStars),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

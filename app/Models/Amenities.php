@@ -14,11 +14,23 @@ class Amenities extends Model
         'description',
         'type',
         'status',
+        'room_id',
     ];
 
 
     public function hotels()
     {
-        return $this->belongsToMany(Hotel::class, 'hotel_amenity', 'amenity_id', 'hotel_id')->withPivot('is_free', 'price');;
+        return $this->belongsToMany(Hotel::class, 'hotel_amenity', 'amenity_id', 'hotel_id')->withPivot('is_free', 'price');
+        ;
     }
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
+    public function bookings()
+{
+    return $this->belongsToMany(Booking::class, 'booking_amenity' , 'amenity_id', 'booking_id')
+                ->withPivot('is_free', 'price');
+}
 }

@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('type_rooms', function (Blueprint $table) {
-            //
+        Schema::table('hotels', function (Blueprint $table) {
+            $table->string('street')->nullable();
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
         });
     }
 
@@ -21,9 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('type_rooms', function (Blueprint $table) {
-            $table->decimal('price')->nullable();
-            $table->json('photos')->nullable();
+        Schema::table('hotels', function (Blueprint $table) {
+            //
         });
     }
 };

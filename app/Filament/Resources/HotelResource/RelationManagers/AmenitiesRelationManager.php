@@ -43,13 +43,23 @@ class AmenitiesRelationManager extends RelationManager
 
                 TextInput::make('price')
                     ->label('Price')
-                    ->visible(fn($get) => !$get('is_free')),
+                    ->visible(fn($get) => !$get('is_free'))
+                    ->required(fn($get) => !$get('is_free')),
 
 
 
 
                 Textarea::make('description')
                     ->label('Amenity Description'),
+
+
+
+                Select::make('room_id')
+                    ->relationship('room', 'code')
+                    ->label('Assign to Room')
+                    ->searchable()
+                    ->preload()
+                    ->placeholder('Select a Room'),
 
                 /*
                 Select::make('type')
@@ -93,7 +103,7 @@ class AmenitiesRelationManager extends RelationManager
                         'Instant' => 'info',
                         'Internet' => 'warning',
                         'Kitchen' => 'success',
-                        'Bedroom' => 'secondary',
+                        'Bedroom' => 'danger',
                         'Living Area' => 'danger',
                         'Media and Technology' => 'primary'
                     })
@@ -112,6 +122,9 @@ class AmenitiesRelationManager extends RelationManager
                             }
                         }
                     ),
+
+                TextColumn::make('room.code')
+                    ->label('Room Code'),
 
 
                 Tables\Columns\TextColumn::make('created_at')
@@ -155,12 +168,19 @@ class AmenitiesRelationManager extends RelationManager
                                 return true;
                             }),
 
-
+                        Select::make('room_id')
+                            ->relationship('room', 'code')
+                            ->label('Assign to Room')
+                            ->searchable()
+                            ->preload()
+                            ->placeholder('Select a Room')
+                            ->nullable(),
                     ])
             ])
             ->actions([
-                Tables\Actions\EditAction::make()->action(function ($data) {
-                    dd($data);
+                Tables\Actions\EditAction::make()->action(function ($data, $record) {
+                    $record->update($data);
+                    session()->flash('success', 'Amenity updated successfully.');
                 }),
                 Tables\Actions\DetachAction::make(),
             ])

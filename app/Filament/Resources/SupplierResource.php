@@ -47,14 +47,15 @@ class SupplierResource extends Resource
                                     ->label('Supplier phone')
                                     ->tel()
                                     ->required(),
-                                Select::make('hotel')
+                                /*Select::make('hotel')
                                     ->label('Hotel')
                                     ->relationship('hotels', 'name')
+                                    ->orderByRaw("hotels.name->>'en' ASC")
                                     ->preload()
                                     ->multiple()
                                     ->searchable()
                                     ->native(false)
-                                    ->required(),
+                                    ->required(),*/
 
                                 Select::make('service_type')
                                     ->label('Service Type')

@@ -17,6 +17,9 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Mokhosh\FilamentRating\Columns\RatingColumn;
+use Mokhosh\FilamentRating\Components\Rating;
+use Mokhosh\FilamentRating\RatingTheme;
 
 class TypeRoomRelationManager extends RelationManager
 {
@@ -46,6 +49,7 @@ class TypeRoomRelationManager extends RelationManager
                             ->searchable()
                             ->afterStateUpdated(
                                 function ($state,   $set) {
+                                    $room = null;
                                     if ($state) {
                                         $room = Room::find($state);
                                     }
@@ -58,6 +62,7 @@ class TypeRoomRelationManager extends RelationManager
                                         $set('room_type', $room->type);
                                         $set('price', $room->price);
                                         $set('photos', $room->photos);
+                                        $set('rating', $room->rating);
                                     };
                                 }
                             ),
@@ -143,11 +148,21 @@ class TypeRoomRelationManager extends RelationManager
                             ->maxlength(255)
                     ]),
 
+                Section::make('Rating')
+                    ->schema([
+                        Rating::make('rating')
+                            ->color('warning')
+                            ->theme(RatingTheme::HalfStars),
+                    ]),
+
                 FileUpload::make('photos')
                     ->label('Photos')
                     ->directory('type_rooms')
                     ->image()
+                    ->multiple()
                     ->columnSpanFull(),
+
+
             ]);
     }
 
@@ -171,12 +186,15 @@ class TypeRoomRelationManager extends RelationManager
                         'warning' => 'Suite ',
                     ]),
 
-                Tables\Columns\TextColumn::make('room_capacity')->label('Capacity'),
+
 
                 TextColumn::make('price')
                     ->money('TND')
                     ->searchable()
                     ->sortable(),
+                RatingColumn::make('room.rating')
+                    ->color('warning')
+                    ->theme(RatingTheme::HalfStars),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

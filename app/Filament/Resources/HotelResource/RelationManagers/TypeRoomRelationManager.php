@@ -25,7 +25,7 @@ class TypeRoomRelationManager extends RelationManager
 {
     protected static string $relationship = 'roomtype';
     protected static ?string $title = 'Room Type';
-    protected static ?string $icon =  'heroicon-o-building-storefront';
+    protected static ?string $icon = 'heroicon-o-building-storefront';
 
 
     public function form(Form $form): Form
@@ -48,7 +48,7 @@ class TypeRoomRelationManager extends RelationManager
                             ->reactive()
                             ->searchable()
                             ->afterStateUpdated(
-                                function ($state,   $set) {
+                                function ($state, $set) {
                                     $room = null;
                                     if ($state) {
                                         $room = Room::find($state);
@@ -148,13 +148,6 @@ class TypeRoomRelationManager extends RelationManager
                             ->maxlength(255)
                     ]),
 
-                Section::make('Rating')
-                    ->schema([
-                        Rating::make('rating')
-                            ->color('warning')
-                            ->theme(RatingTheme::HalfStars),
-                    ]),
-
                 FileUpload::make('photos')
                     ->label('Photos')
                     ->directory('type_rooms')
@@ -181,7 +174,7 @@ class TypeRoomRelationManager extends RelationManager
                     ->searchable()
                     ->badge()
                     ->colors([
-                        'success' =>  'Standard ',
+                        'success' => 'Standard ',
                         'primary' => 'Deluxe ',
                         'warning' => 'Suite ',
                     ]),
@@ -192,9 +185,6 @@ class TypeRoomRelationManager extends RelationManager
                     ->money('TND')
                     ->searchable()
                     ->sortable(),
-                RatingColumn::make('room.rating')
-                    ->color('warning')
-                    ->theme(RatingTheme::HalfStars),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -37,9 +37,6 @@ class HomePage extends Component
     {
         $hotelQuery = Hotel::query();
 
-
-
-
         if (!empty($this->selected_types)) {
             $hotelQuery->whereIn('type_hotel', $this->selected_types);
         }

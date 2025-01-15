@@ -18,6 +18,8 @@ use Filament\Support\Markdown;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Guava\FilamentIconPicker\Forms\IconPicker;
+use Guava\FilamentIconPicker\Tables\IconColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -44,7 +46,7 @@ class AmenitiesResource extends Resource
                             ->live()
                             ->native(false)
                             ->options([
-                                'Instant'  => 'Instant',
+                                'Instant' => 'Instant',
                                 'Internet' => 'Internet',
                                 'Kitchen' => 'Kitchen',
                                 'Bedroom' => 'Bedroom',
@@ -66,8 +68,24 @@ class AmenitiesResource extends Resource
                                 'Published' => 'Published',
 
                             ])
+                        ,
+                        IconPicker::make('icon')
+                            ->columns([
+                                'default' => 1,
+                                'lg' => 3,
+                                '2xl' => 5,
+                            ])
+                            ->sets([
+                                'heroicons',
+                                'fontawesome' => [
+                                    'solid',
+                                    'regular',
+                                    'brands',
+                                ],
+                            ]),
                     ])->columnSpan(1)
-                    ->grow(false),
+
+                    ->grow(false)
             ]);
     }
 
@@ -79,6 +97,7 @@ class AmenitiesResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description')
                     ->searchable(),
+                IconColumn::make('icon'),
                 Tables\Columns\TextColumn::make('type')
                     ->searchable()
                     ->label('Amenities Type')

@@ -69,7 +69,7 @@
                         <div class="flex flex-wrap " wire:key='{{ $hotel->id }}'>
                             <div class="w-full px-2 mb-6 ">
                                 <div class="flex overflow-hidden border rounded-lg shadow-lg ">
-                                    <div class="w-1/2 border-black">
+                                    <div class="w-1/2 border-black max-h-64">
                                         <img src="{{ url('storage/' . $hotel->image_cover) }}"
                                             alt="{{ $hotel->slug }}" class="object-cover w-full h-full">
                                     </div>
@@ -85,7 +85,7 @@
                                                     class="px-2 fa-solid fa-location-dot"></i>{{ implode(', ', [$hotel->country->name, $hotel->city->name]) }}
                                             </p>
                                             <p class="mt-2 text-gray-600">{{ __('lang.Description') }} :
-                                                {{ $hotel->description }}</p>
+                                                {{ Str::limit($hotel->description, 50, '...') }}</p>
                                         </div>
                                         <div class="mt-4">
                                             <span class="font-bold text-black ">
@@ -127,7 +127,7 @@
                                         <div class="mt-4">
                                             @if (!empty($hotel->slug))
                                                 <a href="{{ route('details.slug.' . app()->getLocale(), $hotel->slug) }}"
-                                                    class="relative block w-32 font-bold text-center text-white hover:text-white rounded-full left-3/4 top-20px  bg-violet-500 hover:bg-yellow-500 btn btn-primary cursor-pointer outline-none">
+                                                    class="relative block w-32 font-bold text-center text-white hover:text-white rounded-full left-3/4 top-20px  no-underline bg-violet-500 hover:bg-yellow-500 btn btn-primary cursor-pointer outline-none">
                                                     {{ __('lang.Check Details') }}
                                                 </a>
                                             @else

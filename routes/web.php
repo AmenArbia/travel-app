@@ -27,7 +27,7 @@ Route::prefix('ar')->group(function () {
     Route::get('/room/{id}', RoomDetailsPage::class)->name('room.details.' . $locale_prefix);
     Route::get('/details/{slug}', HotelDetailPage::class)->name('details.slug.' . $locale_prefix);
     Route::get('/booking/{id}', BookingPage::class)->name('booking.' . $locale_prefix);
-    Route::get('/booking/{room_id}', BookingPage::class)->name('booking.details.' . app()->getLocale());
+    Route::get('/booking-details', BookingDetailsPage::class)->name('booking.details.' . $locale_prefix);
 
 });
 
@@ -39,4 +39,4 @@ Route::get('/room', RoomsPage::class)->name('room.' . $locale_prefix);
 Route::get('/room/{id}', RoomDetailsPage::class)->name('room.details.' . $locale_prefix);
 Route::get('/details/{slug}', HotelDetailPage::class)->name('details.slug.' . $locale_prefix);
 Route::get('/booking/{id}', BookingPage::class)->name('booking.' . $locale_prefix);
-Route::get('/booking', BookingDetailsPage::class)->name('booking.details.' . $locale_prefix);
+Route::get('/booking-details', BookingDetailsPage::class)->name('booking.details.' . $locale_prefix);

@@ -12,7 +12,7 @@ class CreateHotel extends CreateRecord
 
     protected static string $resource = HotelResource::class;
 
-    protected function  getRedirectUrl(): string
+    protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');
     }
@@ -27,7 +27,6 @@ class CreateHotel extends CreateRecord
 
     public function mutateFormDataBeforeCreate(array $data): array
     {
-        dd($data);
         return $data;
     }
 }

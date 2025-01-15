@@ -25,7 +25,6 @@ class Booking extends Model
         'phone',
         'address',
         'coupon_code',
-        'booking_status',
         'country_id',
         'city_id',
         'booking_status',
@@ -52,10 +51,10 @@ class Booking extends Model
     }
 
     public function amenities()
-{
-    return $this->belongsToMany(Amenities::class, 'booking_amenity' , 'booking_id', 'amenity_id')
-                ->withPivot('is_free', 'price');
-}
+    {
+        return $this->belongsToMany(Amenities::class, 'booking_amenity', 'booking_id', 'amenity_id')
+            ->withPivot('is_free', 'price');
+    }
     public function country()
     {
         return $this->belongsTo(Country::class);

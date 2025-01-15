@@ -111,4 +111,7 @@ return [
     'Travel-Shaper' => 'شكل السفر',
     'Booking' => 'الحجوزات',
     'Home' => 'الرئيسية',
+    'Status :' => 'حالة',
+    'Price starts from :' => ' : السعر يبدأ من',
+    'Type :' => 'النوع :'
 ];

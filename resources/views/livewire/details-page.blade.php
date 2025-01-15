@@ -1,446 +1,829 @@
-<div class="w-full ">
-    <section class="overflow-hidden py-11 font-poppins bg-slate-100">
-        <div class="max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6">
-            <div class="flex flex-wrap px-8 py-20 mx-auto drop-shadow-xl rounded-2xl sm:px-6 lg:px-8">
-                <!-- Hotel Images Section -->
-                <div class="w-full mb-8 md:w-1/2 md:mb-0" x-data="{
-                    mainImage: '{{ url('storage/' . $hotel->image_cover) }}',
-                    photos: @js($photos),
-                    currentIndex: 0,
-                    roomAvailable: false,
-                    showModal: true,
-                }">
-                    <div class="relative p-5 bg-white shadow-lg rounded-2xl bottom-10 right-3">
-                        <div class="sticky top-0 overflow-hidden z-70">
-                            <!-- Main Image -->
-                            <div class="relative mb-6 lg:mb-10 lg:h-2/3">
-                                <img :src="mainImage" alt="{{ $hotel->name }}"
-                                    class="object-cover w-full rounded-2xl lg:h-full hover:border hover:border-violet-600 ">
+<div>
+    <section id="tour_details_main" class="section_padding">
+        <div class="container">
+            <div class="row">
+                <div class="relative w-96 max-h-60">
+                    @if ($hotel)
+                        <div
+                            class="tour_details_right_boxed w-3/4 bg-white shadow-2xl relative left-2/4 bottom-12 rounded-lg pt-6 pr-5 pb-9 pl-5">
+                            <div class="tour_details_right_box_heading">
+                                <h3 class="font-semibold text-lg border-b-2 border-violet-600 pb-2 inline-block">
+                                    {{ __('lang.Price starts from :') }}</h3>
                             </div>
 
-                            <!-- Thumbnail Images -->
-                            <div class="flex-wrap hidden md:flex">
-                                @foreach ($photos as $index => $photo)
-                                    <div class="w-1/2 p-2 sm:w-1/4">
-                                        <img src="{{ url('storage/' . $photo->photos[0]) }}" alt="{{ $photo->caption }}"
-                                            class="object-cover w-full cursor-pointer lg:h-20 hover:border hover:border-blue-500"
-                                            x-on:click="mainImage = '{{ url('storage/' . $photo->photos[0]) }}'; currentIndex = {{ $index + 1 }}">
+                            <div class="tour_package_bar_price flex align-items-center pt-4 pb-10">
+                                <h3 class="pl-2 text-xl font-semibold text-slate-700 ">
+                                    {{ $roomtype->min('price') }} TND
+                                    <sub class="font-bold text-violet-400"> {{ __('lang./per night') }}</sub>
+                                </h3>
+                            </div>
+                            <div
+                                class="tour_details_top_bottom mt-3 border-t-2 border-gray-200 pt-5 border-b pb-3 flex justify-between relative bottom-5">
+                                @foreach ($hotel->amenities as $amenity)
+                                    <div class="toru_details_top_bottom_item">
+                                        <div class="tour_details_top_bottom_icon text-3xl pr-2">
+                                            @svg($amenity->icon ?? 'heroicon-o-cog', ['class' => 'w-10 h-10 text-black p-2'])
+
+                                        </div>
+                                        <div class="tour_details_top_bottom_text">
+                                            <p class="text-base  font-medium">{{ $amenity->type }}
+                                            </p>
+                                        </div>
                                     </div>
                                 @endforeach
+
                             </div>
 
-                            <!-- Image Navigation Buttons -->
-                            <div class="flex justify-between mt-4">
-                                <!-- Previous Image -->
-                                <button
-                                    x-on:click="currentIndex = (currentIndex - 1 + photos.length + 1) % (photos.length + 1);
-                                          mainImage = currentIndex === 0 ? '{{ url('storage/' . $hotel->image_cover) }}' : '{{ url('storage') }}/' + photos[currentIndex - 1].photos[0]"
-                                    class="px-4 py-2 font-bold text-white rounded-full bg-violet-500 hover:bg-yellow-600">
-                                    {{ __('lang.Previous') }}
-                                </button>
+                            <div class="tour_details_img_wrapper mt-2 block ">
+                                <!-- Main Image -->
+                                <div class="main-image mb-4 ">
+                                    <img src="{{ asset('storage/' . $hotel->photo[$currentImageIndex]->photos[0]) }}"
+                                        class="w-full h-56 object-cover rounded-xl" alt="{{ $hotel->name }}">
+                                </div>
 
-                                <!-- Next Image -->
-                                <button
-                                    x-on:click="currentIndex = (currentIndex + 1) % (photos.length + 1);
-                                          mainImage = currentIndex === 0 ? '{{ url('storage/' . $hotel->image_cover) }}' : '{{ url('storage') }}/' + photos[currentIndex - 1].photos[0]"
-                                    class="px-4 py-2 font-bold text-white rounded-full bg-violet-500 hover:bg-yellow-600 ">
-                                    {{ __('lang.Next') }}
-                                </button>
+                                <!-- Related Images (Thumbnails) -->
+                                <div class="related-images grid  gap-1 grid-cols-5">
+                                    @foreach ($hotel->photo as $index => $photo)
+                                        <div class="image-item " style="">
+                                            <img src="{{ asset('storage/' . $photo->photos[0]) }}"
+                                                alt="{{ $hotel->name }}"
+                                                class=" rounded-xl w-20 h-20 object-cover cursor-pointer "
+                                                wire:click="setCurrentImage({{ $index }})">
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <!-- Navigation Buttons (Previous/Next) -->
+                                <div class="flex justify-between mt-4">
+                                    <button
+                                        class="text-black p-2 rounded-full text-lg transform transition duration-200 hover:scale-95 hover:shadow-lg  hover:bg-yellow-500 hover:text-white hover:font-bold   focus:outline-none active:scale-95"
+                                        wire:click="setCurrentImage({{ $currentImageIndex - 1 }})"><i
+                                            class="fa-solid fa-chevron-left  font-bold pl-1 relative top-0.5"
+                                            style="color: #8b65fa;"></i>
+                                        Previous
+                                    </button>
+                                    <button
+                                        class="text-black p-2 rounded-full text-lg transform transition duration-200 hover:scale-95 hover:shadow-lg  hover:bg-yellow-500 hover:text-white hover:font-bold   focus:outline-none active:scale-95"
+                                        wire:click="setCurrentImage({{ $currentImageIndex + 1 }})">
+                                        Next<i class="fa-solid fa-chevron-right left-1 font-bold pl-1 relative top-0.5 "
+                                            style="color: #8b65fa;  "></i>
+
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
 
                 </div>
 
 
 
-                <!-- Hotel Details Section -->
-                <div class="w-full px-4 md:w-1/2">
-                    <div class="relative p-5 bg-white shadow-lg rounded-xl lg:pl-20 left-7 bottom-10">
-                        <div class="mb-8">
-                            @if ($hotel)
-                                <h2
-                                    class="relative max-w-xl mb-6 text-2xl font-bold text-violet-700 md:text-4xl left-10 hover:text-yellow-600">
+
+                <div class=" relative  -left-96 w-96 bottom-96 -top-72   ">
+                    <div class="tour_details_heading_wrapper bg-white shadow-2xl rounded-xl pt-6 pr-5 pb-9 pl-5">
+                        @if ($hotel)
+                            <div
+                                class="tour_details_top_heading display-flex justify-content-space-between align-items-center  ">
+                                <h2 class="text-3xl font-semibold line-height-40 Roboto sans-serif m-0   ">
                                     {{ __('lang.Hotel Name') }} : {{ $hotel->name }}
                                 </h2>
-                                <p class="relative max-w-md font-bold text-violet-600 right-10">
-                                    <li class="relative max-w-md font-bold text-violet-600 right-10">
-                                        {{ __('lang.Description') }} : <span class="font-normal text-black">
-                                            {{ $hotel->description }}</span>
-
-                                    </li>
-                                </p>
-                                <p class="inline-block mb-6 text-4xl font-bold text-gray-700 dark:text-gray-400">
-                                    <span></span>
-                                </p>
-                                <ul class="pl-6 list-disc">
-                                    <li class="relative font-bold text-violet-600 right-10">
-                                        {{ __("lang.Type d'hotel") }} :
-
-                                        <span
-                                            class="inline-block px-2 py-0.3 font-bold text-white rounded-2xl text-md
-                                             {{ $this->getBadgeClassHotel($hotel->type_hotel) }}">
-                                            {{ $hotel->type_hotel }}</span>
-                                    </li>
-                                    <li class="relative font-bold text-violet-600 right-10">{{ __('lang.Location') }} :
-                                        <i class="px-1 text-yellow-600 fa-solid fa-location-dot"></i><span
-                                            class="font-medium text-black">
-                                            {{ $hotel->city->name }}, {{ $hotel->country->name }} </span>
-                                    </li>
-                                    <li class="relative font-bold text-violet-600 right-10 ">Status: <span
-                                            class="font-medium text-black ">{{ ucfirst($hotel->status) }} </span> </li>
-                                </ul>
-                            @else
-                                <p class="text-red-500">Hotel not found.</p>
-                            @endif
-                        </div>
-
-
-
-                        <!-- Amenities Section -->
-                        <div class="mb-8">
-                            <h3 class="relative text-lg font-bold text-violet-600 right-10">{{ __('lang.Facilities') }}
-                                :</h3>
-                            <ul class="pl-6 list-disc">
-                                @foreach ($hotel->amenities as $amenity)
-                                    <li class="relative font-medium text-black right-10 ">{{ $amenity->type }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-
-                        <!-- Call-to-Action -->
-                        <a href="#related-rooms">
-                            <div class="relative flex flex-wrap items-center gap-4 left-16">
-                                <button wire:click="toggleRoomAvailability" wire:target="toggleRoomAvailability"
-                                    class="w-full p-3 font-bold text-white rounded-full lg:w-1/2 hover:bg-yellow-600 bg-violet-600">
-                                    {{ __('lang.Room check') }}
-                                </button>
+                                <h5 class=" text-base Roboto sans-serif m-0 pt-2 pl-2 pr-2 text">
+                                    <i class="fas fa-map-marker-alt  px-2"></i>
+                                    {{ $hotel->city->name }}, {{ $hotel->country->name }}
+                                </h5>
                             </div>
-                        </a>
+                            <div class="tour_details_top_heading_right">
+                                <h4 class="text-xl font-semibold text-black pt-2 pl-2">
+                                    {{ __('lang.Type :') }}<span
+                                        class="inline-block px-2 py-0.4 font-bold text-white rounded-2xl text-base relative left-3
+                                    {{ $this->getBadgeClassHotel($hotel->type_hotel) }} ">
+                                        {{ $hotel->type_hotel }}
+                                    </span>
+                                </h4>
+                                <div class="text-base text-violet-600 pt-2 pl-2 relative left-3/4 bottom-28 pr-2">
+                                    @for ($i = 1; $i <= $hotel->rating; $i++)
+                                        <i class="fa-solid fa-star text-yellow-500"></i>
+                                    @endfor
+                                    @if ($hotel->rating < 5)
+                                        @for ($i = $hotel->rating + 1; $i <= 5; $i++)
+                                            <i class="fa-regular fa-star text-gray-400"></i>
+                                        @endfor
+                                    @endif
+                                </div>
 
+                            </div>
 
+                            <div class="tour_package_details_bar_list pt-5 max-h-80">
+                                <h5 class="font-medium border-b-2 border-violet-600 pb-2 inline-block text-base">
+                                    {{ __('lang.Description') }}:
+                                </h5>
+                                <div class="max-h-60 ">
+                                    {{ $hotel->description }}
+                                </div>
+                            </div>
+                        @else
+                            <p class="text-red-500">Hotel not found.</p>
+                        @endif
                     </div>
 
-                </div>
-
-                <!-- Room Availble -->
-                <div class="border p-3 mb-3">
 
 
-                    <form name="step1h" id="step1h" autocomplete="off" action="/hotels/inc/search-hotel.cfm"
-                        method="get" class="custom-engine fv-form fv-form-bootstrap" novalidate="novalidate"
-                        data-gtm-form-interact-id="1"><button type="submit" class="fv-hidden-submit"
-                            style="display: none; width: 0px; height: 0px;">Vérifier la disponibilité</button>
 
-                        <input type="hidden" name="source" id="source" value="">
-                        <input type="hidden" name="hotelId" value="38201112">
-                        <input type="hidden" name="destinationId" value="43">
-                        <input type="hidden" name="rooms" id="rooms2" value="1">
-                        <input type="hidden" name="token" value="028DB4DD0267B0D346EB9EB461FC93778E697BCE">
+                    <div class="tour_details_boxed bg-white shadow-2xl rounded-xl p-5 mt-7 pb-16">
+                        <h3
+                            class="heading_theme font-semibold inline-block  mb-5 rounded-s-sm  text-2xl border-b-2 border-violet-600 pb-2">
+                            Select your room</h3>
+                        <div class="room_select_area">
 
-                        <div class="engine-fiche">
-                            <div class="row pt-md-2">
-                                <div class="col-md-5">
-                                    <div class="row">
-                                        <div class="col-md-6 col-6">
-                                            <div class="position-relative">
-                                                <div class="form-group has-success">
-                                                    <label for="arrDate" class="mb-2">Arrivée</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text bg-transparent"
-                                                            id="basic-addon1 br-0"> <i
-                                                                class="far fa-calendar-alt pe-1 text-success fa-lg"></i></span>
-                                                        <input name="arrDate" id="arrDate1h" placeholder="jj/mm/aaaa"
-                                                            value="07/01/2025" required=""
-                                                            class="form-control arrDate2 bg-white bl-0 h-40 ps-0"
-                                                            readonly="" data-fv-field="arrDate"
-                                                            data-gtm-form-interact-field-id="2">
-                                                    </div>
-                                                    <small class="help-block" data-fv-validator="notEmpty"
-                                                        data-fv-for="arrDate" data-fv-result="VALID"
-                                                        style="display: none;">Ce champs est obligatoire</small><small
-                                                        class="help-block" data-fv-validator="date"
-                                                        data-fv-for="arrDate" data-fv-result="VALID"
-                                                        style="display: none;">Date invalide</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-6">
-                                            <div class="position-relative ">
-                                                <div class="form-group has-success">
-                                                    <label for="depDate" class="mb-2">Départ</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text bg-transparent br-0"
-                                                            id="basic-addon1"> <i
-                                                                class="far fa-calendar-alt pe-1  text-success fa-lg"></i></span>
-                                                        <input name="depDate" id="depDate1h" value="08/01/2025"
-                                                            required="" placeholder="jj/mm/aaaa"
-                                                            class="form-control depDate2  bg-white bl-0 h-40 ps-0"
-                                                            readonly="" data-fv-field="depDate"
-                                                            data-gtm-form-interact-field-id="3">
-                                                    </div>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade active show" id="home" role="tabpanel"
+                                    aria-labelledby="home-tab">
+                                    <div class="room_booking_area">
+                                        <div class="tour_search_form">
+                                            <form action="!#" class="block mt-0 unicode-bidi isolate">
+                                                <div class="row">
+                                                    <div class="col-lg-8 col-md-6 col-sm-12 col-12 w-96 ml-14 max-h-32">
+                                                        <div class="form_search_date w-2/4 justify-between">
+                                                            <div
+                                                                class="flight_Search_boxed date_flex_area flex content-between bg-violet-100 pt-2 pr-2 pb-2 pl-5 rounded-lg relative right-4 ">
+                                                                <div class="Journey_date">
+                                                                    <p
+                                                                        class="text-sm text-slate-500 font-normal Poppins sans-serif mb-0 mt-0">
+                                                                        Check In date
+                                                                    </p>
+                                                                    <div class="relative">
+                                                                        <input type="date" value=""
+                                                                            id="checkInDate"
+                                                                            wire:model.defer="checkInDate"
+                                                                            wire:change="calculPrice"
+                                                                            class="text-lg w-4/5 font-medium bg-transparent p-0 h-9 inherit rounded-none  line-height-inherit padding-inline-start-1px cursor-default">
+                                                                        @error('checkInDate')
+                                                                            <span
+                                                                                class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+                                                                <div class="Journey_date relative left-10">
+                                                                    <p
+                                                                        class="text-sm text-slate-500 font-normal Poppins sans-serif mb-0 mt-0">
+                                                                        Check Out date
+                                                                    </p>
+                                                                    <div class="relative">
+                                                                        <input type="date" id="checkOutDate"
+                                                                            wire:change="calculPrice"
+                                                                            wire:model.defer="checkOutDate"
+                                                                            class="text-lg w-4/5 font-medium bg-transparent p-0 h-9 inherit rounded-none line-height-inherit padding-inline-start-1px cursor-default">
+                                                                        @error('checkOutDate')
+                                                                            <span
+                                                                                class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
 
-                                                    <small class="help-block" data-fv-validator="notEmpty"
-                                                        data-fv-for="depDate" data-fv-result="VALID"
-                                                        style="display: none;">Ce champs est obligatoire</small><small
-                                                        class="help-block" data-fv-validator="date"
-                                                        data-fv-for="depDate" data-fv-result="VALID"
-                                                        style="display: none;">Date invalide</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                                            </div>
 
-                                <div class="col-md-4 ">
-
-                                    <div class="position-relative border-left-warning">
-                                        <div class="form-group">
-                                            <label class="mb-2"> Chambre et occupation </label>
-                                            <div class="bord-1 ">
-                                                <span class="persons persons-v2">
-                                                    <div class="text-left guests-select">
-                                                        <div class="form-control totalhotel h-40">
-                                                            <i class="far fa-user pe-1 text-success fa-lg"></i>
-                                                            <span class="valRoomstshotel" title="Chambres">1</span> <i
-                                                                class="txt-room" title="Chambres">chambre</i>,
-                                                            <span class="valAdultshotel" title="Adultes">2</span> <i
-                                                                class="txt-adt" title="Adultes">adultes</i>
-                                                            <span class="valChildrenhotel" title="Enfants"></span> <i
-                                                                class="txt-enf" title="Enfants"></i>
-                                                            <span class="valInfantshotel" title="Lits bébé"></span> <i
-                                                                class="txt-beb" title="Lits bébé"></i>
-                                                            <i class="fas fa-chevron-down float-end"
-                                                                title="Modifier occupation"
-                                                                style="line-height: 24px;"></i>
                                                         </div>
                                                     </div>
-                                                    <div style="display: none;" class="guests  animated fadeInUp">
+                                                    <div>
+                                                        @if (session()->has('message'))
+                                                            <div class="alert alert-success mb-4">
+                                                                {{ session('message') }}
+                                                            </div>
+                                                        @endif
+
                                                         <div
-                                                            class="button-save out valider border-bottom mb-2 pb-2 d-flex ">
-                                                            <span class="align-self-center">Sélection des chambres et
-                                                                des passagers</span>
-                                                            <span class="ico-close ms-auto" aria-hidden="true"></span>
-                                                        </div>
-                                                        <div class="rooms">
+                                                            class="relative bottom-20  -right-1/2  max-w-56 ml-14 h-14 ">
+                                                            <div
+                                                                class="bg-violet-100 pt-2 pr-2  pl-5 rounded-lg relative w-48 top-2  left-3 ">
+                                                                <p
+                                                                    class="text-base line-height-28 text-slate-500 font-normal Poppins sans-serif ">
+                                                                    Guests
+                                                                </p>
+                                                                <div class="dropdown h-9 pb-2 mb-3 relative top-1 ">
+                                                                    <button class="dropdown-toggle" type="button"
+                                                                        id="dropdownMenuButton1"
+                                                                        data-bs-toggle="dropdown" aria-expanded="false"
+                                                                        style="font-weight: bold;"
+                                                                        aria-haspopup="true">
+                                                                        N° Guests :
+                                                                        {{ $adults + $infants + $children }}
 
-                                                            <div class="roomItem row ">
-                                                                <div
-                                                                    class="form-group room-lab text-primary col-12 mt-2">
-                                                                    <label>Chambre 1 </label>
-                                                                </div>
-                                                                <div class="form-group adults col-4">
-                                                                    <label class="text-dark">Adultes</label>
-                                                                    <select class="form-control wide adultshotel"
-                                                                        name="adults1" id="adults1h_1">
-                                                                        <option value="0">0</option>
-                                                                        <option value="1">1</option>
-                                                                        <option value="2" selected="">2
-                                                                        </option>
-                                                                        <option value="3">3</option>
-                                                                        <option value="4">4</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group children  col-4">
-                                                                    <label>Enfants </label>
-                                                                    <select class="form-control wide childrenhotel"
-                                                                        name="children1" id="children1h_1">
-                                                                        <option value="0" selected="">0
-                                                                        </option>
-                                                                        <option value="1">1</option>
-                                                                        <option value="2">2</option>
-                                                                        <option value="3">3</option>
-                                                                    </select>
-                                                                    <span class="text-dark">(2-11 ans)</span>
-                                                                </div>
+                                                                    </button>
 
-                                                                <div class="form-group  col-4">
-                                                                    <label>Lit(s) bébé</label>
-                                                                    <select class="form-control wide infantshotel"
-                                                                        name="infant1" id="infant1h_1">
-                                                                        <option value="0" selected="">0
-                                                                        </option>
-                                                                        <option value="1">1</option>
-                                                                        <option value="2">2</option>
-                                                                    </select>
-                                                                    <span class="text-dark">(inf à 2 ans)</span>
-                                                                </div>
+                                                                    <div class="dropdown-menu dropdown_passenger_info dropdown-menu-right "
+                                                                        aria-labelledby="dropdownMenuButton1">
 
-                                                                <div class="form-group agechild col-12 row">
+                                                                        <div
+                                                                            class="traveller-calculate-persons shadow-md">
 
-                                                                    <div class="enfant-age form-group col-4"
-                                                                        style="display: none;">
-                                                                        <label for="age_1_1">Age enf.1</label>
-                                                                        <select class="form-control" name="age1_1"
-                                                                            id="age1h_1_1">
-                                                                            <option value="" selected="">-?-
-                                                                            </option>
+                                                                            <div class="passengers ">
 
-                                                                            <option value="2">2 </option>
+                                                                                <div class="passengers-types ">
+                                                                                    <!-- Adults -->
+                                                                                    <div
+                                                                                        class="passengers-type flex align-items-center pt-2 pr-4 pb-2 pl-4 justify-between border-b-2">
+                                                                                        <div
+                                                                                            class="text align-items-center flex">
+                                                                                            <span
+                                                                                                class="count mr-5 w-6 inline-block text-xl font-semibold">{{ $adults }}</span>
+                                                                                            <div class="type-label">
+                                                                                                <p
+                                                                                                    class="text-sm text-slate-600">
+                                                                                                    Adult</p>
+                                                                                                <span
+                                                                                                    class="text-xs text-slate-500">12+
+                                                                                                    yrs</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class="button-set flex space-x-1">
+                                                                                            <button type="button"
+                                                                                                wire:model="adults"
+                                                                                                wire:click="incrementAdults"
+                                                                                                class="text-xs text-slate-black border w-5 h-5 flex items-center justify-center"
+                                                                                                {{ $adults >= $maxAdults ? 'disabled' : '' }}>
+                                                                                                <i
+                                                                                                    class="fas fa-plus font-black"></i>
+                                                                                            </button>
+                                                                                            <button type="button"
+                                                                                                wire:model="adults"
+                                                                                                wire:click="decrementAdults"
+                                                                                                class="text-xs text-slate-black border w-5 h-5 flex items-center justify-center"
+                                                                                                {{ $adults <= 0 ? 'disabled' : '' }}>
+                                                                                                <i
+                                                                                                    class="fas fa-minus font-black"></i>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <!-- Children -->
+                                                                                    <div
+                                                                                        class="passengers-type flex align-items-center pt-2 pr-4 pb-2 pl-4 justify-between border-b-2">
+                                                                                        <div
+                                                                                            class="text align-items-center flex">
+                                                                                            <span
+                                                                                                class="count mr-5 w-6 inline-block text-xl font-semibold">{{ $children }}</span>
+                                                                                            <div class="type-label">
+                                                                                                <p
+                                                                                                    class="text-sm text-slate-600">
+                                                                                                    Children</p>
+                                                                                                <span
+                                                                                                    class="text-xs text-slate-500">Less
+                                                                                                    than 12 and +2
+                                                                                                    yrs</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class="button-set flex space-x-1">
+                                                                                            <button type="button"
+                                                                                                wire:model="children"
+                                                                                                wire:click="incrementChildren"
+                                                                                                class="text-xs text-slate-black border w-5 h-5 flex items-center justify-center"
+                                                                                                {{ $children >= $maxChildren ? 'disabled' : '' }}>
+                                                                                                <i
+                                                                                                    class="fas fa-plus font-black"></i>
+                                                                                            </button>
+                                                                                            <button type="button"
+                                                                                                wire:model="children"
+                                                                                                wire:click="decrementChildren"
+                                                                                                class="text-xs text-slate-black border w-5 h-5 flex items-center justify-center"
+                                                                                                {{ $children <= 0 ? 'disabled' : '' }}>
+                                                                                                <i
+                                                                                                    class="fas fa-minus font-black"></i>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <!-- Infants -->
+                                                                                    <div
+                                                                                        class="passengers-type flex align-items-center pt-2 pr-4 pb-2 pl-4 justify-between border-b-2">
+                                                                                        <div
+                                                                                            class="text align-items-center flex">
+                                                                                            <span
+                                                                                                class="count mr-5 w-6 inline-block text-xl font-semibold">{{ $infants }}</span>
+                                                                                            <div class="type-label">
+                                                                                                <p
+                                                                                                    class="text-sm text-slate-600">
+                                                                                                    Infants</p>
+                                                                                                <span
+                                                                                                    class="text-xs text-slate-500">Less
+                                                                                                    than 2
+                                                                                                    yrs</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class="button-set flex space-x-1">
+                                                                                            <button type="button"
+                                                                                                wire:model="infants"
+                                                                                                wire:click="incrementInfants"
+                                                                                                class="text-xs text-slate-black border w-5 h-5 flex items-center justify-center"
+                                                                                                {{ $infants >= $maxInfants ? 'disabled' : '' }}>
+                                                                                                <i
+                                                                                                    class="fas fa-plus font-black"></i>
+                                                                                            </button>
+                                                                                            <button type="button"
+                                                                                                wire:model="infants"
+                                                                                                wire:click="decrementInfants"
+                                                                                                class="text-xs text-slate-black border w-5 h-5 flex items-center justify-center"
+                                                                                                {{ $infants <= 0 ? 'disabled' : '' }}>
+                                                                                                <i
+                                                                                                    class="fas fa-minus font-black"></i>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
 
-                                                                            <option value="3">3 </option>
-
-                                                                            <option value="4">4 </option>
-
-                                                                            <option value="5">5 </option>
-
-                                                                            <option value="6">6 </option>
-
-                                                                            <option value="7">7 </option>
-
-                                                                            <option value="8">8 </option>
-
-                                                                            <option value="9">9 </option>
-
-                                                                            <option value="10">10 </option>
-
-                                                                            <option value="11">11 </option>
-
-                                                                        </select>
                                                                     </div>
-
-                                                                    <div class="enfant-age form-group col-4"
-                                                                        style="display: none;">
-                                                                        <label for="age_2_1">Age enf.2</label>
-                                                                        <select class="form-control" name="age2_1"
-                                                                            id="age1h_2_1">
-                                                                            <option value="" selected="">-?-
-                                                                            </option>
-
-                                                                            <option value="2">2 </option>
-
-                                                                            <option value="3">3 </option>
-
-                                                                            <option value="4">4 </option>
-
-                                                                            <option value="5">5 </option>
-
-                                                                            <option value="6">6 </option>
-
-                                                                            <option value="7">7 </option>
-
-                                                                            <option value="8">8 </option>
-
-                                                                            <option value="9">9 </option>
-
-                                                                            <option value="10">10 </option>
-
-                                                                            <option value="11">11 </option>
-
-                                                                        </select>
-                                                                    </div>
-
-                                                                    <div class="enfant-age form-group col-4"
-                                                                        style="display: none;">
-                                                                        <label for="age_3_1">Age enf.3</label>
-                                                                        <select class="form-control" name="age3_1"
-                                                                            id="age1h_3_1">
-                                                                            <option value="" selected="">-?-
-                                                                            </option>
-
-                                                                            <option value="2">2 </option>
-
-                                                                            <option value="3">3 </option>
-
-                                                                            <option value="4">4 </option>
-
-                                                                            <option value="5">5 </option>
-
-                                                                            <option value="6">6 </option>
-
-                                                                            <option value="7">7 </option>
-
-                                                                            <option value="8">8 </option>
-
-                                                                            <option value="9">9 </option>
-
-                                                                            <option value="10">10 </option>
-
-                                                                            <option value="11">11 </option>
-
-                                                                        </select>
-                                                                    </div>
-
-                                                                </div>
-                                                                <div class="delete-room">
-                                                                    <a href="javascript:void(0);"
-                                                                        class="del  text-danger"
-                                                                        style="display: none;"> <i
-                                                                            class="far fa-trash-alt"></i> </a>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="search-footer pt-3">
-                                                            <div class="row align-items-center">
-                                                                <div class="col-8 align-self-center">
-                                                                    <a href="javascript:void(0)"
-                                                                        class="add  add-room"><i
-                                                                            class="fa fa-plus-circle pr-1"
-                                                                            aria-hidden="true"></i> Ajouter une
-                                                                        chambre</a>
-                                                                </div>
-                                                                <div class="col-md-4 text-end ">
-                                                                    <button
-                                                                        class="btn  btn-warning button-save valider v-out btn-block rounded-0 "
-                                                                        type="button"> Valider</button>
                                                                 </div>
                                                             </div>
                                                         </div>
+
+
                                                     </div>
-                                                </span>
-                                            </div>
+
+
+                                                    <div
+                                                        class="top_form_search_button text-right text-align-center mt-7 inline-block mb-5 relative top-14  ">
+                                                        <button
+                                                            class="cursor-pointer p-3 px-9 text-lg text-slate-500 font-normal border-b-2 border-violet-500  hover:text-white bg-violet-100 shadow-none overflow-hidden whitespace-nowrap relative z-0 border-none inline-block  leading-6 text-center no-underline hover:bg-yellow-500 align-middle select-none rounded-md transform transition duration-300  hover:scale-105 hover:shadow-lg  focus:outline-none active:scale-95 bottom-20 right-80 "
+                                                            type="button" wire:click="checkAvailability">
+                                                            Check availability
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
+                                        <div class="room_book_item mt-14">
+                                            @if ($availableRooms && $availableRooms->isNotEmpty())
+                                                <form wire:submit>
+                                                    <div>
+                                                        @foreach ($availableRooms as $room)
+                                                            <div
+                                                                class="room_booking_right_side flex justify-between mb-4 p-4 border-b-2">
+                                                                <div class="room_checkbox flex items-center">
+                                                                    <input type="checkbox"
+                                                                        id="room-{{ $room->id }}"
+                                                                        value="{{ $room->id }}"
+                                                                        wire:model="selectedRooms"
+                                                                        class="form-checkbox h-5 w-5 text-violet-600 mr-3">
+                                                                </div>
+
+                                                                <!-- Room Information -->
+                                                                <div class="room_booking_heading w-2/4">
+                                                                    <h4 class="text-base">
+                                                                        {{ $room->name }}
+                                                                        ({{ number_format($room->room_capacity) }} Pax)
+                                                                    </h4>
+                                                                    <span
+                                                                        class="bg-green-600 rounded-lg px-2 py-1 relative bottom-8 left-44 text-white font-bold text-sm ml-3">
+                                                                        Available
+                                                                    </span>
+                                                                    <p class="text-sm text-gray-500 relative bottom-5">
+                                                                        {{ $room->description }}
+                                                                    </p>
+                                                                </div>
+
+                                                                <!-- Price -->
+                                                                <div
+                                                                    class="price text-center w-56 relative left-12 max-h-5 mr-3">
+                                                                    <h3
+                                                                        class="text-base text-black font-semibold right-7 max-h-5">
+                                                                        {{ $room->total_price }} TND /
+                                                                        <del
+                                                                            class="text-sm text-gray-600 relative top-1 decoration-red-600 decoration-2">
+                                                                            {{ $room->price }} TND
+                                                                        </del>
+                                                                    </h3>
+                                                                    <a href="{{ route('booking.' . app()->getLocale(), [
+                                                                        'id' => $room->id,
+                                                                        'checkInDate' => $checkInDate,
+                                                                        'checkOutDate' => $checkOutDate,
+                                                                        'adults' => $adults,
+                                                                        'children' => $children,
+                                                                        'infants' => $infants,
+                                                                    ]) }}"
+                                                                        class="bg-violet-600 text-white py-2 px-6 rounded-lg overflow-hidden whitespace-nowrap relative z-0 border-none inline-block leading-6 text-center no-underline hover:bg-yellow-500 align-middle select-none transform transition duration-300 hover:scale-105 hover:shadow-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none active:scale-95 h-10 font-semibold w-32">
+                                                                        Book
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Book Button -->
+                                                            <div class="book-room flex justify-end mt-8">
+
+                                                            </div>
+                                                        @endforeach
+
+                                                    </div>
+
+                                                </form>
+                                            @else
+                                                @error('checkAvailability')
+                                                    <span
+                                                        class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
+                                                @enderror
+                                            @endif
+                                        </div>
+
                                     </div>
-
-                                </div>
-
-                                <div class="col-md-3 align-self-center pt-28-md">
-                                    <button type="submit" class="btn btn-info btn-block">Vérifier la
-                                        disponibilité</button>
                                 </div>
                             </div>
-
                         </div>
-                    </form>
+                    </div>
+
+
 
                 </div>
 
+
+
+
             </div>
+
+
             <!-- Related Hotels -->
-            <div class="py-2">
-                <h2 class="flex flex-col items-center py-2 mb-4 text-4xl font-extrabold text-gray-800 ">
-                    {{ __('lang.Related Hotels') }}</h2>
-                <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="py-2 text-center bottom-60 relative right-96 pb-2" style="width: 1300px">
+                <h2
+                    class="flex-col items-center py-2 mb-4 text-4xl font-bold text-gray-800 border-b-2 border-violet-500 inline-block">
+                    {{ __('lang.Related Hotels') }}
+                </h2>
+
+                <div
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-4 px-3
+                    @if (count($relatedHotels) < 3) justify-center @endif">
+
                     @forelse ($relatedHotels as $relatedHotel)
-                        <div class="p-4 bg-white rounded-lg shadow-lg">
+                        <div class="p-1 bg-white rounded-lg shadow-2xl pb-4">
                             <img src="{{ asset('storage/' . $relatedHotel->image_cover) }}"
-                                alt="{{ $relatedHotel->name }}" class="object-cover w-full h-40 mb-4 rounded-md">
+                                alt="{{ $relatedHotel->name }}" class="object-cover w-full h-40 mb-4 rounded-md"
+                                style="transition: transform 0.3s ease-in-out 0.1s, opacity 0.3s ease-in-out;">
+                            <div class="relative bottom-10 right-16">
+                                <i class="px-1 text-white fa-solid fa-location-dot font-black"></i><span
+                                    class="font-bold text-slate-50">
+                                    {{ $hotel->city->name }}, {{ $hotel->country->name }} </span>
+                            </div>
+
                             <h3 class="text-xl font-bold text-gray-800">{{ $relatedHotel->name }}</h3>
-                            <p class="text-gray-500">{{ Str::limit($relatedHotel->description, 20) }}</p>
+                            <p class="text-gray-500">{{ Str::limit($relatedHotel->description, 30, '...') }}</p>
                             <div class="py-3 mt-2">
                                 <span
                                     class="inline-block px-2 py-0.4 font-bold text-white rounded-2xl text-md
-                                           {{ $this->getBadgeClassHotel($relatedHotel->type_hotel) }} ">
+                                    {{ $this->getBadgeClassHotel($relatedHotel->type_hotel) }}">
                                     {{ $relatedHotel->type_hotel }}
                                 </span>
                             </div>
 
                             <button wire:click="toggleRoomAvailability"
-                                class="w-full font-bold text-white rounded-full lg:w-2/4 hover:bg-yellow-600 bg-violet-600"><a
-                                    href="{{ route('details.slug.' . app()->getLocale(), $relatedHotel->slug) }}"
-                                    class="text-white underline-offset-4">{{ __('lang.View Details') }}</a>
+                                class="w-full hover:font-bold font-medium text-white rounded-full lg:w-2/4 hover:bg-yellow-500
+                                bg-violet-600 no-underline transform transition duration-300 hover:scale-105 hover:shadow-lg">
+                                <a href="{{ route('details.slug.' . app()->getLocale(), $relatedHotel->slug) }}"
+                                    class="text-white no-underline underline-offset-4">{{ __('lang.View Details') }}</a>
                             </button>
                         </div>
                     @empty
                         <p class="text-gray-500">{{ __('lang.No related hotels found.') }}</p>
                     @endforelse
-
                 </div>
-
             </div>
 
 
-    </section>
 
+
+
+
+        </div>
+
+
+
+
+        <style>
+            img:hover {
+                transform: scale(1.05);
+
+                opacity: 0.9;
+
+            }
+
+            .tour_package_details_bar_list ul li {
+                padding-top: 15px;
+                color: #212529;
+                display: flex;
+                align-items: center;
+            }
+
+            [type=button]:not(:disabled),
+            [type=reset]:not(:disabled),
+            [type=submit]:not(:disabled),
+            button:not(:disabled) {
+                cursor: pointer;
+            }
+
+            button[disabled] {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+
+            @media (max-width: 1440px) {
+                .dropdown_passenger_area button {
+                    font-size: 18px;
+                }
+            }
+
+            @media (min-width: 576px) {
+                .col-sm-12 {
+                    flex: 0 0 auto;
+                    width: 100%;
+                }
+            }
+
+            .col-12 {
+                flex: 0 0 auto;
+                width: 550px;
+            }
+
+            .row>* {
+                flex-shrink: 0;
+                width: 100%;
+                max-width: 100%;
+                padding-right: calc(var(--bs-gutter-x)* .5);
+                padding-left: calc(var(--bs-gutter-x)* .5);
+                margin-top: var(--bs-gutter-y);
+            }
+
+            .tab-content>.active {
+                display: block;
+            }
+
+            .room_select_area .nav-tabs .nav-item.show .nav-link,
+            .room_select_area .nav-tabs .nav-link.active {
+                color: white;
+                background-color: rgb(140, 27, 252);
+                border-color: #dee2e6 #dee2e6 #fff;
+            }
+
+            .room_select_area .nav-tabs .nav-link:hover {
+                color: white;
+
+                background-color: rgb(213, 167, 58);
+
+                border-color: #ccc;
+
+            }
+
+            .dropdown_passenger_area .dropdown-menu.show {
+                right: 250px;
+                position: relative;
+                z-index: 1000;
+            }
+
+            .dropdown_passenger_area .dropdown-menu {
+                z-index: 1000;
+                padding: 15px 20px;
+                font-size: 1rem;
+                color: #212529;
+                text-align: left;
+                list-style: none;
+                background-color: #fdfdfd;
+                background-clip: padding-box;
+                border: 1px solid rgba(0, 0, 0, .15);
+                border-radius: 0.25rem;
+                border-top: none;
+                border-bottom: 1px solid rgba(53, 50, 50, 0.15);
+                position: relative;
+                right: 250px;
+            }
+
+            .dropdown-menu.show {
+                display: flex;
+                position: relative;
+                right: 250px;
+            }
+
+            .dropdown-menu {
+                position: relative;
+                left: 450px;
+                z-index: 1000;
+                display: none;
+                min-width: 250px;
+                margin: 0;
+                font-size: 1rem;
+                color: #212529;
+                text-align: left;
+                list-style: none;
+                background-color: #fff;
+                background-clip: padding-box;
+                border: 1px solid rgba(0, 0, 0, .15);
+                border-radius: .25rem;
+                border-top: none;
+                border-bottom: 1px solid rgba(53, 50, 50, 0.15);
+            }
+
+            .dropdown_passenger_area button {
+                border: none;
+                background: transparent;
+                padding: 0;
+                font-size: 22px;
+                font-weight: 500;
+            }
+
+            .dropdown-toggle {
+                white-space: nowrap;
+            }
+
+
+            /* Styling the ::after pseudo-element */
+            .room_select_area .nav-tabs .nav-link:hover::after {
+                background-color: rgb(200, 150, 20);
+
+                content: '';
+                display: block;
+                height: 3px;
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+            }
+
+
+
+
+            .room_select_area .nav-tabs .nav-link {
+                margin-bottom: 0;
+                background: #F3F6FD;
+                border: 1px solid transparent;
+                border-radius: 0.25rem;
+                padding: 10px 110px;
+            }
+
+            .nav-tabs .nav-item.show .nav-link,
+            .nav-tabs .nav-link.active {
+                color: #495057;
+                background-color: #fff;
+                border-color: #dee2e6 #dee2e6 #fff;
+            }
+
+            @media (max-width: 992px) {
+                .flight_Search_boxed {
+                    margin-bottom: 30px;
+                }
+            }
+
+            .nav-tabs .nav-link {
+                margin-bottom: -1px;
+                background: 0 0;
+                border: 1px solid transparent;
+                border-top-left-radius: .25rem;
+                border-top-right-radius: .25rem;
+            }
+
+
+
+            .nav-link {
+                display: block;
+                padding: .5rem 1rem;
+                color: white;
+                text-decoration: none;
+                transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+            }
+
+            [type=button],
+            [type=reset],
+            [type=submit],
+            button {
+                -webkit-appearance: button;
+            }
+
+            button,
+            select {
+                text-transform: none;
+            }
+
+            button,
+            input,
+            optgroup,
+            select,
+            textarea {
+                margin: 0;
+                font-family: inherit;
+                font-size: inherit;
+                line-height: inherit;
+            }
+
+            button {
+                border-radius: 0;
+            }
+
+            *,
+            ::after,
+            ::before {
+                box-sizing: border-box;
+            }
+
+
+
+            @media (max-width: 767px) {
+                .toru_details_top_bottom_item {
+                    display: inline-grid;
+                    align-items: center;
+                }
+            }
+
+            @media (max-width: 767px) {
+                .tour_details_top_heading_right {
+                    padding-top: 20px;
+                }
+            }
+
+            .fa-map-marker-alt:before {
+                content: "\f3c5";
+            }
+
+            *,
+            ::after,
+            ::before {
+                box-sizing: border-box;
+            }
+
+            .fa,
+            .fas {
+                font-weight: 900;
+            }
+
+            .fa,
+            .far,
+            .fas {
+                font-family: "Font Awesome 5 Free";
+            }
+
+            .fa,
+            .fab,
+            .fad,
+            .fal,
+            .far,
+            .fas {
+                -moz-osx-font-smoothing: grayscale;
+                -webkit-font-smoothing: antialiased;
+                display: inline-block;
+                font-style: normal;
+                font-variant: normal;
+                text-rendering: auto;
+                line-height: 1;
+            }
+
+            div {
+                display: block;
+                unicode-bidi: isolate;
+            }
+
+            section {
+                position: relative;
+                display: block;
+                unicode-bidi: isolate;
+            }
+
+            .section_padding {
+                padding: 100px 0;
+            }
+
+            @media (min-width: 576px) {
+
+                .container,
+                .container-sm {
+                    max-width: 540px;
+                }
+            }
+
+            @media (max-width: 767px) {
+                .tour_details_heading_wrapper {
+                    display: inherit;
+                }
+            }
+
+            .row {
+                --bs-gutter-x: 1.5rem;
+                --bs-gutter-y: 0;
+                display: flex;
+                flex-wrap: wrap;
+                margin-top: calc(var(--bs-gutter-y)* -1);
+                margin-right: calc(var(--bs-gutter-x)* -.5);
+                margin-left: calc(var(--bs-gutter-x)* -.5);
+                width: 750px;
+            }
+
+            .container,
+            .container-fluid,
+            .container-lg,
+            .container-md,
+            .container-sm,
+            .container-xl,
+            .container-xxl {
+                width: 100%;
+                padding-right: var(--bs-gutter-x, .75rem);
+                padding-left: var(--bs-gutter-x, .75rem);
+                margin-right: auto;
+                margin-left: auto;
+            }
+        </style>
+    </section>
 </div>

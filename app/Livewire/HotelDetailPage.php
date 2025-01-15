@@ -4,10 +4,15 @@
 namespace App\Livewire;
 
 use App\Models\Hotel;
+use App\Models\Room;
+use App\Models\TypeRoom;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Carbon\Carbon;
+use Guava\FilamentIconPicker\Forms\IconPicker;
 
 
+use function Livewire\after;
 
 class HotelDetailPage extends Component
 {
@@ -23,14 +28,29 @@ class HotelDetailPage extends Component
 
     public $relatedHotels;
 
-    public $roomAvailable = false;
-    public $showModal = false;
+    public $checkInDate;
+    public $checkOutDate;
+    public $adults = 1;
+    public $children = 0;
+    public $infants = 0;
+
+    public $maxAdults = 5;
+    public $maxChildren = 3;
+    public $maxInfants = 2;
+
+    public $availableRooms = [];
+
     public $showRooms;
+    public $currentImageIndex = 0;
+
+    public $selectedRooms = [];
+
+
 
     public function mount($slug)
     {
 
-        $this->hotel = Hotel::with(['photo', 'roomtype.room', 'roomtype', 'amenities', 'city', 'country', 'chaine'])
+        $this->hotel = Hotel::with(['photo', 'roomtype.room', 'roomtype', 'amenities', 'city', 'country', 'chaine', 'room'])
             ->where("slug->" . app()->getLocale(), $slug)
             ->firstOrFail();
 
@@ -44,23 +64,97 @@ class HotelDetailPage extends Component
             ->with(['photo', 'city', 'country'])
             ->take(6)
             ->get();
-        $this->relatedHotels->count();
+
     }
 
 
-
-    public function toggleRoomAvailability()
+    public function checkAvailability()
     {
-        $this->roomAvailable = !$this->roomAvailable;
-        $this->showModal = !$this->roomAvailable ? true : false;
+        $this->validate([
+            'checkInDate' => 'required|date|after_or_equal:today',
+            'checkOutDate' => 'required|date|after:checkInDate',
+            'adults' => 'required|integer|min:1',
+            'children' => 'required|integer|min:0',
+            'infants' => 'required|integer|min:0',
+        ]);
+
+
+        $totalGuests = $this->adults + $this->children + $this->infants;
+        $this->availableRooms = TypeRoom::whereHas('room', function ($query) {
+            $query->where('hotel_id', $this->hotel->id);
+        })
+            ->where('room_capacity', '>=', $totalGuests)
+            ->orderBy('price', 'asc')
+            ->get();
+
+        $this->calculPrice();
+
     }
 
-    public function closeModal()
+
+
+
+    public function calculPrice()
     {
-        $this->showModal = true;
+        if ($this->checkInDate && $this->checkOutDate) {
+            $checkIn = Carbon::parse($this->checkInDate);
+            $checkOut = Carbon::parse($this->checkOutDate);
+            $numberOfNights = $checkIn->diffInDays($checkOut);
+
+            foreach ($this->availableRooms as $room) {
+                $room->total_price = $room->price * $numberOfNights;
+            }
+        }
     }
 
-    public function getBadgeClass($type)
+
+
+    public function incrementAdults()
+    {
+        if ($this->adults < $this->maxAdults) {
+            $this->adults++;
+        }
+
+    }
+
+    public function decrementAdults()
+    {
+        if ($this->adults > 0) {
+            $this->adults--;
+        }
+    }
+
+    public function incrementChildren()
+    {
+        if ($this->children < $this->maxChildren) {
+            $this->children++;
+        }
+    }
+
+    public function decrementChildren()
+    {
+        if ($this->children > 0) {
+            $this->children--;
+        }
+    }
+
+    public function incrementInfants()
+    {
+        if ($this->infants < $this->maxInfants) {
+            $this->infants++;
+        }
+    }
+
+    public function decrementInfants()
+    {
+        if ($this->infants > 0) {
+            $this->infants--;
+        }
+    }
+
+
+
+    public function getBadgeClassRoom($type)
     {
         return match ($type) {
             'Standard ' => 'bg-green-500',
@@ -79,11 +173,24 @@ class HotelDetailPage extends Component
             default => 'bg-gray-500',
         };
     }
-
-    public function toggleRooms()
+    public function setCurrentImage($index)
     {
-        $this->showRooms = !$this->showRooms;
+
+
+        $index += $this->photo->count() * 1000;
+        $this->currentImageIndex = $index % $this->photo->count();
+
+
     }
+
+    protected function getFormSchema(): array
+    {
+        return [
+            IconPicker::make('icon'),
+        ];
+    }
+
+
     public function render()
     {
         return view('livewire.details-page', [
@@ -92,6 +199,7 @@ class HotelDetailPage extends Component
             'roomtype' => $this->roomtype,
             'room' => $this->room,
             'chaines' => $this->chaine,
+            'currentImageIndex' => $this->currentImageIndex,
         ]);
     }
 }

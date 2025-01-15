@@ -8,8 +8,8 @@
 
                         <button
                             class="px-4 py-2 font-bold text-white rounded-full hover:bg-yellow-500 bg-violet-600 relative ">
-                            <a href="{{ route('room.en') }}"
-                                class="text-white underline-offset-4">{{ __('lang.Book Room') }}</a>
+                            <a href="{{ route('home.' . app()->getLocale()) }}"
+                                class="text-white no-underline">{{ __('lang.Book Room') }}</a>
                         </button>
                         <div class="table-responsive-lg table_common_area">
                             <table class="table">

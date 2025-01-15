@@ -1,5 +1,5 @@
 <div>
-    <div class="static flex items-center justify-between px-4 py-2 bg-violet-600 navbar">
+    <div class="static flex items-center justify-between px-4 py-2 bg-violet-600 navbar ">
         <!-- Logo and Travel-Shaper Text -->
         <div class="relative flex items-center navbar-brand">
             <svg fill="none" height="36" viewBox="0 0 32 32" width="36" class="text-white">
@@ -8,18 +8,19 @@
                     fill="currentColor" fill-rule="evenodd" />
             </svg>
             <p class="ml-2 font-bold text-white"><a
-                    href="/"class="font-semibold text-white navbar-item text-foreground right-16 hover:text-yellow-600 ">{{ __('lang.Travel-Shaper') }}</a>
+                    href="/"class="font-semibold text-white navbar-item text-foreground right-3  no-underline hover:text-yellow-600 relative  ">{{ __('lang.Travel-Shaper') }}</a>
             </p>
         </div>
 
         <!-- Navbar Links -->
         <div class="relative flex items-center gap-10 right-16">
             <a href="/"
-                class="font-semibold text-white navbar-item text-foreground right-16 hover:text-yellow-600 ">{{ __('lang.Home') }}</a>
-            <a href="/home" class="font-semibold text-white navbar-item is-active text-primary hover:text-yellow-600"
+                class="font-semibold text-white navbar-item text-foreground right-16 hover:text-yellow-600 no-underline ">{{ __('lang.Home') }}</a>
+            <a href="/home"
+                class="font-semibold text-white navbar-item is-active text-primary hover:text-yellow-600 no-underline"
                 aria-current="page">{{ __('lang.Hotels') }}</a>
-            <a href="/booking"
-                class="font-semibold text-white navbar-item is-active text-primary hover:text-yellow-600 "
+            <a href="/booking-details"
+                class="font-semibold text-white navbar-item is-active text-primary hover:text-yellow-600 no-underline "
                 aria-current="page">{{ __('lang.Booking') }}</a>
         </div>
 
@@ -39,7 +40,7 @@
             @endphp
 
             <a href="{{ $translatedUrl }}"
-                class="font-bold text-white navbar-item is-active hover:text-yellow-600 text-primary">
+                class="font-bold text-white navbar-item is-active hover:text-yellow-600 text-primary no-underline">
                 {{ $otherLocale === 'en' ? 'English' : 'العربية' }}
             </a>
         </div>

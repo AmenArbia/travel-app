@@ -9,4 +9,6 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateAmenities extends CreateRecord
 {
     protected static string $resource = AmenitiesResource::class;
+
+
 }

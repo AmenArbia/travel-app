@@ -8,6 +8,7 @@
     "require": {
         "php": "^8.2",
         "bezhansalleh/filament-shield": "^3.3",
+        "blade-ui-kit/blade-heroicons": "^2.5",
         "cheesegrits/filament-google-maps": "^3.0",
         "filament/filament": "^3.2",
         "filament/spatie-laravel-translatable-plugin": "^3.2",

@@ -53,7 +53,7 @@ class RoomsResource extends Resource
                             ->preload()
                             ->required()
                             ->options([
-                                'Standard ' =>  'Standard',
+                                'Standard ' => 'Standard',
                                 'Deluxe ' => 'Deluxe',
                                 'Suite ' => 'Suite',
                             ])
@@ -213,13 +213,10 @@ class RoomsResource extends Resource
                     ->searchable()
                     ->badge()
                     ->colors([
-                        'success' =>  'Standard ',
+                        'success' => 'Standard ',
                         'primary' => 'Deluxe ',
                         'warning' => 'Suite ',
                     ]),
-                RatingColumn::make('rating')
-                    ->color('warning')
-                    ->theme(RatingTheme::HalfStars),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

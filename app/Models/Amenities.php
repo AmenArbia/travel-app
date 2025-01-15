@@ -15,6 +15,7 @@ class Amenities extends Model
         'type',
         'status',
         'room_id',
+        'icon',
     ];
 
 

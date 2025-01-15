@@ -109,4 +109,7 @@ return [
     'Booking' => 'Booking',
     'Home' => 'Home',
     'Room amenities' => 'Room amenities',
+    'Status :' => 'Status :',
+    'Price starts from :' => 'Price starts from :',
+    'Type :' => 'Type :'
 ];

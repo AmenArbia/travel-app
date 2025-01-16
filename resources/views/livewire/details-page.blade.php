@@ -18,7 +18,7 @@
                                 </h3>
                             </div>
                             <div
-                                class="tour_details_top_bottom mt-3 border-t-2 border-gray-200 pt-5 border-b pb-3 flex justify-between relative bottom-5">
+                                class="tour_details_top_bottom mt-3 border-t-2 border-gray-200 pt-5 border-b pb-3 flex justify-between relative bottom-5 mr-2 ml-2">
                                 @foreach ($hotel->amenities as $amenity)
                                     <div class="toru_details_top_bottom_item">
                                         <div class="tour_details_top_bottom_icon text-3xl pr-2">
@@ -403,16 +403,16 @@
                                                                         'children' => $children,
                                                                         'infants' => $infants,
                                                                     ]) }}"
-                                                                        class="bg-violet-600 text-white py-2 px-6 rounded-lg overflow-hidden whitespace-nowrap relative z-0 border-none inline-block leading-6 text-center no-underline hover:bg-yellow-500 align-middle select-none transform transition duration-300 hover:scale-105 hover:shadow-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none active:scale-95 h-10 font-semibold w-32">
+                                                                        class="  top-3 bg-violet-600 text-white py-2 px-6 rounded-lg overflow-hidden whitespace-nowrap relative z-0 border-none inline-block leading-6 text-center no-underline hover:bg-yellow-500 align-middle select-none transform transition duration-300 hover:scale-105 hover:shadow-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none active:scale-95 h-10 font-semibold w-32">
                                                                         Book
                                                                     </a>
                                                                 </div>
                                                             </div>
 
-                                                            <!-- Book Button -->
+                                                            <!-- Book Button
                                                             <div class="book-room flex justify-end mt-8">
 
-                                                            </div>
+                                                            </div>-->
                                                         @endforeach
 
                                                     </div>

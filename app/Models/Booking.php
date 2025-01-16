@@ -27,6 +27,7 @@ class Booking extends Model
         'coupon_code',
         'country_id',
         'city_id',
+        'room_id',
         'booking_status',
 
 

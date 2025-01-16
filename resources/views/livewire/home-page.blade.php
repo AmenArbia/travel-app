@@ -69,9 +69,9 @@
                         <div class="flex flex-wrap " wire:key='{{ $hotel->id }}'>
                             <div class="w-full px-2 mb-6 ">
                                 <div class="flex overflow-hidden border rounded-lg shadow-lg ">
-                                    <div class="w-1/2 border-black max-h-64">
+                                    <div class="w-1/2  max-h-68 ">
                                         <img src="{{ url('storage/' . $hotel->image_cover) }}"
-                                            alt="{{ $hotel->slug }}" class="object-cover w-full h-full">
+                                            alt="{{ $hotel->slug }}" class="object-cover w-full h-full rounded-">
                                     </div>
 
                                     <div class="flex flex-col justify-between w-3/4 p-4 bg-white">
@@ -87,7 +87,7 @@
                                             <p class="mt-2 text-gray-600">{{ __('lang.Description') }} :
                                                 {{ Str::limit($hotel->description, 50, '...') }}</p>
                                         </div>
-                                        <div class="mt-4">
+                                        <div class="mt-2">
                                             <span class="font-bold text-black ">
                                                 {{ __("lang.Type d'hotel") }} :
                                                 <span
@@ -99,7 +99,7 @@
                                             </span>
                                         </div>
 
-                                        <div class="mt-4">
+                                        <div class="mt-2">
                                             <span class="font-bold text-black">
                                                 {{ __('lang.Status') }} : <span
                                                     class="inline-block px-2 py-0.2  text-slate-100 bg-blue-500 rounded-full text-md">
@@ -108,7 +108,7 @@
 
                                         </div>
 
-                                        <div class=" cruise_content_bottom_left">
+                                        <div class=" cruise_content_bottom_left mb-2">
                                             <ul>
                                                 @foreach ($hotel->amenities as $amenity)
                                                     <li><i
@@ -124,10 +124,10 @@
 
                                             </ul>
                                         </div>
-                                        <div class="mt-4">
+                                        <div class="mt-6 ">
                                             @if (!empty($hotel->slug))
                                                 <a href="{{ route('details.slug.' . app()->getLocale(), $hotel->slug) }}"
-                                                    class="relative block w-32 font-bold text-center text-white hover:text-white rounded-full left-3/4 top-20px  no-underline bg-violet-500 hover:bg-yellow-500 btn btn-primary cursor-pointer outline-none">
+                                                    class="relative block w-32 font-bold text-center text-white hover:text-white rounded-2xl left-3/4 top-24px  no-underline bg-violet-500 hover:bg-yellow-500 btn btn-primary cursor-pointer outline-none">
                                                     {{ __('lang.Check Details') }}
                                                 </a>
                                             @else

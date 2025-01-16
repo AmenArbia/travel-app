@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Mail\BookingConfirmationMail;
+use App\Mail\BookingStatusUpdated;
 use App\Models\Amenities;
 use App\Models\Booking;
 use App\Models\City;
@@ -12,6 +14,7 @@ use App\Models\TypeRoom;
 use Guava\FilamentIconPicker\Forms\IconPicker;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Request;
 use Livewire\Component;
 
@@ -44,7 +47,7 @@ class BookingPage extends Component
 
     public $hotelId;
 
-
+    public $booking;
     public $roomPrice;
     public $roomtype_id;
     public $roomtype_Id;
@@ -115,7 +118,7 @@ class BookingPage extends Component
         $countryId = Country::where('name', $this->country)->value('id');
         $cityId = City::where('name', $this->city)->value('id');
 
-        Booking::create([
+        $booking = Booking::create([
             'check_in_date' => $this->checkInDate,
             'check_out_date' => $this->checkOutDate,
             'adults' => $this->adults,
@@ -134,15 +137,32 @@ class BookingPage extends Component
             'capacity' => $this->capacitys,
             'price_per_night' => $this->price,
             'street' => $this->street,
-
-
         ]);
-        session()->flash('success', 'Your booking is successful!');
 
 
 
-        return $this->redirect(route("booking.details." . app()->getLocale()));
+        if ($booking->hotel || $booking->room) {
+            session()->flash('success', 'A confirmation email has been sent to your email address.');
+            Mail::to($this->email)->send(new BookingConfirmationMail($booking));
+            sleep(3);
+            return redirect()->route('booking.waiting-conformation.' . app()->getLocale());
 
+        }
+
+
+
+        // return $this->redirect(route("booking.details." . app()->getLocale()));
+
+    }
+
+
+    public function updateStatus($bookingId, $status)
+    {
+        $booking = Booking::find($bookingId);
+        $booking->booking_status = $status;
+        $booking->save();
+        Mail::to($booking->email)->send(new BookingStatusUpdated($booking));
+        session()->flash('message', 'Booking status updated and email sent to the user.');
 
     }
 

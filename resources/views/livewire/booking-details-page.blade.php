@@ -31,9 +31,9 @@
                                             <td>{{ $booking->roomtype->name ?? 'N/A' }}</td>
                                             <td
                                                 class="relative  inline-block px-2  font-bold text-black rounded-2xl text-md
-                                            @if ($booking->roomtype->room->type == 'Standard ') bg-green-500
-                                            @elseif ($booking->roomtype->room->type == 'Deluxe ') bg-blue-500
-                                            @elseif ($booking->roomtype->room->type == 'Suite ') bg-yellow-500 @endif
+                                            @if ($booking->roomtype->type == 'Standard ') bg-green-500
+                                            @elseif ($booking->roomtype->type == 'Deluxe ') bg-blue-500
+                                            @elseif ($booking->roomtype->type == 'Suite ') bg-yellow-500 @endif
                                         ">
                                                 <span
                                                     class=" inline-block px-2  font-bold text-black rounded-2xl text-md ">
@@ -45,19 +45,25 @@
                                                 {{ $booking->check_out_date ?? 'N/A' }}
                                             </td>
                                             <td>{{ $booking->total_price ?? 'N/A' }} {{ __('lang.TND') }}</td>
-                                            <td
-                                                class="relative  inline-block px-2  font-bold text-black rounded-2xl text-md">
+                                            <td>
                                                 @if ($booking->booking_status == 'pending')
                                                     <span
-                                                        class="pending bg-blue-500  inline-block px-2  font-bold text-white rounded-2xl text-md">{{ __('lang.Pending') }}</span>
+                                                        class="pending bg-blue-500 inline-block px-2 font-bold text-white rounded-2xl text-md">
+                                                        {{ __('lang.Pending') }}
+                                                    </span>
                                                 @elseif ($booking->booking_status == 'approved')
                                                     <span
-                                                        class="approved bg-green-500  inline-block px-2  font-bold text-white rounded-2xl text-md">{{ __('lang.Approved') }}</span>
+                                                        class="approved bg-green-500 inline-block px-2 font-bold text-white rounded-2xl text-md">
+                                                        {{ __('lang.Approved') }}
+                                                    </span>
                                                 @elseif ($booking->booking_status == 'cancelled')
                                                     <span
-                                                        class="cancelled bg-red-500 inline-block px-2  font-bold text-white rounded-2xl text-md">{{ __('lang.Rejected') }}</span>
+                                                        class="cancelled bg-red-500 inline-block px-2 font-bold text-white rounded-2xl text-md">
+                                                        {{ __('lang.Rejected') }}
+                                                    </span>
                                                 @endif
                                             </td>
+
                                         </tr>
                                     @endforeach
                                 </tbody>

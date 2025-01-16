@@ -2,7 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Mail\BookingStatusUpdated;
 use App\Models\Booking;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -10,8 +12,6 @@ use Livewire\WithPagination;
 class BookingDetailsPage extends Component
 {
     use WithPagination;
-    public $booking;
-
 
     public function render()
     {
@@ -20,7 +20,7 @@ class BookingDetailsPage extends Component
 
         $bookingCount = $bookingquery->count();
         return view('livewire.booking-details-page', [
-            'bookings' => $bookingquery->paginate(3),
+            'bookings' => $bookingquery->paginate(5),
             'bookingCount' => $bookingCount,
         ]);
     }

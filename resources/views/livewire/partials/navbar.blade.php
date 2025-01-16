@@ -49,7 +49,7 @@
 
     </div>
 
-    <!-- Banner -->
+    <!-- Banner
     <section id="common_banner">
         <div class="container">
             <div class="row">
@@ -65,7 +65,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <style>
         #common_banner {

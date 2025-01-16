@@ -1,5 +1,5 @@
-<div class="min-h-screen bg-white">
-    <div class="relative flex items-center justify-center min-h-screen overflow-hidden bg-slate-100">
+<div class="bg-slate-100">
+    <div class="relative flex items-center justify-center  overflow-hidden bg-slate-100">
         <div
             class="relative w-full h-full px-6 pt-16 overflow-hidden shadow-2xl bg-gray-00 isolate sm:rounded-none sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
             <svg viewBox="0 0 1024 1024"

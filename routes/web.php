@@ -8,6 +8,8 @@ use App\Livewire\Partials\Preview;
 use App\Livewire\RoomDetailsPage;
 use App\Livewire\RoomsPage;
 use App\Http\Middleware\SetLocale;
+use App\Livewire\BookingWaitingConfirmation;
+use App\Models\Booking;
 use Illuminate\Support\Facades\Route;
 
 
@@ -28,7 +30,12 @@ Route::prefix('ar')->group(function () {
     Route::get('/details/{slug}', HotelDetailPage::class)->name('details.slug.' . $locale_prefix);
     Route::get('/booking/{id}', BookingPage::class)->name('booking.' . $locale_prefix);
     Route::get('/booking-details', BookingDetailsPage::class)->name('booking.details.' . $locale_prefix);
-
+    Route::get('/booking/confirm/{id}', function ($id) {
+        $booking = Booking::findOrFail($id);
+        $booking->update(['is_confirmed' => true]);
+        return view('booking-confirmation');
+    })->name('booking.confirm.' . $locale_prefix);
+    Route::get('/booking-waiting-confirmation', BookingWaitingConfirmation::class)->name('booking.waiting-conformation.' . $locale_prefix);
 });
 
 $locale_prefix = 'en';
@@ -40,3 +47,9 @@ Route::get('/room/{id}', RoomDetailsPage::class)->name('room.details.' . $locale
 Route::get('/details/{slug}', HotelDetailPage::class)->name('details.slug.' . $locale_prefix);
 Route::get('/booking/{id}', BookingPage::class)->name('booking.' . $locale_prefix);
 Route::get('/booking-details', BookingDetailsPage::class)->name('booking.details.' . $locale_prefix);
+Route::get('/booking/confirm/{id}', function ($id) {
+    $booking = Booking::findOrFail($id);
+    $booking->update(['is_confirmed' => true]);
+    return view('booking-confirmation');
+})->name('booking.confirm.' . $locale_prefix);
+Route::get('/booking-waiting-confirmation', BookingWaitingConfirmation::class)->name('booking.waiting-conformation.' . $locale_prefix);

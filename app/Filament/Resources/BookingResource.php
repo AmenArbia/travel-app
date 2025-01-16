@@ -12,6 +12,9 @@ use App\Models\Hotel;
 use App\Models\Room;
 use App\Models\TypeRoom;
 use Filament\Forms\Components\Group;
+use App\Mail\BookingStatusUpdated;
+use Illuminate\Support\Facades\Mail;
+
 
 
 use Filament\Forms;
@@ -409,6 +412,9 @@ class BookingResource extends Resource
                         ->label('Approve')
                         ->action(function (Booking $record) {
                             $record->update(['booking_status' => 'approved']);
+
+                            Mail::to($record->email)->send(new BookingStatusUpdated($record));
+
                         })
                         ->hidden(function ($record) {
                             return $record->booking_status == 'approved';
@@ -422,6 +428,8 @@ class BookingResource extends Resource
                         ->label('Cancel')
                         ->action(function (Booking $record) {
                             $record->update(['booking_status' => 'cancelled']);
+                            Mail::to($record->email)->send(new BookingStatusUpdated($record));
+
                         })
                         ->hidden(function ($record) {
                             return $record->booking_status == 'cancelled';

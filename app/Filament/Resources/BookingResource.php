@@ -346,17 +346,11 @@ class BookingResource extends Resource
                     ->searchable(),
 
 
-                Tables\Columns\TextColumn::make('hotel.amenities.type')
+                Tables\Columns\TextColumn::make('hotel.amenities.title')
                     ->label(' Room Amenities')
                     ->searchable()
                     ->badge()
-                    ->colors([
-                        'success' => 'Instant',
-                        'primary' => 'Internet',
-                        'warning' => 'Cleaning',
-                        'danger' => 'Bedroom',
-                        'info' => 'Living',
-                    ])
+
                     ->sortable(),
                 Tables\Columns\TextColumn::make('check_in_date')
                     ->date()
@@ -385,7 +379,22 @@ class BookingResource extends Resource
                         'success' => 'approved',
                         'danger' => 'cancelled',
                         'warning' => 'pending',
-                    ]),
+                    ])
+                    ->label('Booking Status'),
+
+                Tables\Columns\TextColumn::make('is_confirmed')
+                    ->sortable()
+                    ->searchable()
+                    ->badge()
+                    ->formatStateUsing(
+                        fn($state, $record) =>
+                        $record->booking_status === 'approved' ? 'Confirmed' : 'Not Confirmed'
+                    )
+                    ->colors([
+                        'success' => fn($state, $record): bool => $record->booking_status === 'approved',
+                        'danger' => fn($state, $record): bool => $record->booking_status === 'pending',
+                    ])
+                    ->label('Confirmation'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

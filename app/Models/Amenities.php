@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Amenities extends Model
 {
     use HasFactory;
+    use HasTranslations;
 
     protected $fillable = [
         'title',
@@ -16,6 +18,14 @@ class Amenities extends Model
         'status',
         'room_id',
         'icon',
+    ];
+
+    protected $casts = [
+        'title' => 'array',
+    ];
+
+    protected $translatable = [
+        'title'
     ];
 
 

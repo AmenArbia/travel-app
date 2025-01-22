@@ -5,11 +5,12 @@ namespace App\Livewire;
 use App\Models\Amenities;
 use App\Models\Hotel;
 use App\Models\TypeRoom;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Title('Home Page - Travel-Shaper')]
+#[Title('Home page - Travel-Shaper')]
 class HomePage extends Component
 {
     use WithPagination;
@@ -21,6 +22,29 @@ class HomePage extends Component
 
     public $slug;
 
+    public $roomtype;
+    public $hotel;
+
+
+
+
+    public function getAmenityIconAndTranslation($type)
+    {
+        $icons = [
+            'Internet' => 'fa-solid fa-wifi',
+            'Kitchen' => 'fa-solid fa-kitchen-set',
+            'Bedroom' => 'fa-solid fa-bed',
+            'Living Area' => 'fa-solid fa-couch',
+            'Media and Technology' => 'fa-brands fa-instagram',
+        ];
+
+        return [
+            'translation' => __($type, [], 'amenities'),
+            'icon' => $icons[$type] ?? 'fa-solid fa-circle-question',
+        ];
+    }
+
+
 
     public function getBadgeClass($type)
     {
@@ -31,6 +55,8 @@ class HomePage extends Component
             default => 'bg-gray-500',
         };
     }
+
+
 
 
     public function render()
@@ -47,10 +73,13 @@ class HomePage extends Component
 
         if (!empty($this->selected_amenities)) {
             $hotelQuery->whereHas('amenities', function ($query) {
-                $query->whereIn('type', $this->selected_amenities);
+                $query->where('status', '=', 'Active');
+
+                $languageKey = app()->getLocale() === 'ar' ? 'ar' : 'en';
+
+                $query->whereIn(DB::raw("title->>'$languageKey'"), $this->selected_amenities);
             });
         }
-
 
         $hotelsCount = $hotelQuery->count();
 
@@ -58,11 +87,11 @@ class HomePage extends Component
 
         return view('livewire.home-page', [
             'hotels' => $hotelQuery->paginate(3),
-            'amenities' => Amenities::all(),
+            'amenities' => Amenities::where('status', 'Active')->get(),
             'roomtype' => TypeRoom::all(),
             'types' => Hotel::distinct()->pluck('type_hotel'),
             'statuses' => Hotel::distinct()->pluck('status'),
-            'amenitiesTypes' => Amenities::distinct()->pluck('type'),
+            'amenitiesTypes' => Amenities::where('status', 'Active')->get(),
             'hotelsCount' => $hotelsCount,
 
         ]);

@@ -13,6 +13,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Split;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Support\Markdown;
 use Filament\Tables;
@@ -25,6 +26,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AmenitiesResource extends Resource
 {
+
+    use Translatable;
     protected static ?string $model = Amenities::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-ticket';
@@ -45,14 +48,17 @@ class AmenitiesResource extends Resource
                             ->searchable()
                             ->live()
                             ->native(false)
-                            ->options([
-                                'Instant' => 'Instant',
-                                'Internet' => 'Internet',
-                                'Kitchen' => 'Kitchen',
-                                'Bedroom' => 'Bedroom',
-                                'Living Area' => 'Living Area',
-                                'Media and Technology' => 'Media and Technology'
-                            ]),
+                            ->options(function () {
+                                return [
+                                    'Instant' => 'Instant',
+                                    'Internet' => 'Internet',
+                                    'Kitchen' => 'Kitchen',
+                                    'Bedroom' => 'Bedroom',
+                                    'Living Area' => 'Living Area',
+                                    'Media and Technology' => 'Media and Technology',
+                                ];
+                            })
+                            ->label(__('Type')),
 
                         MarkdownEditor::make('description')
                             ->maxLength(255)
@@ -61,14 +67,11 @@ class AmenitiesResource extends Resource
                 Section::make('Options')
                     ->schema([
                         Radio::make('status')
-
                             ->options([
                                 'Active' => 'Active',
                                 'Draft' => 'Draft',
                                 'Published' => 'Published',
-
-                            ])
-                        ,
+                            ]),
                         IconPicker::make('icon')
                             ->columns([
                                 'default' => 1,
@@ -84,7 +87,6 @@ class AmenitiesResource extends Resource
                                 ],
                             ]),
                     ])->columnSpan(1)
-
                     ->grow(false)
             ]);
     }
@@ -100,18 +102,18 @@ class AmenitiesResource extends Resource
                 IconColumn::make('icon'),
                 Tables\Columns\TextColumn::make('type')
                     ->searchable()
-                    ->label('Amenities Type')
+                    ->label(__('Amenities Type'))
                     ->badge()
                     ->colors([
                         'success' => 'Instant',
                         'primary' => 'Internet',
-                        'warning' => 'Cleaning',
+                        'warning' => 'Kitchen',
                         'danger' => 'Bedroom',
-                        'info' => 'Living',
+                        'info' => 'Living Area',
                     ]),
                 Tables\Columns\TextColumn::make('status')
                     ->searchable()
-                    ->label('Amenities Status')
+                    ->label(__('Amenities Status'))
                     ->badge()
                     ->colors([
                         'success' => 'Active',
@@ -130,14 +132,16 @@ class AmenitiesResource extends Resource
             ->filters([
 
                 SelectFilter::make('type')
-                    ->options([
-                        'Instant' => 'Instant',
-                        'Internet' => 'Internet',
-                        'Kitchen' => 'Kitchen',
-                        'Bedroom' => 'Bedroom',
-                        'Living Area' => 'Living Area',
-                        'Media and Technology' => 'Media and Technology'
-                    ]),
+                    ->options(function () {
+                        return [
+                            'Instant' => 'Instant',
+                            'Internet' => 'Internet',
+                            'Kitchen' => 'Kitchen',
+                            'Bedroom' => 'Bedroom',
+                            'Living Area' => 'Living Area',
+                            'Media and Technology' => 'Media and Technology'
+                        ];
+                    }),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
@@ -146,6 +150,9 @@ class AmenitiesResource extends Resource
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
                 ])
+            ])
+            ->headerActions([
+                Tables\Actions\LocaleSwitcher::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -161,6 +168,10 @@ class AmenitiesResource extends Resource
         ];
     }
 
+    public static function getTranslatableLocales(): array
+    {
+        return ['en', 'ar'];
+    }
     public static function getPages(): array
     {
         return [

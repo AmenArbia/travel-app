@@ -8,6 +8,9 @@ use Filament\Resources\Pages\ListRecords;
 
 class ListAmenities extends ListRecords
 {
+
+    use ListRecords\Concerns\Translatable;
+
     protected static string $resource = AmenitiesResource::class;
 
     protected function getHeaderActions(): array

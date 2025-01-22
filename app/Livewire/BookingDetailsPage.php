@@ -5,13 +5,16 @@ namespace App\Livewire;
 use App\Mail\BookingStatusUpdated;
 use App\Models\Booking;
 use Illuminate\Support\Facades\Mail;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Title('Booking details page - Travel-Shaper')]
 
 class BookingDetailsPage extends Component
 {
     use WithPagination;
+
 
     public function render()
     {

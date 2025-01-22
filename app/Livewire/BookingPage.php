@@ -16,7 +16,9 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Request;
+use Livewire\Attributes\Title;
 use Livewire\Component;
+#[Title('Booking page - Travel-Shaper')]
 
 class BookingPage extends Component
 {
@@ -148,9 +150,6 @@ class BookingPage extends Component
             return redirect()->route('booking.waiting-conformation.' . app()->getLocale());
 
         }
-
-
-
         // return $this->redirect(route("booking.details." . app()->getLocale()));
 
     }

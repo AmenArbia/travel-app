@@ -29,6 +29,7 @@ class Booking extends Model
         'city_id',
         'room_id',
         'booking_status',
+        'is_confirmed'
 
 
 

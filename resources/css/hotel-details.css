@@ -1,0 +1,319 @@
+img:hover {
+    transform: scale(1.05);
+
+    opacity: 0.9;
+
+}
+
+.tour_package_details_bar_list ul li {
+    padding-top: 15px;
+    color: #212529;
+    display: flex;
+    align-items: center;
+}
+
+[type=button]:not(:disabled),
+[type=reset]:not(:disabled),
+[type=submit]:not(:disabled),
+button:not(:disabled) {
+    cursor: pointer;
+}
+
+button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 1440px) {
+    .dropdown_passenger_area button {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 576px) {
+    .col-sm-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+}
+
+.col-12 {
+    flex: 0 0 auto;
+    width: 550px;
+}
+
+.row>* {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: calc(var(--bs-gutter-x)* .5);
+    padding-left: calc(var(--bs-gutter-x)* .5);
+    margin-top: var(--bs-gutter-y);
+}
+
+.tab-content>.active {
+    display: block;
+}
+
+.room_select_area .nav-tabs .nav-item.show .nav-link,
+.room_select_area .nav-tabs .nav-link.active {
+    color: white;
+    background-color: rgb(140, 27, 252);
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.room_select_area .nav-tabs .nav-link:hover {
+    color: white;
+
+    background-color: rgb(213, 167, 58);
+
+    border-color: #ccc;
+
+}
+
+.dropdown_passenger_area .dropdown-menu.show {
+    right: 250px;
+    position: relative;
+    z-index: 1000;
+}
+
+.dropdown_passenger_area .dropdown-menu {
+    z-index: 1000;
+    padding: 15px 20px;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fdfdfd;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 0.25rem;
+    border-top: none;
+    border-bottom: 1px solid rgba(53, 50, 50, 0.15);
+    position: relative;
+    right: 250px;
+}
+
+.dropdown-menu.show {
+    display: flex;
+    position: relative;
+    right: 250px;
+}
+
+.dropdown-menu {
+    position: relative;
+    left: 450px;
+    z-index: 1000;
+    display: none;
+    min-width: 250px;
+    margin: 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: .25rem;
+    border-top: none;
+    border-bottom: 1px solid rgba(53, 50, 50, 0.15);
+}
+
+.dropdown_passenger_area button {
+    border: none;
+    background: transparent;
+    padding: 0;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.dropdown-toggle {
+    white-space: nowrap;
+}
+
+
+/* Styling the ::after pseudo-element */
+.room_select_area .nav-tabs .nav-link:hover::after {
+    background-color: rgb(200, 150, 20);
+
+    content: '';
+    display: block;
+    height: 3px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+
+
+
+.room_select_area .nav-tabs .nav-link {
+    margin-bottom: 0;
+    background: #F3F6FD;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    padding: 10px 110px;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+    color: #495057;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+
+@media (max-width: 992px) {
+    .flight_Search_boxed {
+        margin-bottom: 30px;
+    }
+}
+
+.nav-tabs .nav-link {
+    margin-bottom: -1px;
+    background: 0 0;
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+}
+
+
+
+.nav-link {
+    display: block;
+    padding: .5rem 1rem;
+    color: white;
+    text-decoration: none;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+}
+
+button,
+select {
+    text-transform: none;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+button {
+    border-radius: 0;
+}
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+
+
+@media (max-width: 767px) {
+    .toru_details_top_bottom_item {
+        display: inline-grid;
+        align-items: center;
+    }
+}
+
+@media (max-width: 767px) {
+    .tour_details_top_heading_right {
+        padding-top: 20px;
+    }
+}
+
+.fa-map-marker-alt:before {
+    content: "\f3c5";
+}
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+.fa,
+.fas {
+    font-weight: 900;
+}
+
+.fa,
+.far,
+.fas {
+    font-family: "Font Awesome 5 Free";
+}
+
+.fa,
+.fab,
+.fad,
+.fal,
+.far,
+.fas {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+
+div {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+section {
+    position: relative;
+    display: block;
+    unicode-bidi: isolate;
+}
+
+.section_padding {
+    padding: 100px 0;
+}
+
+@media (min-width: 576px) {
+
+    .container,
+    .container-sm {
+        max-width: 540px;
+    }
+}
+
+@media (max-width: 767px) {
+    .tour_details_heading_wrapper {
+        display: inherit;
+    }
+}
+
+.row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(var(--bs-gutter-y)* -1);
+    margin-right: calc(var(--bs-gutter-x)* -.5);
+    margin-left: calc(var(--bs-gutter-x)* -.5);
+    width: 750px;
+}
+
+.container,
+.container-fluid,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl,
+.container-xxl {
+    width: 100%;
+    padding-right: var(--bs-gutter-x, .75rem);
+    padding-left: var(--bs-gutter-x, .75rem);
+    margin-right: auto;
+    margin-left: auto;
+}

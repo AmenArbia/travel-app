@@ -9,7 +9,6 @@
         <li>Room : {{ $booking->roomtype->name }}</li>
         <li>Room type : {{ $booking->room->type }}</li>
         <li>Total Price: ${{ $booking->total_price }}</li>
-        <li> Booking Status: {{ ucfirst($booking->booking_status) }}
         </li>
     </ul>
     <p>We look forward to welcoming you!</p>

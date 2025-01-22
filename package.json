@@ -21,6 +21,7 @@
         "@popperjs/core": "^2.11.8",
         "alpinejs": "^3.14.8",
         "bootstrap": "^5.3.3",
+        "flowbite": "^2.5.2",
         "preline": "^2.6.0"
     }
 }

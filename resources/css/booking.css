@@ -1,0 +1,28 @@
+                .section_padding {
+                    padding: 100px 0;
+                }
+
+                .row {
+                    --bs-gutter-x: 1.5rem;
+                    --bs-gutter-y: 0;
+                    display: flex;
+                    flex-wrap: nowrap;
+                    margin-top: calc(var(--bs-gutter-y)* -1);
+                    margin-right: calc(var(--bs-gutter-x)* -.5);
+                    margin-left: calc(var(--bs-gutter-x)* -.5);
+                    width: 1450px;
+                }
+
+                .container {
+                    width: 100%;
+                }
+
+                .room-details {
+                    background-color: #f9f9f9;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                }
+
+                .room-details h4 {
+                    margin-bottom: 10px;
+                }

@@ -68,7 +68,7 @@ class HotelResource extends Resource
                                             ->maxLength(255)
                                             ->dehydrated()
                                             ->live()
-                                            ->unique(Hotel::class, 'slug->en' . 'slug->ar', ignoreRecord: true)
+                                            ->unique(Hotel::class, ignoreRecord: true)
                                             ->required(),
                                         MarkdownEditor::make('description')
                                             ->label('Hotel description')
@@ -217,9 +217,9 @@ class HotelResource extends Resource
                         'primary' => 'en maintenance',
                     ])
                     ->icons([
-                        'heroicon-o-check-circle'  => 'actif',
-                        'heroicon-o-x-circle'  => 'fermé',
-                        'heroicon-o-clock'  => 'en maintenance',
+                        'heroicon-o-check-circle' => 'actif',
+                        'heroicon-o-x-circle' => 'fermé',
+                        'heroicon-o-clock' => 'en maintenance',
                     ])
                     ->default('gray'),
 

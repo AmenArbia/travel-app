@@ -2,6 +2,15 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Resources\AdminResource\Widgets\HotelWidget;
+use App\Filament\Resources\AdminResource\Widgets\TableWidget;
+use Filament\Widgets\Columns;
+use Filament\Widgets\Widget;
+use Filament\Support\Facades\FilamentView;
+use Filament\Support\Layout\Grid;
+
+
+
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -39,8 +48,12 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
+                HotelWidget::class,
+                TableWidget::class,
             ])
+
+
+
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

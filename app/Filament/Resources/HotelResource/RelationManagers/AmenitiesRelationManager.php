@@ -11,7 +11,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
-use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Resources\RelationManagers\Concerns\Translatable;
+ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Actions\AttachAction;
 use Filament\Tables\Columns\TextColumn;
@@ -21,8 +22,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AmenitiesRelationManager extends RelationManager
 {
+    use Translatable;
     protected static string $relationship = 'amenities';
-    protected static ?string $icon =  'heroicon-o-ticket';
+    protected static ?string $icon = 'heroicon-o-ticket';
 
 
     public function form(Form $form): Form
@@ -144,7 +146,7 @@ class AmenitiesRelationManager extends RelationManager
                     ->preloadRecordSelect()
                     ->form(fn(AttachAction $action): array => [
                         $action->getRecordSelect()
-                            ->native(false),
+                        ->native(false),
 
                         Toggle::make('is_free')
                             ->inline(false)
@@ -175,7 +177,10 @@ class AmenitiesRelationManager extends RelationManager
                             ->preload()
                             ->placeholder('Select a Room')
                             ->nullable(),
-                    ])
+                    ]),
+
+                Tables\Actions\LocaleSwitcher::make(),
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->action(function ($data, $record) {

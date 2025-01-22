@@ -35,13 +35,11 @@ class Hotel extends Model
     protected $casts = [
         'contact' => 'array',
         'name' => 'array',
-        'slug' => 'array',
         'description' => 'array',
     ];
 
     public $translatable = [
         'name',
-        'slug',
         'description',
     ];
 

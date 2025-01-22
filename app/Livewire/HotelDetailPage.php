@@ -13,6 +13,7 @@ use Guava\FilamentIconPicker\Forms\IconPicker;
 
 
 use function Livewire\after;
+#[Title('Hotel details page - Travel-Shaper')]
 
 class HotelDetailPage extends Component
 {
@@ -51,7 +52,7 @@ class HotelDetailPage extends Component
     {
 
         $this->hotel = Hotel::with(['photo', 'roomtype.room', 'roomtype', 'amenities', 'city', 'country', 'chaine', 'room'])
-            ->where("slug->" . app()->getLocale(), $slug)
+            ->where("slug", $slug)
             ->firstOrFail();
 
         $this->roomtype = $this->hotel->roomtype;
@@ -64,7 +65,6 @@ class HotelDetailPage extends Component
             ->with(['photo', 'city', 'country'])
             ->take(6)
             ->get();
-
     }
 
 
@@ -88,10 +88,8 @@ class HotelDetailPage extends Component
             ->get();
 
         $this->calculPrice();
-
+        $this->checkInDate = Carbon::now()->format('Y-m-d');
     }
-
-
 
 
     public function calculPrice()

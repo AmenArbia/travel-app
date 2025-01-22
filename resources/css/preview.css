@@ -1,0 +1,76 @@
+.text-animation {
+    animation: fadeIn 2s ease-out forwards, scaleIn 2s ease-out forwards;
+}
+
+
+
+@keyframes cursor {
+    50% {
+        border-color: transparent;
+    }
+}
+
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0.8);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.text-animation:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-out;
+}
+
+.text-animation:hover {
+    filter: blur(1px);
+    transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.image-animation {
+    animation: fadeIn 3s ease-out forwards, scaleIn 3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0.8);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.image-animation:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-animation:hover {
+    filter: blur(1.5px);
+    transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+}

@@ -17,7 +17,7 @@ class HotelWidget extends BaseWidget
             Stat::make('Hotels', Hotel::count())
                 ->description('Number of hotels')
                 ->descriptionIcon('heroicon-o-building-office', IconPosition::Before)
-                ->chart([1, 3, 5, 10, 20, 40])
+                ->chart([1, 3, 70, 20, 40])
                 ->color('success'),
 
             Stat::make('Bookings', Booking::count())

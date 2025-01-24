@@ -40,8 +40,9 @@ class Amenities extends Model
         return $this->belongsTo(Room::class);
     }
     public function bookings()
-{
-    return $this->belongsToMany(Booking::class, 'booking_amenity' , 'amenity_id', 'booking_id')
-                ->withPivot('is_free', 'price');
-}
+    {
+        return $this->belongsToMany(Booking::class, 'booking_amenity', 'amenity_id', 'booking_id')
+        ->withPivot('is_free', 'price');
+
+    }
 }

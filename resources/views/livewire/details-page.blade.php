@@ -52,41 +52,46 @@
 
                                 <div class="tour_details_img_wrapper mt-2 block ">
                                     <!-- Main Image -->
-                                    <div class="main-image mb-4 ">
-                                        <img src="{{ asset('storage/' . $hotel->photo[$currentImageIndex]->photos[0]) }}"
-                                            class="w-full h-56 object-cover rounded-xl" alt="{{ $hotel->name }}">
-                                    </div>
+                                    @if (count($hotel->photo) !== 0)
 
-                                    <!-- Related Images (Thumbnails) -->
-                                    <div class="related-images grid  gap-1 grid-cols-5">
-                                        @foreach ($hotel->photo as $index => $photo)
-                                            <div class="image-item " style="">
-                                                <img src="{{ asset('storage/' . $photo->photos[0]) }}"
-                                                    alt="{{ $hotel->name }}"
-                                                    class=" rounded-xl w-20 h-20 object-cover cursor-pointer "
-                                                    wire:click="setCurrentImage({{ $index }})">
-                                            </div>
-                                        @endforeach
-                                    </div>
 
-                                    <!-- Navigation Buttons (Previous/Next) -->
-                                    <div class="flex justify-between mt-4">
-                                        <button
-                                            class="text-black p-2 rounded-full text-lg transform transition duration-200 hover:scale-95 hover:shadow-lg  hover:bg-yellow-500 hover:text-white hover:font-bold   focus:outline-none active:scale-95"
-                                            wire:click="setCurrentImage({{ $currentImageIndex - 1 }})"><i
-                                                class="fa-solid fa-chevron-left  font-bold pl-1 relative top-0.5"
-                                                style="color: #8b65fa;"></i>
-                                            {{ __('lang.Previous') }}
-                                        </button>
-                                        <button
-                                            class="text-black p-2 rounded-full text-lg transform transition duration-200 hover:scale-95 hover:shadow-lg  hover:bg-yellow-500 hover:text-white hover:font-bold   focus:outline-none active:scale-95"
-                                            wire:click="setCurrentImage({{ $currentImageIndex + 1 }})">
-                                            {{ __('lang.Next') }}<i
-                                                class="fa-solid fa-chevron-right left-1 font-bold pl-1 relative top-0.5 "
-                                                style="color: #8b65fa;  "></i>
+                                        <div class="main-image mb-4 ">
+                                            <img src="{{ asset('storage/' . $hotel->photo[$currentImageIndex]->photos[0]) }}"
+                                                class="w-full h-56 object-cover rounded-xl" alt="{{ $hotel->name }}">
+                                        </div>
 
-                                        </button>
-                                    </div>
+                                        <!-- Related Images (Thumbnails) -->
+                                        <div class="related-images grid  gap-1 grid-cols-5">
+                                            @foreach ($hotel->photo as $index => $photo)
+                                                <div class="image-item " style="">
+                                                    <img src="{{ asset('storage/' . $photo->photos[0]) }}"
+                                                        alt="{{ $hotel->name }}"
+                                                        class=" rounded-xl w-20 h-20 object-cover cursor-pointer "
+                                                        wire:click="setCurrentImage({{ $index }})">
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+                                        <!-- Navigation Buttons (Previous/Next) -->
+                                        <div class="flex justify-between mt-4">
+                                            <button
+                                                class="text-black p-2 rounded-full text-lg transform transition duration-200 hover:scale-95 hover:shadow-lg  hover:bg-yellow-500 hover:text-white hover:font-bold   focus:outline-none active:scale-95"
+                                                wire:click="setCurrentImage({{ $currentImageIndex - 1 }})"><i
+                                                    class="fa-solid fa-chevron-left  font-bold pl-1 relative top-0.5"
+                                                    style="color: #8b65fa;"></i>
+                                                {{ __('lang.Previous') }}
+                                            </button>
+                                            <button
+                                                class="text-black p-2 rounded-full text-lg transform transition duration-200 hover:scale-95 hover:shadow-lg  hover:bg-yellow-500 hover:text-white hover:font-bold   focus:outline-none active:scale-95"
+                                                wire:click="setCurrentImage({{ $currentImageIndex + 1 }})">
+                                                {{ __('lang.Next') }}<i
+                                                    class="fa-solid fa-chevron-right left-1 font-bold pl-1 relative top-0.5 "
+                                                    style="color: #8b65fa;  "></i>
+
+                                            </button>
+                                        </div>
+
+                                    @endif
                                 </div>
                             </div>
                         @endif
@@ -97,6 +102,7 @@
                     <div class=" relative  -left-96 w-96 bottom-96 -top-72   ">
                         <div class="tour_details_heading_wrapper bg-white shadow-2xl rounded-xl pt-6 pr-5 pb-9 pl-5">
                             @if ($hotel)
+
                                 <div
                                     class="tour_details_top_heading display-flex justify-content-space-between align-items-center  ">
                                     <h2 class="text-3xl font-semibold line-height-40 Roboto sans-serif m-0   ">

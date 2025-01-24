@@ -79,7 +79,7 @@ class AmenitiesResource extends Resource
                                 '2xl' => 5,
                             ])
                             ->sets([
-                                'heroicons',
+                                'heroicons' ,
                                 'fontawesome' => [
                                     'solid',
                                     'regular',
@@ -167,7 +167,19 @@ class AmenitiesResource extends Resource
             //
         ];
     }
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
+    public static function getNavigationBadgeTooltip(): ?string
+    {
+        return 'Total number of amenities';
+    }
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return static::getModel()::count() > 2 ? 'success' : 'success';
+    }
     public static function getTranslatableLocales(): array
     {
         return ['en', 'ar'];

@@ -147,13 +147,13 @@ return [
     'N° of Guests :' => 'عدد الضيوف :',
     'Details' => 'التفاصيل',
     'Price start from :' => 'السعر يبدأ من :',
-
+    'Room name' => 'اسم الغرفة',
     'Instant' => 'فوري',
     'Internet' => 'الإنترنت',
     'Kitchen' => 'المطبخ',
     'Bedroom' => 'غرفة النوم',
     'Living Area' => 'غرفة المعيشة',
-    'Media_and_Technology' => 'وسائل الإعلام والتكنولوجيا',
+    'Media and Technology' => 'وسائل الإعلام والتكنولوجيا',
 
 
 

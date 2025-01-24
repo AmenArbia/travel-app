@@ -31,7 +31,6 @@ Route::prefix('ar')->group(function () {
     Route::get('/booking/{id}', BookingPage::class)->name('booking.' . $locale_prefix);
     Route::get('/booking-details', BookingDetailsPage::class)->name('booking.details.' . $locale_prefix);
     Route::get('/booking-waiting-confirmation', BookingWaitingConfirmation::class)->name('booking.waiting-conformation.' . $locale_prefix);
-
     Route::get('/booking/confirm/{id}', function ($id) {
         $booking = Booking::findOrFail($id);
         $booking->update(['is_confirmed' => true]);

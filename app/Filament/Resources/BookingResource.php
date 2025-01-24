@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\BookingResource\Pages;
 use App\Filament\Resources\BookingResource\RelationManagers;
+use App\Filament\Resources\BookingResource\RelationManagers\AmenitiesRelationManager;
+
 use App\Models\Amenities;
 use App\Models\Country;
 use App\Models\City;
@@ -110,7 +112,7 @@ class BookingResource extends Resource
                                         if ($state) {
                                             $set('discount', self::calculateDiscount($state));
                                         }
-                                    }),
+                                    })->hidden(),
                             ]),
                         Section::make('Booking Details')
                             ->schema([
@@ -262,7 +264,7 @@ class BookingResource extends Resource
         $pricePerNight = $get('price_per_night');
         $amenityIds = $get('amenity_ids');
         $amenityPrice = 0;
-        $couponCode = $get('coupon_code');
+        //$couponCode = $get('coupon_code');
         $discountPercentage = 0;
 
 
@@ -284,15 +286,15 @@ class BookingResource extends Resource
             }
         }
 
-        $coupons = [
+        /*$coupons = [
             'DISCOUNT10' => 10, // 10% discount
             'DISCOUNT20' => 20, // 20% discount
             'SUMMER50' => 50,   // 50% discount
-        ];
+        ];*/
 
-        if ($couponCode && isset($coupons[$couponCode])) {
+        /*if ($couponCode && isset($coupons[$couponCode])) {
             $discountPercentage = $coupons[$couponCode];
-        }
+        }*/
 
         if ($checkIn && $checkOut && $pricePerNight) {
             $checkInDate = new \DateTime($checkIn);
@@ -310,7 +312,7 @@ class BookingResource extends Resource
         }
     }
 
-    protected static function calculateDiscount(?string $couponCode): float
+    /*protected static function calculateDiscount(?string $couponCode): float
     {
         $coupons = [
             'DISCOUNT10' => 10,
@@ -319,7 +321,7 @@ class BookingResource extends Resource
         ];
 
         return $couponCode && isset($coupons[$couponCode]) ? $coupons[$couponCode] : 0;
-    }
+    }*/
 
     public static function formatAddress(?string $country, ?string $city): string
     {
@@ -346,12 +348,14 @@ class BookingResource extends Resource
                     ->searchable(),
 
 
-                Tables\Columns\TextColumn::make('hotel.amenities.title')
+                Tables\Columns\TextColumn::make('amenities.title')
                     ->label(' Room Amenities')
                     ->searchable()
                     ->badge()
-
                     ->sortable(),
+
+
+
                 Tables\Columns\TextColumn::make('check_in_date')
                     ->date()
                     ->sortable(),
@@ -492,7 +496,9 @@ class BookingResource extends Resource
 
     public static function getRelations(): array
     {
-        return [];
+        return [
+            AmenitiesRelationManager::class,
+        ];
     }
 
     public static function getPages(): array

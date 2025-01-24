@@ -148,13 +148,13 @@ return [
     'Book now' => 'Book now',
     'N° of Guests :' => 'N° of Guests :',
     'Selected Room' => 'Selected Room',
-    'Price start from :' => 'Price start from :' ,
+    'Price start from :' => 'Price start from :',
     'Instant' => 'Instant',
     'Internet' => 'Internet',
     'Kitchen' => 'Kitchen',
     'Bedroom' => 'Bedroom',
     'Living Area' => 'Living Area',
-    'Media_and_Technology' => 'Media and Technology',
+    'Media and Technology' => 'Media and Technology',
 
 
 

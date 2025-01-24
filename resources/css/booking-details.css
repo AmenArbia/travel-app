@@ -105,26 +105,13 @@ tr {
     box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
 }
 
-tbody,
-td,
-tfoot,
-th,
-thead,
-tr {
-    border-color: inherit;
-    border-style: solid;
-    border-width: 0;
-}
+
 
 th {
     text-align: inherit;
 }
 
-*,
-::after,
-::before {
-    box-sizing: border-box;
-}
+
 
 th {
     display: table-cell;
@@ -136,6 +123,7 @@ th {
 .table_common_area table {
     text-align: center;
     border: 1px solid #d5d5d5;
+    border-radius: 2px;
 }
 
 .table {
@@ -152,6 +140,7 @@ th {
     color: #212529;
     vertical-align: top;
     border-color: #dee2e6;
+    padding-bottom: 5px;
 }
 
 table {

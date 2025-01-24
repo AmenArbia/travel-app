@@ -65,6 +65,8 @@ class HotelDetailPage extends Component
             ->with(['photo', 'city', 'country'])
             ->take(6)
             ->get();
+
+
     }
 
 
@@ -191,6 +193,16 @@ class HotelDetailPage extends Component
 
     public function render()
     {
+
+
+        /*  dd([
+              'hotel' => $this->hotel,
+              'photos' => $this->photo,
+              'roomtype' => $this->roomtype,
+              'room' => $this->room,
+              'chaines' => $this->chaine,
+              'currentImageIndex' => $this->currentImageIndex,
+          ]);*/
         return view('livewire.details-page', [
             'hotel' => $this->hotel,
             'photos' => $this->photo,

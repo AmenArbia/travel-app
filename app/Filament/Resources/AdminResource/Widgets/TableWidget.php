@@ -16,12 +16,20 @@ class TableWidget extends BaseWidget
 {
     protected int|string|array $columnSpan = 'full';
     protected static ?int $sort = 2;
+
+    public function getTableHeading(): string
+    {
+        return 'Recent Bookings';
+    }
     public function table(Table $table): Table
     {
         return $table
             ->query(BookingResource::getEloquentQuery())
             ->defaultPaginationPageOption(4)
             ->defaultSort('created_at', 'desc')
+            ->recordUrl(
+                fn (Booking $record) => BookingResource::getUrl('index')
+            )
             ->columns([
                 TextColumn::make('name')
                     ->searchable()

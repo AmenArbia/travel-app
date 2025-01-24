@@ -138,13 +138,13 @@
                                                 @if ($typeroom)
                                                     <p class="text-gray-500 p-2 font-semibold ">
                                                         {{ __('lang.Type :') }} <span
-                                                            class=" inline-block px-2 py-0.4 font-bold text-white rounded-2xl text-md {{ $this->getBadgeClassRoom($typeroom->type) }}">
+                                                            class=" inline-block px-2 py-0.4 font-bold text-white rounded-2xl text-md {{ $this->getBadgeClassRoom($typeroom->room->type) }}">
 
-                                                            @if ($typeroom->type === 'Standard ')
+                                                            @if ($typeroom->room->type === 'Standard ')
                                                                 {{ __('lang.Standard ') }}
-                                                            @elseif ($typeroom->type === 'Deluxe ')
-                                                                {{ __('lang.Deluxe') }}
-                                                            @elseif ($typeroom->type === 'Suite ')
+                                                            @elseif ($typeroom->room->type === 'Deluxe ')
+                                                                {{ __('lang.Deluxe ') }}
+                                                            @elseif ($typeroom->room->type === 'Suite ')
                                                                 {{ __('lang.Suite ') }}
                                                             @endif
                                                         </span></p>
@@ -160,7 +160,7 @@
                                     <h5 class="relative top-6  ml-4 text-2xl font-bold">
                                         {{ __('lang.Total Price :') }} <span
                                             class="text-black font-semibold relative left-12 ">{{ __('lang.TND') }}
-                                            {{ $roomPrice }}/<del
+                                            {{ $roomPrice + $amenity->hotels->first()->pivot->price }}/<del
                                                 class="text-sm text-gray-500 relative top-1 decoration-red-600 decoration-2">
                                                 {{ $room->price }} {{ __('lang.TND') }}
                                             </del>
@@ -311,6 +311,37 @@
                                         </div>
 
 
+                                        <div
+                                            class="relative top-2  left-7 border border-t-2 border-b-0 border-l-0 border-r-0">
+
+                                            <h3 class="relative top-3 font-semibold text-black">Add Amenities </h3>
+                                            <div class=" border border-t-2 border-gray-200 pb-2  border-b-0 border-r-0 border-l-0 right-2 relative top-3 "
+                                                style="width: 150px;">
+                                            </div>
+                                            @foreach ($amenities as $amenity)
+                                                <div class="top-3 relative max-h-10">
+                                                    <label>
+                                                        <input type="checkbox" wire:model="selectedAmenities"
+                                                            value="{{ $amenity->id }}" wire:change="calculPrice"
+                                                            class="pr-2">
+                                                        {{ $amenity->title }} :
+                                                    </label>
+                                                    <p class="pl-4 relative left-20 bottom-6">
+                                                        {{ $amenity->description }}
+                                                    </p>
+                                                    <p class="relative left-full text-left pl-2 bottom-12 ">Price :
+                                                        {{ $amenity->hotels->first()->pivot->price }}
+                                                        {{ __('lang.TND') }}
+                                                    </p>
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+
+
+
+
+
 
 
                                         <div class=" pb-4 ml-5 " style="width: 350px">
@@ -339,7 +370,7 @@
                                         </div>
                                         <div class=" pb-4 ml-5 " style="width: 350px">
                                             <input type="number" placeholder="Complet address" wire:model="roomId"
-                                                class="w-80 pt-2 pl-2 pb-2 mt-1 border border-gray-200  " hidden>
+                                                class="w-80 pt-2 pl-2 pb-2 mt-1 border border-gray-200  ">
                                         </div>
 
                                         <div class=" pb-4 ml-5 " style="width: 350px">
@@ -364,8 +395,6 @@
                                             <input type="number" wire:model="total_price" value=""
                                                 class="w-80 pt-2 pl-2 pb-2 mt-1 border border-gray-200 " hidden>
                                         </div>
-
-
 
                                     </div>
                                 </div>

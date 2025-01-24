@@ -50,7 +50,7 @@ class BookingPage extends Component
     public $hotelId;
 
     public $booking;
-    public $roomPrice;
+
     public $roomtype_id;
     public $roomtype_Id;
     public $capacitys;
@@ -60,15 +60,25 @@ class BookingPage extends Component
     public $street;
     public $successMessage = '';
 
+    public $selectedAmenities = [];
+    public $roomPrice = 0;
 
 
-    public function mount()
+
+    public function mount($id)
     {
+        $this->id = $id;
 
-        $this->room = TypeRoom::where("id", $this->id)->with('hotel', 'room', 'hotel.amenities', 'hotel.roomtype', 'room.roomtype', 'hotel.country', 'hotel.city')->first();
+        $this->room = TypeRoom::with('hotel', 'hotel.room', 'hotel.amenities', 'hotel.roomtype', 'hotel.country', 'hotel.city')
+            ->findOrFail($this->id);
+
+        logger("Room Data:", [$this->room]);
+
         $this->countries = Country::all();
         $this->cities = City::where('country_id', $this->room->hotel->country_id)->get();
-        $this->roomtype = $this->room->roomtype;
+
+        // Set other properties
+        $this->roomtype = $this->room;
         $this->hotel = $this->room->hotel;
         $this->amenities = $this->room->hotel->amenities;
         $this->checkInDate = request()->query('checkInDate');
@@ -78,25 +88,22 @@ class BookingPage extends Component
         $this->infants = request()->query('infants');
         $this->country = $this->room->hotel->country->name ?? '';
         $this->city = $this->room->hotel->city->name ?? '';
-        $this->roomId = $this->roomId ?? $this->room->id;
-        $this->hotelId = $this->hotelId ?? $this->hotel->id;
 
+        $this->roomId = $this->room->room->id ?? null;
+        $this->hotelId = $this->hotel->id;
 
-        $this->typeroom = Room::where('id', $this->id)->first();
+        $this->typeroom = $this->room;
         $this->address = $this->street . "," . $this->city . ", " . $this->country;
-        $this->roomtype_Id = $this->typeroom->id;
+        $this->roomtype_Id = $this->room->id;
         $this->capacitys = $this->room->room_capacity ?? '1';
         $this->price = $this->room->price;
 
         $this->calculPrice();
-
-        //dd($this->room, $this->hotel, $this->amenities, $this->checkInDate, $this->checkOutDate , $this->typeroom);
-
-
     }
-
     public function submit()
     {
+
+
         $this->validate([
             'checkInDate' => 'required|date',
             'checkOutDate' => 'required|date|after:checkInDate',
@@ -116,6 +123,7 @@ class BookingPage extends Component
             'price' => 'required',
             'street' => 'string'
         ]);
+
 
         $countryId = Country::where('name', $this->country)->value('id');
         $cityId = City::where('name', $this->city)->value('id');
@@ -140,13 +148,24 @@ class BookingPage extends Component
             'price_per_night' => $this->price,
             'street' => $this->street,
         ]);
+        if (!empty($this->selectedAmenities)) {
+            foreach ($this->selectedAmenities as $amenityId) {
+                $amenity = Amenities::find($amenityId);
+                if ($amenity) {
+                    $price = $amenity->hotels->firstWhere('id', $this->hotelId)->pivot->price ?? 0.00;
+
+                    $booking->amenities()->attach($amenityId, [
+                        'price' => $price,
+                    ]);
+                }
+            }
+        }
 
 
 
         if ($booking->hotel || $booking->room) {
             session()->flash('success', 'A confirmation email has been sent to your email address.');
             Mail::to($this->email)->send(new BookingConfirmationMail($booking));
-            sleep(3);
             return redirect()->route('booking.waiting-conformation.' . app()->getLocale());
 
         }
@@ -183,19 +202,47 @@ class BookingPage extends Component
         };
     }
 
+    public function updatedSelectedAmenities()
+    {
+        $this->calculPrice();
+    }
+
     public function calculPrice()
     {
         if ($this->checkInDate && $this->checkOutDate) {
             $checkIn = Carbon::parse($this->checkInDate);
             $checkOut = Carbon::parse($this->checkOutDate);
             $numberOfNights = $checkIn->diffInDays($checkOut);
-            $this->roomPrice = $this->room->price * $numberOfNights;
 
+            $basePrice = $this->room->price * $numberOfNights;
+
+            $totalAmenitiesPrice = 0;
+
+            $this->amenities = Amenities::whereHas('hotels', function ($query) {
+                $query->where('hotels.id', $this->hotelId);
+            })->with([
+                        'hotels' => function ($query) {
+                            $query->where('hotels.id', $this->hotelId)
+                                ->withPivot('is_free', 'price');
+                        }
+                    ])->get()->filter(function ($amenity) {
+                        return !$amenity->hotels->first()->pivot->is_free;
+                    });
+
+            foreach ($this->selectedAmenities as $amenityId) {
+                $amenity = $this->amenities->find($amenityId);
+                if ($amenity) {
+                    foreach ($amenity->hotels as $hotel) {
+                        if ($hotel->id == $this->hotelId && !$hotel->pivot->is_free) {
+                            $totalAmenitiesPrice += $hotel->pivot->price;
+                        }
+                    }
+                }
+            }
+
+            $this->roomPrice = $basePrice + $totalAmenitiesPrice;
         }
     }
-
-
-
     public function updated($propertyName)
     {
         if (in_array($propertyName, ['street', 'city', 'country'])) {

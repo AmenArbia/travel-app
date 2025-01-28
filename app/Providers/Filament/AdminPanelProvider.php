@@ -48,8 +48,12 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
+<<<<<<< HEAD
                 HotelWidget::class,
                 TableWidget::class,
+=======
+                Widgets\AccountWidget::class,
+>>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
             ])
 
 

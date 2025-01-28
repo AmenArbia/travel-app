@@ -8,9 +8,13 @@ use App\Models\Room;
 use App\Models\TypeRoom;
 use Livewire\Component;
 use Livewire\Attributes\Lazy;
+<<<<<<< HEAD
 use Livewire\Attributes\Title;
 
 #[Title('Room details page - Travel-Shaper')]
+=======
+
+>>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
 
 class RoomDetailsPage extends Component
 {

@@ -25,11 +25,18 @@ class Booking extends Model
         'phone',
         'address',
         'coupon_code',
+<<<<<<< HEAD
         'country_id',
         'city_id',
         'room_id',
         'booking_status',
         'is_confirmed'
+=======
+        'booking_status',
+        'country_id',
+        'city_id',
+        'booking_status',
+>>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
 
 
 
@@ -53,10 +60,17 @@ class Booking extends Model
     }
 
     public function amenities()
+<<<<<<< HEAD
     {
         return $this->belongsToMany(Amenities::class, 'booking_amenity', 'booking_id', 'amenity_id')
             ->withPivot('is_free', 'price');
     }
+=======
+{
+    return $this->belongsToMany(Amenities::class, 'booking_amenity' , 'booking_id', 'amenity_id')
+                ->withPivot('is_free', 'price');
+}
+>>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
     public function country()
     {
         return $this->belongsTo(Country::class);
@@ -66,4 +80,8 @@ class Booking extends Model
     {
         return $this->belongsTo(City::class);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df

@@ -27,6 +27,13 @@ class CreateHotel extends CreateRecord
 
     public function mutateFormDataBeforeCreate(array $data): array
     {
+<<<<<<< HEAD
         return $data;
     }
 }
+=======
+        dd($data);
+        return $data;
+    }
+}
+>>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df

@@ -48,7 +48,11 @@ class TypeRoomRelationManager extends RelationManager
                             ->reactive()
                             ->searchable()
                             ->afterStateUpdated(
+<<<<<<< HEAD
                                 function ($state, $set) {
+=======
+                                function ($state,   $set) {
+>>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
                                     $room = null;
                                     if ($state) {
                                         $room = Room::find($state);
@@ -148,6 +152,13 @@ class TypeRoomRelationManager extends RelationManager
                             ->maxlength(255)
                     ]),
 
+                Section::make('Rating')
+                    ->schema([
+                        Rating::make('rating')
+                            ->color('warning')
+                            ->theme(RatingTheme::HalfStars),
+                    ]),
+
                 FileUpload::make('photos')
                     ->label('Photos')
                     ->directory('type_rooms')
@@ -185,6 +196,9 @@ class TypeRoomRelationManager extends RelationManager
                     ->money('TND')
                     ->searchable()
                     ->sortable(),
+                RatingColumn::make('room.rating')
+                    ->color('warning')
+                    ->theme(RatingTheme::HalfStars),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

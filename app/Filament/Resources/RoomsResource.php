@@ -53,7 +53,11 @@ class RoomsResource extends Resource
                             ->preload()
                             ->required()
                             ->options([
+<<<<<<< HEAD
                                 'Standard ' => 'Standard',
+=======
+                                'Standard ' =>  'Standard',
+>>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
                                 'Deluxe ' => 'Deluxe',
                                 'Suite ' => 'Suite',
                             ])
@@ -192,6 +196,13 @@ class RoomsResource extends Resource
 
                             ]),
 
+                        Section::make('Rating')
+                            ->schema([
+                                Rating::make('rating')
+                                    ->color('warning')
+                                    ->theme(RatingTheme::HalfStars),
+                            ]),
+
 
 
 
@@ -217,6 +228,9 @@ class RoomsResource extends Resource
                         'primary' => 'Deluxe ',
                         'warning' => 'Suite ',
                     ]),
+                RatingColumn::make('rating')
+                    ->color('warning')
+                    ->theme(RatingTheme::HalfStars),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

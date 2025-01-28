@@ -9,8 +9,11 @@ export default {
         './resources/**/*.js',
         './resources/**/*.vue',
         './node_modules/preline/dist/*.js',
+<<<<<<< HEAD
         'node_modules/flowbite/**/*.js',
 
+=======
+>>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
     ],
     theme: {
         extend: {

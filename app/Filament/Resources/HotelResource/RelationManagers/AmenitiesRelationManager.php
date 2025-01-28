@@ -177,10 +177,14 @@ class AmenitiesRelationManager extends RelationManager
                             ->preload()
                             ->placeholder('Select a Room')
                             ->nullable(),
+<<<<<<< HEAD
                     ]),
 
                 Tables\Actions\LocaleSwitcher::make(),
 
+=======
+                    ])
+>>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->action(function ($data, $record) {

@@ -272,10 +272,7 @@
                                                 class="w-80 pt-2 pl-2 pb-2 mt-1 border border-gray-200" required>
                                                 <option value="" disabled selected>Choose your country</option>
                                                 @foreach ($countries as $country)
-                                                    <option value="{{ $country->id }}"
-                                                        {{ $country->id == $this->country ? 'selected' : '' }}>
-                                                        {{ $country->name }}
-                                                    </option>
+                                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
                                                 @endforeach
                                             </select>
                                             <div>
@@ -295,10 +292,7 @@
                                                 <option value="" disabled selected>
                                                     {{ __('lang.Choose your city') }}</option>
                                                 @foreach ($cities as $city)
-                                                    <option value="{{ $city->id }}"
-                                                        {{ $city->id == $this->city ? 'selected' : '' }}>
-                                                        {{ $city->name }}
-                                                    </option>
+                                                    <option value="{{ $city->id }}">{{ $city->name }}</option>
                                                 @endforeach
                                             </select>
                                             <div>
@@ -316,7 +310,7 @@
 
                                             <h3 class="relative top-3 font-semibold text-black">Add Amenities </h3>
                                             <div class=" border border-t-2 border-gray-200 pb-2  border-b-0 border-r-0 border-l-0 right-2 relative top-3 "
-                                                style="width: 150px;">
+                                                style="width: 130px;">
                                             </div>
                                             @foreach ($amenities as $amenity)
                                                 <div class="top-3 relative max-h-10">
@@ -370,7 +364,7 @@
                                         </div>
                                         <div class=" pb-4 ml-5 " style="width: 350px">
                                             <input type="number" placeholder="Complet address" wire:model="roomId"
-                                                class="w-80 pt-2 pl-2 pb-2 mt-1 border border-gray-200  ">
+                                                class="w-80 pt-2 pl-2 pb-2 mt-1 border border-gray-200  " hidden>
                                         </div>
 
                                         <div class=" pb-4 ml-5 " style="width: 350px">

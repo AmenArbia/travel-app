@@ -156,5 +156,5 @@ return [
     'Media and Technology' => 'وسائل الإعلام والتكنولوجيا',
 
 
-
+    'No Price Available' => 'لا توجد أسعار متاحة',
 ];

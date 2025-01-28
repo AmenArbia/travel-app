@@ -156,6 +156,6 @@ return [
     'Living Area' => 'Living Area',
     'Media and Technology' => 'Media and Technology',
 
-
+    'No Price Available' => 'No Price Available',
 
 ];

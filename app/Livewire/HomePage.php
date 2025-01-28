@@ -18,9 +18,6 @@ class HomePage extends Component
     public $selected_amenities = [];
     public $selected_status = [];
     public $selected_types = [];
-    public $capacity = 500;
-
-    public $slug;
 
     public $roomtype;
     public $hotel;

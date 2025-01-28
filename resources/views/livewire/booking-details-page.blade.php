@@ -12,7 +12,7 @@
                         <h3 class="font-bold">{{ __('lang.Booking history') }}</h3>
 
                         <button
-                            class="px-4 py-2 font-bold text-white rounded-full hover:bg-yellow-500 bg-violet-600 relative ">
+                            class="px-4 py-2 font-bold text-white rounded-full hover:bg-yellow-500 bg-violet-600 relative no-underline  btn btn-primary cursor-pointer outline-none    overflow-hidden whitespace-nowrap  z-0 border-none  leading-6   align-middle select-none transform transition duration-300 hover:scale-105 hover:shadow-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none active:scale-95 ">
                             <a href="{{ route('hotels.' . app()->getLocale()) }}"
                                 class="text-white no-underline">{{ __('lang.Book Room') }}</a>
                         </button>
@@ -32,16 +32,25 @@
                                 <tbody>
                                     @foreach ($bookings as $booking)
                                         <tr>
-                                            <td class="inline-block">{{ $booking->hotel->name ?? 'N/A' }}</td>
+                                            <td class=" inline-block">{{ $booking->hotel->name ?? 'N/A' }}</td>
                                             <td>{{ $booking->roomtype->name ?? 'N/A' }}</td>
-                                            <td
-                                                class="relative  inline-block px-2   font-bold text-black  text-md
-                                            @if ($booking->roomtype->room->type === 'Standard ') bg-green-500
-                                            @elseif ($booking->roomtype->type === 'Deluxe ') bg-blue-500
-                                            @elseif ($booking->roomtype->type === 'Suite ') bg-yellow-500 @endif
-                                        ">
-                                                <span class=" inline-block px-2  font-bold text-black  text-md  ">
-                                                    {{ $booking->roomtype->room->type ?? 'N/A' }}</span>
+                                            <td class="relative inline-block px-2 font-bold text-black text-md">
+                                                @if ($booking->roomtype->room->type === 'Standard ')
+                                                    <span
+                                                        class="pending bg-gree-500 inline-block px-2 font-bold text-white rounded-2xl text-md">
+                                                        {{ __('lang.Standard ') }}
+                                                    </span>
+                                                @elseif ($booking->roomtype->room->type === 'Deluxe ')
+                                                    <span
+                                                        class="approved bg-blue-500 inline-block px-2 font-bold text-white rounded-2xl text-md">
+                                                        {{ __('lang.Deluxe ') }}
+                                                    </span>
+                                                @elseif ($booking->roomtype->room->type === 'Suite ')
+                                                    <span
+                                                        class="cancelled bg-yellow-500 inline-block px-2 font-bold text-white rounded-2xl text-md">
+                                                        {{ __('lang.Suite ') }}
+                                                    </span>
+                                                @endif
                                             </td>
                                             <td>{{ $booking->roomtype->price ?? 'N/A' }} {{ __('lang.TND') }}</td>
                                             <td class="complete">

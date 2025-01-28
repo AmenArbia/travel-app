@@ -185,18 +185,23 @@
 
                                             <div class="mt-6 ">
                                                 @if ($hotel)
-                                                    <div class="relative ">
-                                                        <span
-                                                            class="text-gray-500 font-bold">{{ __('lang.Price start from :') }}
-                                                            <span class="text-yellow-600 font-bold text-xl">
-                                                                {{ $hotel->roomtype->min('price') }}
-                                                                {{ __('lang.TND') }}
+                                                    <div class="relative">
+                                                        @if ($hotel->roomtype->isNotEmpty() && $hotel->roomtype->min('price') > 0)
+                                                            <span class="text-gray-500 font-bold">
+                                                                {{ __('lang.Price start from :') }}
+                                                                <span class="text-yellow-600 font-bold text-xl">
+                                                                    {{ $hotel->roomtype->min('price') }}
+                                                                    {{ __('lang.TND') }}
+                                                                </span>
+                                                                <sub class="text-yellow-600 font-bold">
+                                                                    {{ __('lang./Per night') }}
+                                                                </sub>
                                                             </span>
-
-                                                            <sub class="text-yellow-600 font-bold">
-                                                                {{ __('lang./Per night') }}</sub>
-                                                        </span>
-
+                                                        @else
+                                                            <span class="text-yellow-600 font-bold relative left-40">
+                                                                {{ __('lang.No Price Available') }}
+                                                            </span>
+                                                        @endif
                                                     </div>
                                                 @endif
 
@@ -204,7 +209,7 @@
 
                                                 @if (!empty($hotel->slug))
                                                     <a href="{{ route('details.slug.' . app()->getLocale(), $hotel->slug) }}"
-                                                        class="relative block w-32 font-bold text-center text-white hover:text-white rounded-2xl left-3/4 top-24px  no-underline bg-violet-500 hover:bg-yellow-500 btn btn-primary cursor-pointer outline-none">
+                                                        class="relative block w-32   text-center text-white hover:text-white rounded-2xl left-3/4 top-24px  no-underline bg-violet-500 hover:bg-yellow-500 btn btn-primary cursor-pointer outline-none  py-1 px-4  overflow-hidden whitespace-nowrap  z-0 border-none  leading-6   align-middle select-none transform transition duration-300 hover:scale-105 hover:shadow-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none active:scale-95 h-8 font-bold">
                                                         {{ __('lang.Check Details') }}
                                                     </a>
                                                 @else

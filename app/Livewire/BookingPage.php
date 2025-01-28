@@ -8,14 +8,11 @@ use App\Models\Amenities;
 use App\Models\Booking;
 use App\Models\City;
 use App\Models\Country;
-use App\Models\Hotel;
-use App\Models\Room;
+
 use App\Models\TypeRoom;
 use Guava\FilamentIconPicker\Forms\IconPicker;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Request;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 #[Title('Booking page - Travel-Shaper')]
@@ -34,8 +31,6 @@ class BookingPage extends Component
     public $checkInDate;
     public $checkOutDate;
     public $total_price;
-    public $selectedRoom = [];
-    public $roomOptions = [];
     public $adults;
     public $children;
     public $infants;
@@ -58,7 +53,6 @@ class BookingPage extends Component
     public $countries;
     public $cities;
     public $street;
-    public $successMessage = '';
 
     public $selectedAmenities = [];
     public $roomPrice = 0;
@@ -72,12 +66,9 @@ class BookingPage extends Component
         $this->room = TypeRoom::with('hotel', 'hotel.room', 'hotel.amenities', 'hotel.roomtype', 'hotel.country', 'hotel.city')
             ->findOrFail($this->id);
 
-        logger("Room Data:", [$this->room]);
-
         $this->countries = Country::all();
-        $this->cities = City::where('country_id', $this->room->hotel->country_id)->get();
+        $this->cities = City::all();
 
-        // Set other properties
         $this->roomtype = $this->room;
         $this->hotel = $this->room->hotel;
         $this->amenities = $this->room->hotel->amenities;
@@ -86,8 +77,8 @@ class BookingPage extends Component
         $this->adults = request()->query('adults');
         $this->children = request()->query('children');
         $this->infants = request()->query('infants');
-        $this->country = $this->room->hotel->country->name ?? '';
-        $this->city = $this->room->hotel->city->name ?? '';
+        $this->country = $this->room->hotel->country->name;
+        $this->city = $this->room->hotel->city->name;
 
         $this->roomId = $this->room->room->id ?? null;
         $this->hotelId = $this->hotel->id;
@@ -253,11 +244,10 @@ class BookingPage extends Component
 
     public function updateAddress()
     {
-        $this->address = "{$this->street}, {$this->city}, {$this->country}";
+        $countryName = Country::find($this->country)->name ?? '';
+        $cityName = City::find($this->city)->name ?? '';
+        $this->address = "{$this->street}, {$cityName}, {$countryName}";
     }
-
-
-
 
 
     public function render()

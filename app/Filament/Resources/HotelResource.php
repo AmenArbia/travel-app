@@ -68,11 +68,7 @@ class HotelResource extends Resource
                                             ->maxLength(255)
                                             ->dehydrated()
                                             ->live()
-<<<<<<< HEAD
                                             ->unique(Hotel::class, ignoreRecord: true)
-=======
-                                            ->unique(Hotel::class, 'slug->en' . 'slug->ar', ignoreRecord: true)
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
                                             ->required(),
                                         MarkdownEditor::make('description')
                                             ->label('Hotel description')

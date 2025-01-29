@@ -48,8 +48,4 @@ class Room extends Model
     {
         return $this->hasMany(Booking::class);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df

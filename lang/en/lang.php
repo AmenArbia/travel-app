@@ -16,11 +16,7 @@ return [
     'Hotel Amenities' => 'Hotel Amenities',
     'Hotels found' => 'Hotels found',
     'Hotel Name' => 'Hotel Name',
-<<<<<<< HEAD
     "Hotel type" => "Hotel type",
-=======
-    "Type d'hotel" => "Type d'hotel",
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
     "Status" => "Status",
     'Hotel' => 'Hotel',
     'Resort' => 'Resort',
@@ -42,16 +38,11 @@ return [
     'Children' => 'Children',
     'Infants' => 'Infants',
     'Price' => 'Price',
-<<<<<<< HEAD
     '/Per night' => '/Per night',
-=======
-    '/per night' => '/per night',
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
     'Related Hotels' => 'Related Hotels',
     'View Details' => 'View Details',
     'No related hotels found.' => 'No related hotels found.',
     'Travel Shaper' => 'Travel Shaper',
-<<<<<<< HEAD
     'Room Type' => 'Room Type',
     'Room Status' => 'Room Status',
     'Room Details' => 'Room Details',
@@ -164,9 +155,7 @@ return [
     'Bedroom' => 'Bedroom',
     'Living Area' => 'Living Area',
     'Media and Technology' => 'Media and Technology',
-
+    'No rooms available.' => 'No rooms available.',
     'No Price Available' => 'No Price Available',
 
-=======
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
 ];

@@ -1,14 +1,9 @@
-<<<<<<< HEAD
 <div class="bg-slate-100">
     @include('livewire.partials.navbar')
 
     @vite('resources/css/preview.css')
 
     <div class="relative flex items-center justify-center  overflow-hidden bg-slate-100">
-=======
-<div class="min-h-screen bg-white">
-    <div class="relative flex items-center justify-center min-h-screen overflow-hidden bg-slate-100">
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
         <div
             class="relative w-full h-full px-6 pt-16 overflow-hidden shadow-2xl bg-gray-00 isolate sm:rounded-none sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
             <svg viewBox="0 0 1024 1024"
@@ -33,7 +28,6 @@
                     rooms, check real-time availability, and enjoy exclusive deals. Book your next stay effortlessly and
                     securely today! </p>
                 <div class="flex items-center justify-center mt-10 gap-x-6 lg:justify-start ">
-<<<<<<< HEAD
                     <a href="/hotels"
                         class=" right-28   px-3.5 py-2.5 text-sm font-semibold  p-2 rounded-full bg-violet-600 text-white no-underline  transform transition duration-200 hover:scale-95 hover:shadow-lg  hover:bg-yellow-500 hover:text-white hover:font-bold   focus:outline-none active:scale-95">Get
                         started</a>
@@ -41,13 +35,6 @@
                         class="text-sm font-semibold text-black after:border-t-violet-500 no-underline ">Learn
                         more
                         <span aria-hidden="true " class="transform transition duration-200 hover:scale-95">→</span></a>
-=======
-                    <a href="/home"
-                        class=" right-28 rounded-md bg-violet-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-yellow-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ">Get
-                        started</a>
-                    <a href="/home" class="text-sm font-semibold text-black after:border-t-violet-500">Learn more
-                        <span aria-hidden="true">→</span></a>
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
                 </div>
             </div>
             <div class="relative h-full mt-16 lg:mt-7">
@@ -56,89 +43,6 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-=======
-
-    <style>
-        .text-animation {
-            animation: fadeIn 2s ease-out forwards, scaleIn 2s ease-out forwards;
-        }
-
-
-
-        @keyframes cursor {
-            50% {
-                border-color: transparent;
-            }
-        }
-
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-
-        @keyframes scaleIn {
-            0% {
-                transform: scale(0.8);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        .text-animation:hover {
-            transform: scale(1.05);
-            transition: transform 0.3s ease-out;
-        }
-
-        .text-animation:hover {
-            filter: blur(1px);
-            transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
-        }
-
-        .image-animation {
-            animation: fadeIn 2s ease-out forwards, scaleIn 2s ease-out forwards;
-        }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-
-        @keyframes scaleIn {
-            0% {
-                transform: scale(0.8);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        .image-animation:hover {
-            transform: scale(1.05);
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .image-animation:hover {
-            filter: blur(1.5px);
-            transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
-        }
-    </style>
-
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
 </div>
 
 

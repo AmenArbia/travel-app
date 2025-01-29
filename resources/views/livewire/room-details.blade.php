@@ -6,53 +6,39 @@
                     @if ($rooms)
                         <div class="relative tour_details_heading_wrapper top-24 ">
                             <div class="tour_details_top_heading">
-<<<<<<< HEAD
                                 <h2 class="relative font-bold top-5">{{ __('lang.Room code') }} : {{ $room->code }}
                                 </h2>
                                 <span class="font-bold text-black relative top-5">{{ __('lang.Room type') }} :</span>
-=======
-                                <h2 class="relative font-bold top-5">Room code : {{ $room->code }}</h2>
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
                                 <h3
                                     class="relative  inline-block px-2  font-bold text-white rounded-2xl text-md top-5
                                 @if ($room->type == 'Standard ') bg-green-500
                                 @elseif ($room->type == 'Deluxe ') bg-blue-500
                                 @elseif ($room->type == 'Suite ') bg-yellow-500 @endif
                             ">
-<<<<<<< HEAD
 
                                     {{ $room->type }} </h3>
-=======
-                                    {{ $room->type }} Room</h3>
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
                                 <h5><i class="fas fa-map-marker-alt"></i>
-                                    {{ implode(', ', [$hotel->country->name, $hotel->city->name]) }}
-                                </h5>
 
-
-<<<<<<< HEAD
-                                <h6 class="relative text-base font-bold bottom-7 right-64">{{ __('lang.Rating') }} :
-                                </h6>
-=======
-                                <h6 class="relative text-base font-bold bottom-7 right-64">Rating : </h6>
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
-                                <div class="relative bottom-7 left-5">
-                                    @for ($i = 1; $i <= floor($room->rating); $i++)
-                                        <i class="text-yellow-500 fa-solid fa-star"></i>
-                                    @endfor
-                                    @if ($room->rating - floor($room->rating) >= 0.5)
-                                        <i class="text-yellow-500 fa-solid fa-star-half "></i>
-                                    @endif
-                                    @for ($i = ceil($room->rating); $i < 5; $i++)
-                                        <i class="text-gray-400 fa-regular fa-star"></i>
-                                    @endfor
-
-                                </div>
-                                <div class="relative left-28 bottom-9 ">
-                                    <h6 class="relative py-4 text-xl font-bold bottom-8 -left-14 ">/ {{ $room->rating }}
+                                    <h6 class="relative text-base font-bold bottom-7 right-64">{{ __('lang.Rating') }} :
                                     </h6>
+                                    <div class="relative bottom-7 left-5">
+                                        @for ($i = 1; $i <= floor($room->rating); $i++)
+                                            <i class="text-yellow-500 fa-solid fa-star"></i>
+                                        @endfor
+                                        @if ($room->rating - floor($room->rating) >= 0.5)
+                                            <i class="text-yellow-500 fa-solid fa-star-half "></i>
+                                        @endif
+                                        @for ($i = ceil($room->rating); $i < 5; $i++)
+                                            <i class="text-gray-400 fa-regular fa-star"></i>
+                                        @endfor
 
-                                </div>
+                                    </div>
+                                    <div class="relative left-28 bottom-9 ">
+                                        <h6 class="relative py-4 text-xl font-bold bottom-8 -left-14 ">/
+                                            {{ $room->rating }}
+                                        </h6>
+
+                                    </div>
 
                             </div>
 
@@ -80,65 +66,39 @@
 
                         <div class="relative py-5 left-64">
                             <button wire:click="previousSlide"
-<<<<<<< HEAD
                                 class="px-6 py-2 font-bold text-white cursor-pointer rounded-3xl left-32 top-5 bg-violet-600 hover:bg-violet-700">{{ __('lang.Previous') }}</button>
                             <button wire:click="nextSlide"
                                 class="px-6 py-2 font-bold text-white cursor-pointer rounded-3xl left-40 top-5 bg-violet-600 hover:bg-violet-700">{{ __('lang.Next') }}</button>
-=======
-                                class="px-6 py-2 font-bold text-white cursor-pointer rounded-3xl left-32 top-5 bg-violet-600 hover:bg-violet-700">Previous</button>
-                            <button wire:click="nextSlide"
-                                class="px-6 py-2 font-bold text-white cursor-pointer rounded-3xl left-40 top-5 bg-violet-600 hover:bg-violet-700">Next</button>
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
                         </div>
                     </div>
 
                     <div class="tour_details_boxed">
-<<<<<<< HEAD
                         <h3 class="heading_theme">{{ __('lang.Description') }}</h3>
-=======
-                        <h3 class="heading_theme">Description</h3>
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
                         <div class="tour_details_boxed_inner">
                             <p>
                                 {{ $room->description }}
                             </p>
                             @foreach ($roomtype as $type)
                                 <p class="font-bold">
-<<<<<<< HEAD
                                     {{ __('lang.Room Capacity') }} : {{ $type->room_capacity }}
-=======
-                                    Room Capacity: {{ $type->room_capacity }}
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
                                 </p>
 
 
                                 <ul>
                                     <li class="font-bold text-violet-600"> <i class=" fa-solid fa-person font-lg"></i>
-<<<<<<< HEAD
                                         {{ __('lang.Adults number') }}: <span
-=======
-                                        Adults: <span
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
                                             class="font-medium text-black">{{ $type->room->adult_capacity['adult_min'] ?? 'N/A' }}
                                             -
                                             {{ $type->room->adult_capacity['adult_max'] ?? 'N/A' }}</span>
                                     </li>
-<<<<<<< HEAD
                                     <li class="font-bold text-violet-600"><i class="fa-solid fa-child"></i>
                                         {{ __('lang.Children number') }}:
-=======
-                                    <li class="font-bold text-violet-600"><i class="fa-solid fa-child"></i> Children:
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
                                         <span
                                             class="font-medium text-black">{{ $type->room->children_capacity['children_max'] ?? 'N/A' }}
                                         </span>
                                     </li>
-<<<<<<< HEAD
                                     <li class="font-bold text-violet-600"><i class="fa-solid fa-baby"></i>
                                         {{ __('lang.Infants number') }}:
-=======
-                                    <li class="font-bold text-violet-600"><i class="fa-solid fa-baby"></i> Infants:
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
                                         <span
                                             class="font-medium text-black">{{ $type->room->infants_capacity['infants_max'] ?? 'N/A' }}</span>
                                     </li>
@@ -148,11 +108,7 @@
                     </div>
 
                     <div class="tour_details_boxed">
-<<<<<<< HEAD
                         <h3 class="heading_theme">{{ __('lang.Room amenities') }}</h3>
-=======
-                        <h3 class="heading_theme">Room amenities</h3>
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
                         <div class="tour_details_boxed_inner">
                             <div class="room_details_facilities">
                                 <div class="toru_details_top_bottom_item">
@@ -187,29 +143,17 @@
                         <div class="tour_details_right_boxed">
                             <div class=" tour_details_right_box_heading">
                                 @foreach ($roomtype as $type)
-<<<<<<< HEAD
                                     <h3 class="font-extrabold"> {{ __('lang.Price') }}</h3>
-=======
-                                    <h3 class="font-extrabold"> Price</h3>
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
 
 
                             </div>
                             <div class="tour_package_bar_price">
-<<<<<<< HEAD
                                 <h3>{{ $type->price }} {{ __('lang.TND') }}<sub>/{{ __('lang.Per night') }}</sub>
                                 </h3>
                             </div>
                             @endforeach
                             <div class="tour_package_details_bar_list">
                                 <h5 class="font-bold">{{ __('lang.Hotel facilities') }}</h5>
-=======
-                                <h3>{{ $type->price }} TND<sub>/Per night</sub> </h3>
-                            </div>
-                            @endforeach
-                            <div class="tour_package_details_bar_list">
-                                <h5 class="font-bold">Hotel facilities</h5>
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
                                 <ul>
                                     <li><i class="py-2 fas fa-circle"></i>Buffet breakfast as per the Itinerary</li>
                                     <li><i class="fas fa-circle"></i>Visit eight villages showcasing Polynesian
@@ -225,12 +169,7 @@
                             <a class="relative px-4 py-2 font-bold text-white cursor-pointer rounded-3xl left-40 top-5 bg-violet-600 hover:bg-violet-700"
                                 data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
                                 aria-controls="offcanvasRight"
-<<<<<<< HEAD
                                 href="{{ route('booking.' . app()->getLocale(), $room->id) }}">{{ __('lang.Book Now') }}</a>
-=======
-                                href="{{ route('booking.' . app()->getLocale(), $room->id) }}">Book
-                                Now</a>
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
 
                         </div>
 
@@ -243,11 +182,7 @@
 
     <style>
         .section_padding {
-<<<<<<< HEAD
             padding: 20px;
-=======
-            padding: 100px;
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
             width: 49%;
         }
 

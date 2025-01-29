@@ -8,9 +8,15 @@
         <li>Check-out Date: {{ $booking->check_out_date }}</li>
         <li>Room : {{ $booking->roomtype->name }}</li>
         <li>Room type : {{ $booking->room->type }}</li>
+        <li> Guests : <ul>
+                <li>Adult : {{ $booking->adults }}</li>
+                <li>Children : {{ $booking->children }}</li>
+                <li>Infants : {{ $booking->infants }}</li>
+            </ul>
+        </li>
         <li>Total Price: ${{ $booking->total_price }}</li>
         </li>
     </ul>
     <p>We look forward to welcoming you!</p>
-    <span class="">Just wait for your booking to be approved </span>
+    <span>Just wait for your booking to be approved </span>
 </div>

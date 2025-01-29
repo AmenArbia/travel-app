@@ -12,7 +12,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\RelationManagers\Concerns\Translatable;
- use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Actions\AttachAction;
 use Filament\Tables\Columns\TextColumn;
@@ -146,7 +146,7 @@ class AmenitiesRelationManager extends RelationManager
                     ->preloadRecordSelect()
                     ->form(fn(AttachAction $action): array => [
                         $action->getRecordSelect()
-                        ->native(false),
+                            ->native(false),
 
                         Toggle::make('is_free')
                             ->inline(false)
@@ -177,14 +177,10 @@ class AmenitiesRelationManager extends RelationManager
                             ->preload()
                             ->placeholder('Select a Room')
                             ->nullable(),
-<<<<<<< HEAD
                     ]),
 
                 Tables\Actions\LocaleSwitcher::make(),
 
-=======
-                    ])
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->action(function ($data, $record) {

@@ -53,11 +53,7 @@ class RoomsResource extends Resource
                             ->preload()
                             ->required()
                             ->options([
-<<<<<<< HEAD
                                 'Standard ' => 'Standard',
-=======
-                                'Standard ' =>  'Standard',
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
                                 'Deluxe ' => 'Deluxe',
                                 'Suite ' => 'Suite',
                             ])

@@ -4,11 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\BookingResource\Pages;
 use App\Filament\Resources\BookingResource\RelationManagers;
-<<<<<<< HEAD
 use App\Filament\Resources\BookingResource\RelationManagers\AmenitiesRelationManager;
 
-=======
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
 use App\Models\Amenities;
 use App\Models\Country;
 use App\Models\City;
@@ -17,13 +14,10 @@ use App\Models\Hotel;
 use App\Models\Room;
 use App\Models\TypeRoom;
 use Filament\Forms\Components\Group;
-<<<<<<< HEAD
 use App\Mail\BookingStatusUpdated;
 use Illuminate\Support\Facades\Mail;
 
 
-=======
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
 
 use Filament\Forms;
 use Filament\Forms\Components\CheckboxList;
@@ -40,11 +34,8 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Tabs\Tab;
 use Illuminate\Support\Collection;
-<<<<<<< HEAD
 use Filament\Tables\Filters\SelectFilter;
 
-=======
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
 
 class BookingResource extends Resource
 {
@@ -121,11 +112,7 @@ class BookingResource extends Resource
                                         if ($state) {
                                             $set('discount', self::calculateDiscount($state));
                                         }
-<<<<<<< HEAD
                                     })->hidden(),
-=======
-                                    }),
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
                             ]),
                         Section::make('Booking Details')
                             ->schema([
@@ -277,11 +264,7 @@ class BookingResource extends Resource
         $pricePerNight = $get('price_per_night');
         $amenityIds = $get('amenity_ids');
         $amenityPrice = 0;
-<<<<<<< HEAD
         //$couponCode = $get('coupon_code');
-=======
-        $couponCode = $get('coupon_code');
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
         $discountPercentage = 0;
 
 
@@ -303,7 +286,6 @@ class BookingResource extends Resource
             }
         }
 
-<<<<<<< HEAD
         /*$coupons = [
             'DISCOUNT10' => 10, // 10% discount
             'DISCOUNT20' => 20, // 20% discount
@@ -313,17 +295,6 @@ class BookingResource extends Resource
         /*if ($couponCode && isset($coupons[$couponCode])) {
             $discountPercentage = $coupons[$couponCode];
         }*/
-=======
-        $coupons = [
-            'DISCOUNT10' => 10, // 10% discount
-            'DISCOUNT20' => 20, // 20% discount
-            'SUMMER50' => 50,   // 50% discount
-        ];
-
-        if ($couponCode && isset($coupons[$couponCode])) {
-            $discountPercentage = $coupons[$couponCode];
-        }
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
 
         if ($checkIn && $checkOut && $pricePerNight) {
             $checkInDate = new \DateTime($checkIn);
@@ -341,11 +312,7 @@ class BookingResource extends Resource
         }
     }
 
-<<<<<<< HEAD
     /*protected static function calculateDiscount(?string $couponCode): float
-=======
-    protected static function calculateDiscount(?string $couponCode): float
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
     {
         $coupons = [
             'DISCOUNT10' => 10,
@@ -354,11 +321,7 @@ class BookingResource extends Resource
         ];
 
         return $couponCode && isset($coupons[$couponCode]) ? $coupons[$couponCode] : 0;
-<<<<<<< HEAD
     }*/
-=======
-    }
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
 
     public static function formatAddress(?string $country, ?string $city): string
     {
@@ -385,7 +348,6 @@ class BookingResource extends Resource
                     ->searchable(),
 
 
-<<<<<<< HEAD
                 Tables\Columns\TextColumn::make('amenities.title')
                     ->label(' Room Amenities')
                     ->searchable()
@@ -394,20 +356,6 @@ class BookingResource extends Resource
 
 
 
-=======
-                Tables\Columns\TextColumn::make('hotel.amenities.type')
-                    ->label(' Room Amenities')
-                    ->searchable()
-                    ->badge()
-                    ->colors([
-                        'success' => 'Instant',
-                        'primary' => 'Internet',
-                        'warning' => 'Cleaning',
-                        'danger' => 'Bedroom',
-                        'info' => 'Living',
-                    ])
-                    ->sortable(),
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
                 Tables\Columns\TextColumn::make('check_in_date')
                     ->date()
                     ->sortable(),
@@ -435,7 +383,6 @@ class BookingResource extends Resource
                         'success' => 'approved',
                         'danger' => 'cancelled',
                         'warning' => 'pending',
-<<<<<<< HEAD
                     ])
                     ->label('Booking Status'),
 
@@ -452,9 +399,6 @@ class BookingResource extends Resource
                         'danger' => fn($state, $record): bool => $record->booking_status === 'pending',
                     ])
                     ->label('Confirmation'),
-=======
-                    ]),
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -465,7 +409,6 @@ class BookingResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-<<<<<<< HEAD
                 SelectFilter::make('booking_status')
                     ->multiple()
                     ->options([
@@ -473,9 +416,6 @@ class BookingResource extends Resource
                         'approved' => 'Approved',
                         'cancelled' => 'Cancelled',
                     ]),
-=======
-                //
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
@@ -485,12 +425,9 @@ class BookingResource extends Resource
                         ->label('Approve')
                         ->action(function (Booking $record) {
                             $record->update(['booking_status' => 'approved']);
-<<<<<<< HEAD
 
                             Mail::to($record->email)->send(new BookingStatusUpdated($record));
 
-=======
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
                         })
                         ->hidden(function ($record) {
                             return $record->booking_status == 'approved';
@@ -504,11 +441,8 @@ class BookingResource extends Resource
                         ->label('Cancel')
                         ->action(function (Booking $record) {
                             $record->update(['booking_status' => 'cancelled']);
-<<<<<<< HEAD
                             Mail::to($record->email)->send(new BookingStatusUpdated($record));
 
-=======
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
                         })
                         ->hidden(function ($record) {
                             return $record->booking_status == 'cancelled';
@@ -562,13 +496,9 @@ class BookingResource extends Resource
 
     public static function getRelations(): array
     {
-<<<<<<< HEAD
         return [
             AmenitiesRelationManager::class,
         ];
-=======
-        return [];
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
     }
 
     public static function getPages(): array

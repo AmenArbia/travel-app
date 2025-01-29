@@ -4,7 +4,6 @@
 namespace App\Livewire;
 
 use App\Models\Hotel;
-<<<<<<< HEAD
 use App\Models\Room;
 use App\Models\TypeRoom;
 use Livewire\Attributes\Title;
@@ -15,12 +14,6 @@ use Guava\FilamentIconPicker\Forms\IconPicker;
 
 use function Livewire\after;
 #[Title('Hotel details page - Travel-Shaper')]
-=======
-use Livewire\Attributes\Title;
-use Livewire\Component;
-
-
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
 
 class HotelDetailPage extends Component
 {
@@ -36,7 +29,6 @@ class HotelDetailPage extends Component
 
     public $relatedHotels;
 
-<<<<<<< HEAD
     public $checkInDate;
     public $checkOutDate;
     public $adults = 1;
@@ -55,22 +47,12 @@ class HotelDetailPage extends Component
     public $selectedRooms = [];
 
 
-=======
-    public $roomAvailable = false;
-    public $showModal = false;
-    public $showRooms;
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
 
     public function mount($slug)
     {
 
-<<<<<<< HEAD
         $this->hotel = Hotel::with(['photo', 'roomtype.room', 'roomtype', 'amenities', 'city', 'country', 'chaine', 'room'])
             ->where("slug", $slug)
-=======
-        $this->hotel = Hotel::with(['photo', 'roomtype.room', 'roomtype', 'amenities', 'city', 'country', 'chaine'])
-            ->where("slug->" . app()->getLocale(),  $slug)
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
             ->firstOrFail();
 
         $this->roomtype = $this->hotel->roomtype;
@@ -83,7 +65,6 @@ class HotelDetailPage extends Component
             ->with(['photo', 'city', 'country'])
             ->take(6)
             ->get();
-<<<<<<< HEAD
 
 
     }
@@ -174,25 +155,6 @@ class HotelDetailPage extends Component
 
 
     public function getBadgeClassRoom($type)
-=======
-        $this->relatedHotels->count();
-    }
-
-
-
-    public function toggleRoomAvailability()
-    {
-        $this->roomAvailable = !$this->roomAvailable;
-        $this->showModal = !$this->roomAvailable ? true : false;
-    }
-
-    public function closeModal()
-    {
-        $this->showModal = true;
-    }
-
-    public function getBadgeClass($type)
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
     {
         return match ($type) {
             'Standard ' => 'bg-green-500',
@@ -211,7 +173,6 @@ class HotelDetailPage extends Component
             default => 'bg-gray-500',
         };
     }
-<<<<<<< HEAD
     public function setCurrentImage($index)
     {
 
@@ -242,28 +203,13 @@ class HotelDetailPage extends Component
               'chaines' => $this->chaine,
               'currentImageIndex' => $this->currentImageIndex,
           ]);*/
-=======
-
-    public function toggleRooms()
-    {
-        $this->showRooms = !$this->showRooms;
-    }
-    public function render()
-    {
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
         return view('livewire.details-page', [
             'hotel' => $this->hotel,
             'photos' => $this->photo,
             'roomtype' => $this->roomtype,
             'room' => $this->room,
             'chaines' => $this->chaine,
-<<<<<<< HEAD
             'currentImageIndex' => $this->currentImageIndex,
         ]);
     }
 }
-=======
-        ]);
-    }
-}
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df

@@ -10,16 +10,8 @@ class Hotel extends Model
 {
     use HasFactory;
     use HasTranslations;
-<<<<<<< HEAD
 
-=======
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
 
-    public $translatable = [
-        'name',
-        'slug',
-        'description',
-    ];
     protected $fillable = [
         'name',
         'slug',
@@ -43,10 +35,6 @@ class Hotel extends Model
     protected $casts = [
         'contact' => 'array',
         'name' => 'array',
-<<<<<<< HEAD
-=======
-        'slug' => 'array',
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
         'description' => 'array',
     ];
 

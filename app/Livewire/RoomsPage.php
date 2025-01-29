@@ -9,11 +9,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-<<<<<<< HEAD
 #[Title('Rooms page - Travel-Shaper')]
-=======
-#[Title('Rooms Page - Travel-Shaper')]
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
 
 class RoomsPage extends Component
 {

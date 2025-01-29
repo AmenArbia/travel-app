@@ -13,7 +13,6 @@ return [
     "Total Expenses" => "المصاريب الكلية",
     'Hotel Type' => 'نوع الفندق',
     'Hotels Status' => 'حالة الفنادق',
-<<<<<<< HEAD
     'Hotel Amenities' => 'وسائل راحة الفنادق',
     'Hotels found' => 'الفنادق الموجودة',
     'Hotel Name' => 'اسم الفندق',
@@ -21,22 +20,10 @@ return [
     "Status" => 'حالة الفندق',
     'Hotel' => 'فندق',
     'Hotel :' => 'فندق: ',
-=======
-    'Hotel Amenities' => 'امنيات الفنادق',
-    'Hotels found' => 'الفنادق الموجودة',
-    'Hotel Name' => 'اسم الفندق',
-    "Type d'hotel" => 'نوع الفندق',
-    "Status" => 'حالة الفندق',
-    'Hotel' => 'الفندق',
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
     'Resort' => 'الريزورت',
     'Guest House' => 'فيلا الضيف',
     'Check Details' => 'تفاصيل الفندق',
     'Description' => 'الوصف',
-<<<<<<< HEAD
-=======
-
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
     'Previous' => 'السابق',
     'Next' => 'التالي',
     'Location' => 'الموقع',
@@ -49,17 +36,10 @@ return [
     'Suite ' => 'سويت',
     'Room Capacity' => 'كمية الغرفة',
     'Adults' => 'البالغين',
-<<<<<<< HEAD
     'Children' => 'القاصرين',
     'Infants' => 'الأطفال',
     'Price' => 'السعر',
     '/Per night' => '/اليوم',
-=======
-    'Children' => 'الاطفال',
-    'Infants' => 'الأطفال',
-    'Price' => 'السعر',
-    '/per night' => '/اليوم',
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
     'Book Now' => 'احجز الان',
     'Book' => 'احجز',
     'Book Room' => 'احجز الغرفة',
@@ -67,7 +47,6 @@ return [
     'View Details' => 'عرض التفاصيل',
     'No related hotels found.' => 'لا يوجد فنادق ذات صلة',
     'Travel Shaper' => 'شكل السفر',
-<<<<<<< HEAD
     'Room Type' => 'نوع الغرفة',
     'Room Status' => 'حالة الغرفة',
     'Filter by Price' => 'تصفية حسب السعر',
@@ -176,9 +155,6 @@ return [
     'Living Area' => 'غرفة المعيشة',
     'Media and Technology' => 'وسائل الإعلام والتكنولوجيا',
 
-
+    'No rooms available.' => 'لا توجد غرف متاحة.',
     'No Price Available' => 'لا توجد أسعار متاحة',
-=======
-
->>>>>>> fbfb256ea01591146f7910984e8acb0ae24b71df
 ];

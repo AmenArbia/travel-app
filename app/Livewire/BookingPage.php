@@ -104,7 +104,7 @@ class BookingPage extends Component
             'infants' => 'required|numeric|min:0',
             'email' => 'required|email',
             'phone' => 'required|numeric|digits:8',
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:50',
             'roomId' => 'required|exists:rooms,id',
             'roomtype_Id' => 'required',
             'hotelId' => 'required|exists:hotels,id',

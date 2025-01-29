@@ -101,6 +101,8 @@ class TypeRoomRelationManager extends RelationManager
                             TextInput::make('pax_capacity.pax_max')
                                 ->label('Max Pax Capacity')
                                 ->placeholder('max')
+                                ->numeric()
+
                                 ->required(),
                         ])->columnSpan(1),
 
@@ -141,19 +143,19 @@ class TypeRoomRelationManager extends RelationManager
                         Textarea::make('room_highlights')
                             ->label('Room highlights')
                             ->live(true)
-                            ->maxLength(100),
+                            ->maxLength(500),
 
                         MarkdownEditor::make('description')
                             ->label('Description')
                             ->maxlength(255)
                     ]),
 
-                Section::make('Rating')
+                /*Section::make('Rating')
                     ->schema([
                         Rating::make('rating')
                             ->color('warning')
                             ->theme(RatingTheme::HalfStars),
-                    ]),
+                    ]),*/
 
                 FileUpload::make('photos')
                     ->label('Photos')
@@ -192,9 +194,9 @@ class TypeRoomRelationManager extends RelationManager
                     ->money('TND')
                     ->searchable()
                     ->sortable(),
-                RatingColumn::make('room.rating')
+            /*RatingColumn::make('room.rating')
                     ->color('warning')
-                    ->theme(RatingTheme::HalfStars),
+                    ->theme(RatingTheme::HalfStars),*/
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

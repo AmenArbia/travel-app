@@ -17,7 +17,6 @@ class Room extends Model
         'infants_capacity',
         'extra_capacity',
         'type',
-        'rating',
 
     ];
 

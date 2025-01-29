@@ -165,7 +165,7 @@
                                                             <li class="m-1">
                                                                 <i
                                                                     class="
-                                                                @switch($amenity->title)
+                                                                @switch($amenity->type)
                                                                     @case('Internet') fa-solid fa-wifi @break
                                                                     @case('Kitchen') fa-solid fa-kitchen-set @break
                                                                     @case('Bedroom') fa-solid fa-bed @break
@@ -201,7 +201,7 @@
                                                             </span>
                                                         @else
                                                             <span class="text-yellow-600 font-bold relative left-40">
-                                                                {{ __('lang.No Price Available') }}
+                                                                {{ __('lang.No rooms available.') }}
                                                             </span>
                                                         @endif
                                                     </div>

@@ -192,12 +192,12 @@ class RoomsResource extends Resource
 
                             ]),
 
-                        Section::make('Rating')
+                        /*Section::make('Rating')
                             ->schema([
                                 Rating::make('rating')
                                     ->color('warning')
                                     ->theme(RatingTheme::HalfStars),
-                            ]),
+                            ]),*/
 
 
 
@@ -224,9 +224,9 @@ class RoomsResource extends Resource
                         'primary' => 'Deluxe ',
                         'warning' => 'Suite ',
                     ]),
-                RatingColumn::make('rating')
+                /*RatingColumn::make('rating')
                     ->color('warning')
-                    ->theme(RatingTheme::HalfStars),
+                    ->theme(RatingTheme::HalfStars),*/
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

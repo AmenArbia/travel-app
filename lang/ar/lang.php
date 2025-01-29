@@ -157,4 +157,5 @@ return [
 
     'No rooms available.' => 'لا توجد غرف متاحة.',
     'No Price Available' => 'لا توجد أسعار متاحة',
+    'Booking details' => 'تفاصيل الحجز',
 ];

@@ -157,5 +157,6 @@ return [
     'Media and Technology' => 'Media and Technology',
     'No rooms available.' => 'No rooms available.',
     'No Price Available' => 'No Price Available',
+    'Booking details' => 'Booking details',
 
 ];

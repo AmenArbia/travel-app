@@ -32,15 +32,14 @@ class PhotoRelationManager extends RelationManager
                     ->multiple()
                     ->directory('photos')
                     ->required(),
-                Select::make('type')
+                /*Select::make('type')
                     ->label('Hotel Type')
                     ->options([
                         'Hotel' => 'Hotel',
                         'Resort' => 'Resort',
                         'Guest House' => 'Guest House',
                     ])
-                    ->default('Standard')
-                    ->required(),
+                    ->default('Standard'),*/
                 MarkdownEditor::make('caption')
                     ->label('Caption'),
             ]);

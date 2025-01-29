@@ -37,7 +37,7 @@
                                             <td class="relative inline-block px-2 font-bold text-black text-md">
                                                 @if ($booking->roomtype->room->type === 'Standard ')
                                                     <span
-                                                        class="pending bg-gree-500 inline-block px-2 font-bold text-white rounded-2xl text-md">
+                                                        class="pending bg-green-500 inline-block px-2 font-bold text-white rounded-2xl text-md">
                                                         {{ __('lang.Standard ') }}
                                                     </span>
                                                 @elseif ($booking->roomtype->room->type === 'Deluxe ')

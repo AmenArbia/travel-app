@@ -394,7 +394,8 @@
                                                                             id="room-{{ $room->id }}"
                                                                             value="{{ $room->id }}"
                                                                             wire:model="selectedRooms"
-                                                                            class="form-checkbox h-5 w-5 text-violet-600 mr-3">
+                                                                            class="form-checkbox h-5 w-5 text-violet-600 mr-3"
+                                                                            hidden>
                                                                     </div>
 
                                                                     <!-- Room Information -->
@@ -410,7 +411,7 @@
                                                                         </span>
                                                                         <p
                                                                             class="text-sm text-gray-500 relative bottom-5">
-                                                                            {{ $room->description }}
+                                                                            {{ Str::limit($room->description, 100, '...') }}
                                                                         </p>
                                                                     </div>
 

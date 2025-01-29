@@ -349,7 +349,7 @@ class BookingResource extends Resource
 
 
                 Tables\Columns\TextColumn::make('amenities.title')
-                    ->label(' Room Amenities')
+                    ->label(' Room Amenities added')
                     ->searchable()
                     ->badge()
                     ->sortable(),
@@ -419,6 +419,11 @@ class BookingResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make()
+                        ->modal()
+                        ->label('View Booking')
+                        ->icon('heroicon-o-eye')
+                        ->color('primary'),
 
                     Tables\Actions\DeleteAction::make(),
                     Tables\Actions\Action::make('approve')
@@ -478,6 +483,7 @@ class BookingResource extends Resource
 
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+
 
                 ])
             ]);

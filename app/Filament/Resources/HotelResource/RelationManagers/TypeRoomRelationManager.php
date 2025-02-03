@@ -43,10 +43,10 @@ class TypeRoomRelationManager extends RelationManager
                             ->label('Room Code')
                             ->relationship('room', 'code')
                             ->required()
-                            ->live(true)
+                            ->searchable()
                             ->preload()
                             ->reactive()
-                            ->searchable()
+
                             ->afterStateUpdated(
                                 function ($state, $set) {
                                     $room = null;
@@ -66,13 +66,9 @@ class TypeRoomRelationManager extends RelationManager
                                     };
                                 }
                             ),
-                        Select::make('room_type')
-                            ->label('Room Type')
-                            ->preload()
-                            ->live(true)
-                            ->searchable(),
+
                     ])
-                    ->columns(3),
+                    ->columns(2),
                 Section::make()
                     ->schema([
                         TextInput::make('room_capacity')
@@ -194,9 +190,9 @@ class TypeRoomRelationManager extends RelationManager
                     ->money('TND')
                     ->searchable()
                     ->sortable(),
-            /*RatingColumn::make('room.rating')
-                    ->color('warning')
-                    ->theme(RatingTheme::HalfStars),*/
+                /*RatingColumn::make('room.rating')
+                        ->color('warning')
+                        ->theme(RatingTheme::HalfStars),*/
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

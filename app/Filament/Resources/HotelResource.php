@@ -29,13 +29,13 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Str;
 use Mokhosh\FilamentRating\Columns\RatingColumn;
 use Mokhosh\FilamentRating\Components\Rating;
 use Cheesegrits\FilamentGoogleMaps\Columns\MapColumn;
 use Filament\Resources\Concerns\Translatable;
 use Mokhosh\FilamentRating\RatingTheme;
 use Cheesegrits\FilamentGoogleMaps\Fields\Map;
+use Illuminate\Support\Str;
 
 
 class HotelResource extends Resource
@@ -61,7 +61,7 @@ class HotelResource extends Resource
                                             ->live(true)
                                             ->required()
                                             ->afterStateUpdated(function (Set $set, ?string $state, ?string $operation) {
-                                                $set('slug', $state);
+                                                $set('slug', Str::slug($state));
                                             }),
                                         TextInput::make('slug')
                                             ->label('Hotel slug')
@@ -118,8 +118,9 @@ class HotelResource extends Resource
                                         'Guest House' => 'Guest House',
                                         'Resort' => 'Resort',
                                     ])
-                                    ->preload()
+                                    ->native(false)
                                     ->searchable()
+                                    ->preload()
                                     ->default('Hotel'),
                             ]),
 
@@ -165,20 +166,23 @@ class HotelResource extends Resource
                                         Select::make('country_id')
                                             ->label('Hotel country')
                                             ->relationship('country', 'name')
-                                            ->preload()
+                                            ->native(false)
                                             ->searchable()
+                                            ->preload()
                                             ->required(),
                                         Select::make('city_id')
                                             ->label('Hotel city')
                                             ->relationship('city', 'name')
-                                            ->preload()
+                                            ->native(false)
                                             ->searchable()
+                                            ->preload()
                                             ->required(),
                                         Select::make('chaine_id')
                                             ->label('Hotel chaine')
                                             ->relationship('chaine', 'name')
-                                            ->preload()
+                                            ->native(false)
                                             ->searchable()
+                                            ->preload()
                                             ->required(),
                                     ]),
                             ]),

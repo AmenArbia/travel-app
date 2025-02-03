@@ -18,10 +18,14 @@ class Amenities extends Model
         'status',
         'room_id',
         'icon',
+        'other_type',
     ];
 
     protected $casts = [
         'title' => 'array',
+        'type' => 'string',
+
+
     ];
 
     protected $translatable = [

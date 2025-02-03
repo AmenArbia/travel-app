@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PhotoRelationManager extends RelationManager
 {
-    protected static ?string $icon =  'heroicon-o-photo';
+    protected static ?string $icon = 'heroicon-o-photo';
 
     protected static string $relationship = 'photo';
 
@@ -27,9 +27,8 @@ class PhotoRelationManager extends RelationManager
         return $form
             ->schema([
                 FileUpload::make('photos')
-                    ->label('Photos')
+                    ->label('Photo')
                     ->image()
-                    ->multiple()
                     ->directory('photos')
                     ->required(),
                 /*Select::make('type')
@@ -57,9 +56,9 @@ class PhotoRelationManager extends RelationManager
                     ->searchable()
                     ->badge()
                     ->colors([
-                        'success'  => 'Hotel',
-                        'info'  =>  'Resort',
-                        'warning'  =>  'Guest House',
+                        'success' => 'Hotel',
+                        'info' => 'Resort',
+                        'warning' => 'Guest House',
                     ])
                     ->default('gray'),
                 TextColumn::make('caption')

@@ -1,3 +1,4 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css");
 img:hover {
     transform: scale(1.05);
 
@@ -42,14 +43,7 @@ button[disabled] {
     width: 550px;
 }
 
-.row>* {
-    flex-shrink: 0;
-    width: 100%;
-    max-width: 100%;
-    padding-right: calc(var(--bs-gutter-x)* .5);
-    padding-left: calc(var(--bs-gutter-x)* .5);
-    margin-top: var(--bs-gutter-y);
-}
+
 
 .tab-content>.active {
     display: block;
@@ -279,41 +273,4 @@ section {
     padding: 100px 0;
 }
 
-@media (min-width: 576px) {
 
-    .container,
-    .container-sm {
-        max-width: 540px;
-    }
-}
-
-@media (max-width: 767px) {
-    .tour_details_heading_wrapper {
-        display: inherit;
-    }
-}
-
-.row {
-    --bs-gutter-x: 1.5rem;
-    --bs-gutter-y: 0;
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: calc(var(--bs-gutter-y)* -1);
-    margin-right: calc(var(--bs-gutter-x)* -.5);
-    margin-left: calc(var(--bs-gutter-x)* -.5);
-    width: 750px;
-}
-
-.container,
-.container-fluid,
-.container-lg,
-.container-md,
-.container-sm,
-.container-xl,
-.container-xxl {
-    width: 100%;
-    padding-right: var(--bs-gutter-x, .75rem);
-    padding-left: var(--bs-gutter-x, .75rem);
-    margin-right: auto;
-    margin-left: auto;
-}

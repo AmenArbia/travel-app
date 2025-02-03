@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Amenities;
 use App\Models\Hotel;
 use App\Models\TypeRoom;
+use Guava\FilamentIconPicker\Forms\IconPicker;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -53,7 +54,12 @@ class HomePage extends Component
         };
     }
 
-
+    protected function getFormSchema(): array
+    {
+        return [
+            IconPicker::make('icon'),
+        ];
+    }
 
 
     public function render()

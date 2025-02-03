@@ -64,8 +64,9 @@ class SupplierResource extends Resource
                                         'beverage' => 'Beverage',
                                         'Cleaning' => 'Cleaning',
                                         'transportation' => 'Transportation'
-                                    ])->preload()
+                                    ])->native(false)
                                     ->searchable()
+                                    ->preload()
                                     ->required(),
 
                             ])->columns(2),

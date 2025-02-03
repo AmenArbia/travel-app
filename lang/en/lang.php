@@ -158,5 +158,6 @@ return [
     'No rooms available.' => 'No rooms available.',
     'No Price Available' => 'No Price Available',
     'Booking details' => 'Booking details',
-
+    'Available' => 'Available',
+    'Pax' => 'Pax',
 ];

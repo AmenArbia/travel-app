@@ -59,6 +59,7 @@ class AmenitiesRelationManager extends RelationManager
                 Select::make('room_id')
                     ->relationship('room', 'code')
                     ->label('Assign to Room')
+                    ->native(false)
                     ->searchable()
                     ->preload()
                     ->placeholder('Select a Room'),
@@ -173,13 +174,13 @@ class AmenitiesRelationManager extends RelationManager
                         Select::make('room_id')
                             ->relationship('room', 'code')
                             ->label('Assign to Room')
+                            ->native(false)
                             ->searchable()
                             ->preload()
                             ->placeholder('Select a Room')
                             ->nullable(),
                     ]),
 
-                Tables\Actions\LocaleSwitcher::make(),
 
             ])
             ->actions([

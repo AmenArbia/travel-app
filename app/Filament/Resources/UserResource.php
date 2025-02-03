@@ -49,6 +49,9 @@ class UserResource extends Resource
                 Select::make('role')
                     ->label('Role')
                     ->relationship('roles', 'name')
+                    ->native(false)
+                    ->searchable()
+                    ->preload()
                     ->required(),
 
             ]);

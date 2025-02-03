@@ -154,8 +154,9 @@ return [
     'Bedroom' => 'غرفة النوم',
     'Living Area' => 'غرفة المعيشة',
     'Media and Technology' => 'وسائل الإعلام والتكنولوجيا',
-
+    'Available' => 'متاح',
     'No rooms available.' => 'لا توجد غرف متاحة.',
     'No Price Available' => 'لا توجد أسعار متاحة',
     'Booking details' => 'تفاصيل الحجز',
+    'Pax' => ' عدد الضيوف',
 ];

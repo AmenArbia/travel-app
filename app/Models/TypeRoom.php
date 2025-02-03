@@ -17,10 +17,19 @@ class TypeRoom extends Model
         'photos',
         'hotel_id',
         'room_id',
+        'pax_capacity',
+        'adult_capacity',
+        'children_capacity',
+        'infants_capacity',
+        'room_highlights',
     ];
 
     protected $casts = [
-        'photos' => 'array'
+        'photos' => 'array',
+        'pax_capacity' => 'array',
+        'adult_capacity' => 'array',
+        'children_capacity' => 'array',
+        'infants_capacity' => 'array',
     ];
 
     public function hotel()

@@ -107,7 +107,7 @@
                                             </a>
                                         @else
                                             <span
-                                                class="ms-1 text-sm font-medium text-white md:ms-2 dark:text-slate-500">
+                                                class="ms-1 text-sm font-medium text-slate-500 md:ms-2 dark:text-slate-500">
                                                 {{ ucfirst(str_replace('-', ' ', $segment)) }}
                                             </span>
                                         @endif

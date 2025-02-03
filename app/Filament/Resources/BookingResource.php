@@ -36,6 +36,16 @@ use Filament\Forms\Components\Tabs\Tab;
 use Illuminate\Support\Collection;
 use Filament\Tables\Filters\SelectFilter;
 
+use Filament\Infolists\Components\Grid as InfolistGrid;
+use Filament\Infolists\Components\Section as InfolistSection;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\Group as InfolistGroup;
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\ListEntry as InfolistListEntry;
+use Filament\Infolists\Components\KeyValueEntry;
+use Filament\Infolists\Components\BooleanEntry;
+use Filament\Infolists\Infolist;
+
 
 class BookingResource extends Resource
 {
@@ -43,7 +53,8 @@ class BookingResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document-check';
 
-    public static function form(Form $form): Form
+
+    /*public static function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -76,7 +87,8 @@ class BookingResource extends Resource
                                             ->required()
                                             ->maxLength(255)
                                             ->reactive()
-                                            ->disabled(),
+                                            ->disabled()
+                                            ->formatStateUsing(fn($state) => str_replace(['{', '}'], '', $state)),
                                         Select::make('country_id')
                                             ->label('country')
                                             ->relationship('country', 'name')
@@ -85,11 +97,12 @@ class BookingResource extends Resource
                                             ->required()
                                             ->reactive()
                                             ->afterStateUpdated(function (?string $state, callable $set, callable $get) {
-                                                $country = Country::find($state)?->name;
-                                                $city = City::find($get('city_id'))?->name;
+                                                $country = Country::find($get('country_id'))?->name ?? '';
+                                                $city = City::find($state)?->name ?? '';
 
-                                                $set('address', self::formatAddress($country, $city));
+                                                $set('address', "{$country}" . ($city ? ", {$city}" : ""));
                                             }),
+
                                         Select::make('city_id')
                                             ->label('city')
                                             ->relationship('city', 'name')
@@ -98,11 +111,12 @@ class BookingResource extends Resource
                                             ->reactive()
                                             ->required()
                                             ->afterStateUpdated(function (?string $state, callable $set, callable $get) {
-                                                $country = Country::find($get('country_id'))?->name;
-                                                $city = City::find($state)?->name;
+                                                $country = Country::find($get('country_id'))?->name ?? '';
+                                                $city = City::find($state)?->name ?? '';
 
-                                                $set('address', self::formatAddress($country, $city));
+                                                $set('address', "{$country}" . ($city ? ", {$city}" : ""));
                                             }),
+
                                     ]),
                                 TextInput::make('coupon_code')
                                     ->label('Coupon Code')
@@ -164,9 +178,10 @@ class BookingResource extends Resource
                                                 }
                                             }),
 
-                                        TextInput::make('code')
+                                        TextInput::make('room_id.code')
                                             ->label('Room Code')
                                             ->placeholder('Room Code')
+
                                             ->required()
                                             ->reactive(),
 
@@ -241,7 +256,7 @@ class BookingResource extends Resource
                                                     ->whereHas('hotels', function ($query) use ($hotelId) {
                                                         $query->where('hotels.id', $hotelId);
                                                     })
-                                                    ->pluck('type', 'id')
+                                                    ->pluck('title', 'id')
                                                     ->toArray();
                                             })
                                             ->reactive()
@@ -255,7 +270,51 @@ class BookingResource extends Resource
                     ]),
 
             ]);
+    }*/
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                InfolistSection::make('User Information')
+                    ->columns(2)
+                    ->schema([
+                        TextEntry::make('name')->label('Full Name'),
+                        TextEntry::make('email')->label('Email'),
+                        TextEntry::make('phone')->label('Phone'),
+                        InfolistGroup::make()
+                            ->columns(3)
+                            ->schema([
+                                TextEntry::make('address.street')->label('Street Address'),
+                                TextEntry::make('country.name')->label('Country'),
+                                TextEntry::make('city.name')->label('City'),
+                            ]),
+                    ]),
+                InfolistSection::make('Booking Details')
+                    ->schema([
+                        TextEntry::make('check_in_date')->label('Reservation Start Date'),
+                        TextEntry::make('check_out_date')->label('Reservation End Date'),
+                        InfolistSection::make('Guests')
+                            ->columns(3)
+                            ->schema([
+                                TextEntry::make('roomtype.name')->label('Room Name'),
+                                TextEntry::make('room.code')->label('Room Code'),
+                                TextEntry::make('capacity')->label('Room Capacity'),
+                                TextEntry::make('adults')->label('Adult Capacity'),
+                                TextEntry::make('children')->label('Children Capacity'),
+                                TextEntry::make('infants')->label('Infant Capacity'),
+                            ]),
+                        InfolistSection::make('Price')
+                            ->columns(3)
+                            ->schema([
+                                TextEntry::make('price_per_night')->label('Room Price Per Night')->prefix(' TND '),
+                                TextEntry::make('total_price')->label('Total Price for Reservation')->prefix(' TND '),
+                            ]),
+
+                    ])
+                    ->columns(2),
+            ]);
     }
+
 
     protected static function updateTotalPrice($set, $get)
     {
@@ -325,8 +384,9 @@ class BookingResource extends Resource
 
     public static function formatAddress(?string $country, ?string $city): string
     {
-        return implode(', ', array_filter([$country, $city]));
+        return trim(($country ? $country : '') . ($city ? ', ' . $city : ''));
     }
+
     public static function table(Table $table): Table
     {
         return $table
@@ -349,7 +409,7 @@ class BookingResource extends Resource
 
 
                 Tables\Columns\TextColumn::make('amenities.title')
-                    ->label(' Room Amenities added')
+                    ->label(' Amenities added')
                     ->searchable()
                     ->badge()
                     ->sortable(),
@@ -362,14 +422,11 @@ class BookingResource extends Resource
                 Tables\Columns\TextColumn::make('check_out_date')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('capacity')
+                /*Tables\Columns\TextColumn::make('capacity')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable(),*/
 
-                Tables\Columns\TextColumn::make('price_per_night')
-                    ->numeric()
-                    ->money('TND')
-                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('total_price')
                     ->numeric()
                     ->money('TND')
@@ -454,7 +511,8 @@ class BookingResource extends Resource
                         })
                         ->color('danger')
                         ->icon('heroicon-s-x-circle')
-                        ->modalIcon('heroicon-o-x-circle')->modal()
+                        ->modalIcon('heroicon-o-x-circle')
+                        ->modal()
                         ->requiresConfirmation(),
                 ]),
 
@@ -511,7 +569,7 @@ class BookingResource extends Resource
     {
         return [
             'index' => Pages\ListBookings::route('/'),
-            'create' => Pages\CreateBooking::route('/create'),
+            //'create' => Pages\CreateBooking::route('/create'),
         ];
     }
 }

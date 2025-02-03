@@ -50,6 +50,8 @@ class RoomsResource extends Resource
 
                         Select::make('type')
                             ->label('Room type')
+                            ->native(true)
+                            ->searchable()
                             ->preload()
                             ->required()
                             ->options([
@@ -57,8 +59,7 @@ class RoomsResource extends Resource
                                 'Deluxe ' => 'Deluxe',
                                 'Suite ' => 'Suite',
                             ])
-                            ->default('Standard')
-
+                            ->default('Standard ')
                             ->columnSpan(1),
 
                     ])->columns(2),
@@ -213,8 +214,8 @@ class RoomsResource extends Resource
                 Tables\Columns\TextColumn::make('code')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('description')
-                    ->searchable(),
+                /*TextColumn::make('description')
+                    ->searchable(),*/
 
                 TextColumn::make('type')
                     ->searchable()

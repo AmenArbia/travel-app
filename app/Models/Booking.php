@@ -35,6 +35,10 @@ class Booking extends Model
 
     ];
 
+    protected $casts = [
+
+        'address' => 'array',
+    ];
 
 
     public function hotel()

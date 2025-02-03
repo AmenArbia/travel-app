@@ -44,6 +44,9 @@ class CountryResource extends Resource
                             'America' => 'America',
 
                         ])
+                        ->native(false)
+                        ->searchable()
+                        ->preload()
                 ])
             ]);
     }
@@ -73,7 +76,6 @@ class CountryResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                    Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
                 ])

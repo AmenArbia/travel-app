@@ -44,10 +44,11 @@ class AmenitiesResource extends Resource
                             ->maxLength(255)
                             ->required(),
                         Select::make('type')
-                            ->preload()
-                            ->searchable()
-                            ->live()
                             ->native(false)
+                            ->searchable()
+                            ->preload()
+                            ->live()
+                            ->required()
                             ->options(function () {
                                 return [
                                     'Instant' => 'Instant',
@@ -56,9 +57,16 @@ class AmenitiesResource extends Resource
                                     'Bedroom' => 'Bedroom',
                                     'Living Area' => 'Living Area',
                                     'Media and Technology' => 'Media and Technology',
+                                    'Other' => 'Other',
                                 ];
                             })
-                            ->label(__('Type')),
+                            ->label(__('Type'))
+                            ->reactive(),
+
+                        TextInput::make('other_type')
+                            ->visible(fn(callable $get) => $get('type') === 'Other')
+                            ->required(fn(callable $get) => $get('type') === 'Other')
+                            ->label('Specify Other Type'),
 
                         MarkdownEditor::make('description')
                             ->maxLength(255)
@@ -67,19 +75,21 @@ class AmenitiesResource extends Resource
                 Section::make('Options')
                     ->schema([
                         Radio::make('status')
+                            ->required()
                             ->options([
                                 'Active' => 'Active',
                                 'Draft' => 'Draft',
                                 'Published' => 'Published',
                             ]),
                         IconPicker::make('icon')
+                            ->required()
                             ->columns([
                                 'default' => 1,
                                 'lg' => 3,
                                 '2xl' => 5,
                             ])
                             ->sets([
-                                'heroicons' ,
+                                'heroicons',
                                 'fontawesome' => [
                                     'solid',
                                     'regular',
@@ -110,7 +120,10 @@ class AmenitiesResource extends Resource
                         'warning' => 'Kitchen',
                         'danger' => 'Bedroom',
                         'info' => 'Living Area',
-                    ]),
+                        'secondary' => 'Media and Technology',
+                        'gray' => 'Other',
+                    ])
+                    ->formatStateUsing(fn($record) => $record->type === 'Other' ? $record->other_type : $record->type),
                 Tables\Columns\TextColumn::make('status')
                     ->searchable()
                     ->label(__('Amenities Status'))
@@ -139,7 +152,8 @@ class AmenitiesResource extends Resource
                             'Kitchen' => 'Kitchen',
                             'Bedroom' => 'Bedroom',
                             'Living Area' => 'Living Area',
-                            'Media and Technology' => 'Media and Technology'
+                            'Media and Technology' => 'Media and Technology',
+                            'Other' => 'Other',
                         ];
                     }),
             ])

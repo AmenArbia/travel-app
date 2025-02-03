@@ -1,76 +1,66 @@
-.text-animation {
-    animation: fadeIn 2s ease-out forwards, scaleIn 2s ease-out forwards;
+/* Arc Style for the Picture */
+.arc-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
 }
 
-
-
-@keyframes cursor {
-    50% {
-        border-color: transparent;
-    }
-}
-
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes scaleIn {
-    0% {
-        transform: scale(0.8);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
-
-.text-animation:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s ease-out;
-}
-
-.text-animation:hover {
-    filter: blur(1px);
-    transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+.arc-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 100% 50%, transparent 60%, white 60.5%);
+    z-index: 1;
+    pointer-events: none;
 }
 
 .image-animation {
-    animation: fadeIn 3s ease-out forwards, scaleIn 3s ease-out forwards;
+    width: 110%;
+    transform: scale(1.1) translateX(-5%);
+    border-radius: 50% 0 0 50%;
+    animation: fadeInRight 5s ease-out forwards;
+    transform-origin: right center;
 }
 
-@keyframes fadeIn {
+/* Hover Effects */
+.image-animation:hover {
+    transform: scale(1.15) translateX(-5%);
+    filter: blur(1.5px);
+    transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+/* Text Animation */
+.text-animation {
+    animation: fadeInLeft 2s ease-out forwards;
+}
+
+.text-animation2 {
+    animation: fadeInLeft 3s ease-out forwards;
+}
+
+/* Keyframes */
+@keyframes fadeInLeft {
     0% {
         opacity: 0;
+        transform: translateX(-50px);
     }
-
     100% {
         opacity: 1;
+        transform: translateX(0);
     }
 }
 
-@keyframes scaleIn {
+@keyframes fadeInRight {
     0% {
-        transform: scale(0.8);
+        opacity: 0;
+        transform: translateX(50px);
     }
-
     100% {
-        transform: scale(1);
+        opacity: 1;
+        transform: translateX(0);
     }
-}
-
-.image-animation:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s ease-in-out;
-}
-
-.image-animation:hover {
-    filter: blur(1.5px);
-    transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
 }

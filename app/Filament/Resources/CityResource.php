@@ -29,6 +29,9 @@ class CityResource extends Resource
                 Forms\Components\Select::make('country_id')
                     ->relationship('country', 'name')
                     ->label('Country ')
+                    ->native(false)
+                    ->searchable()
+                    ->preload()
                     ->required(),
 
             ]);
@@ -57,7 +60,6 @@ class CityResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                    Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
                 ])

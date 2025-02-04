@@ -51,8 +51,10 @@ class BookingPage extends Component
     public $roomtype_Id;
     public $capacitys;
     public $price;
-    public $countries;
-    public $cities;
+    public $z = "";
+    public $x = "";
+    public $countries = [];
+    public $cities = [];
     public $street;
 
     public $selectedAmenities = [];
@@ -65,7 +67,7 @@ class BookingPage extends Component
     {
         $this->id = $id;
 
-        $this->room = TypeRoom::with('hotel', 'hotel.room', 'hotel.amenities', 'hotel.roomtype', 'hotel.country', 'hotel.city')
+        $this->room = TypeRoom::with('hotel', 'hotel.room', 'hotel.amenities', 'hotel.roomtype', 'hotel.country', 'hotel.city', 'country')
             ->findOrFail($this->id);
 
         $this->countries = Country::all();
@@ -91,6 +93,19 @@ class BookingPage extends Component
 
         $this->calculPrice();
     }
+
+    public function getCities()
+    {
+
+        $this->cities = City::where('country_id', $this->z)->get();
+    }
+
+    public function updatedCountryId($value)
+    {
+
+        $this->cities = City::where('country_id', $value)->get();
+        $this->cityId = null;
+    }
     public function submit()
     {
 
@@ -107,16 +122,14 @@ class BookingPage extends Component
             'roomId' => 'required|exists:rooms,id',
             'roomtype_Id' => 'required',
             'hotelId' => 'required|exists:hotels,id',
-            'countryId' => 'required|string',
-            'cityId' => 'required|string',
+            'z' => 'required|string',
+            'x' => 'required|string',
             'address' => 'required|string',
             'capacitys' => 'required|numeric|min:1',
             'price' => 'required',
             'street' => 'string'
         ]);
 
-        $countryId = Country::where('name', $this->countryId)->value('id');
-        $cityId = City::where('name', $this->cityId)->value('id');
 
 
         $booking = Booking::create([
@@ -128,9 +141,9 @@ class BookingPage extends Component
             'email' => $this->email,
             'phone' => $this->phone,
             'name' => $this->name,
-            'address' => json_encode(['street' => $this->street, 'city' => $this->cityId, 'country' => $this->countryId]),
-            'country_id' => $this->countryId,
-            'city_id' => $this->cityId,
+            'address' => json_encode(['street' => $this->street, 'city' => $this->x, 'country' => $this->z]),
+            'country_id' => $this->z,
+            'city_id' => $this->x,
             'room_id' => $this->roomId,
             'roomtype_id' => $this->roomtype_Id,
             'total_price' => $this->roomPrice,
@@ -246,10 +259,9 @@ class BookingPage extends Component
     {
         $countryName = Country::find($this->countryId)->name ?? '';
         $cityName = City::find($this->cityId)->name ?? '';
-        $this->address = trim("{$this->street}, {$cityName}, {$countryName}", " ,");
+        $this->address = trim("$this->street, $cityName, $countryName", " ,");
 
     }
-
     public function bookNow()
     {
         $this->isLoading = true;

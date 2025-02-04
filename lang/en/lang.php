@@ -122,7 +122,7 @@ return [
     'Check Out date' => 'Check Out date',
     'Check in date :' => 'Check in date :',
     'Check out date :' => 'Check out date :',
-
+    'Price :' => 'Price :',
     '12+ yrs' => '12+ yrs',
     'Less than 12 and +2 yrs' => 'Less than 12 and +2 yrs',
     'Less than 2 yrs' => 'Less than 2 yrs',
@@ -160,4 +160,11 @@ return [
     'Booking details' => 'Booking details',
     'Available' => 'Available',
     'Pax' => 'Pax',
+    'Add Amenities' => 'Add Amenities',
+    'Get started' => 'Get started',
+    'Learn more' => 'Learn more',
+    'Hotel room with ease using our app. Browse a wide selection of rooms, check real-time availability, and enjoy exclusive deals. Book your next stay effortlessly and securely today!' => 'Hotel room with ease using our app. Browse a wide selection of rooms, check real-time availability, and enjoy exclusive deals. Book your next stay effortlessly and
+        securely today! ',
+    'Rooms, Hotels, and Destinations for Your Next Trip.' => ' Rooms, Hotels, and Destinations for Your Next Trip.',
+    'Find the Best' => 'Find the Best',
 ];

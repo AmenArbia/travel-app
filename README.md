@@ -23,8 +23,8 @@ Before you begin, ensure you have the following installed on your system:
 - Composer (dependency management)
 - MySQL or PostgreSQL (or another supported database , I advise PostgreSQL)
 - npm or yarn
-- filament
-- Tailwind
+- Filament v3+
+- Tailwind v4+
 
 ## Installation
 

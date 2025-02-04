@@ -10,78 +10,84 @@
                     <div class="col-md-4 ">
                         @if ($hotel)
                             <div class="card shadow-xl mb-4 rounded-xl">
-                                <div class="card-body">
-                                    <div class="card-title border-b border-violet-600  pb-2">
-                                        <h3 class="font-bold text-lg">{{ __('lang.Price starts from :') }}</h3>
-                                    </div>
-                                    <div class="d-flex align-items-center py-3">
-                                        <h3 class="pl-2 text-xl font-bold text-dark">
-                                            {{ $roomtype->min('price') }} {{ __('lang.TND') }}
-                                            <sub class="font-weight-bold text-violet-500">
-                                                {{ __('lang./Per night') }}</sub>
-                                        </h3>
-                                    </div>
-                                    <div class="border-top border-bottom py-3 d-flex justify-content-between">
-                                        @foreach ($hotel->amenities as $amenity)
-                                            <div class="d-flex align-items-center">
-                                                <div class="pr-2">
-                                                    @svg($amenity->icon ?? 'heroicon-o-cog', ['class' => 'w-10 h-10 text-black p-2'])
-                                                </div>
-                                                <div>
-                                                    <p class="text-base font-weight-medium">
-                                                        @if ($amenity->type === 'Internet')
-                                                            {{ __('lang.Internet') }}
-                                                        @elseif ($amenity->type === 'Kitchen')
-                                                            {{ __('lang.Kitchen') }}
-                                                        @elseif ($amenity->type === 'Bedroom')
-                                                            {{ __('lang.Bedroom') }}
-                                                        @elseif ($amenity->type === 'Living Area')
-                                                            {{ __('lang.Living Area') }}
-                                                        @elseif ($amenity->type === 'Media and Technology')
-                                                            {{ __('lang.Media and Technology') }}
-                                                        @endif
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="mt-3">
-                                        @if (count($hotel->photo) !== 0)
-                                            <div class="mb-4">
-                                                <img src="{{ asset('storage/' . $hotel->photo[$currentImageIndex]->photos) }}"
-                                                    class="img-fluid w-full   h-56 rounded-xl"
-                                                    alt="{{ $hotel->name }}">
-                                            </div>
-                                            <div class="row">
-                                                @foreach ($hotel->photo as $index => $photo)
-                                                    <div class="col-2 mb-2">
-                                                        <img src="{{ asset('storage/' . $photo->photos) }}"
-                                                            alt="{{ $hotel->name }}"
-                                                            class="img-fluid rounded-lg w-20 h-20 object-cover cursor-pointer"
-                                                            wire:click="setCurrentImage({{ $index }})">
+                                @if ($hotel->roomtype->isNotEmpty())
+
+
+                                    <div class="card-body" id="card-body">
+
+                                        <div class="card-title border-b border-violet-600  pb-2">
+                                            <h3 class="font-bold text-lg">{{ __('lang.Price starts from :') }}</h3>
+                                        </div>
+                                        <div class="d-flex align-items-center py-3">
+                                            <h3 class="pl-2 text-xl font-bold text-dark">
+                                                {{ $roomtype->min('price') }} {{ __('lang.TND') }}
+                                                <sub class="font-weight-bold text-violet-500">
+                                                    {{ __('lang./Per night') }}</sub>
+                                            </h3>
+                                        </div>
+                                        <div class="border-top border-bottom py-3 d-flex justify-content-between">
+                                            @foreach ($hotel->amenities as $amenity)
+                                                <div class="d-flex align-items-center">
+                                                    <div class="pr-2">
+                                                        @svg($amenity->icon ?? 'heroicon-o-cog', ['class' => 'w-10 h-10 text-black p-2'])
                                                     </div>
-                                                @endforeach
-                                            </div>
-                                            <div class="d-flex justify-content-between mt-3">
-                                                <button
-                                                    class="bg-violet-500 hover:bg-yellow-500 rounded-2xl btn text-white cursor-pointer outline-none  py-1 px-4  overflow-hidden whitespace-nowrap  z-0 border-none  leading-6   align-middle select-none transform transition duration-300 hover:scale-105 hover:shadow-lg focus:ring-2  focus:outline-none active:scale-95  font-bold"
-                                                    wire:click="setCurrentImage({{ $currentImageIndex - 1 }})">
-                                                    <i class="fas fa-chevron-left"></i> {{ __('lang.Previous') }}
-                                                </button>
-                                                <button
-                                                    class="btn bg-violet-500 hover:bg-yellow-500 rounded-2xl btn  text-white cursor-pointer outline-none  py-1 px-4  overflow-hidden whitespace-nowrap  z-0 border-none  leading-6   align-middle select-none transform transition duration-300 hover:scale-105 hover:shadow-lg focus:ring-2  focus:outline-none active:scale-95  font-bold"
-                                                    wire:click="setCurrentImage({{ $currentImageIndex + 1 }})">
-                                                    {{ __('lang.Next') }} <i class="fas fa-chevron-right"></i>
-                                                </button>
-                                            </div>
-                                        @endif
+                                                    <div>
+                                                        <p class="text-base font-weight-medium">
+                                                            @if ($amenity->type === 'Internet')
+                                                                {{ __('lang.Internet') }}
+                                                            @elseif ($amenity->type === 'Kitchen')
+                                                                {{ __('lang.Kitchen') }}
+                                                            @elseif ($amenity->type === 'Bedroom')
+                                                                {{ __('lang.Bedroom') }}
+                                                            @elseif ($amenity->type === 'Living Area')
+                                                                {{ __('lang.Living Area') }}
+                                                            @elseif ($amenity->type === 'Media and Technology')
+                                                                {{ __('lang.Media and Technology') }}
+                                                            @endif
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        <div class="mt-3">
+                                            @if (count($hotel->photo) !== 0)
+                                                <div class="mb-4">
+                                                    <img src="{{ asset('storage/' . $hotel->photo[$currentImageIndex]->photos) }}"
+                                                        class="img-fluid w-full   h-56 rounded-xl"
+                                                        alt="{{ $hotel->name }}">
+                                                </div>
+                                                <div class="row">
+                                                    @foreach ($hotel->photo as $index => $photo)
+                                                        <div class="col-2 mb-2">
+                                                            <img src="{{ asset('storage/' . $photo->photos) }}"
+                                                                alt="{{ $hotel->name }}"
+                                                                class="img-fluid rounded-lg w-20 h-20 object-cover cursor-pointer"
+                                                                wire:click="setCurrentImage({{ $index }})">
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                                <div class="d-flex justify-content-between mt-3">
+                                                    <button
+                                                        class="bg-violet-500 hover:bg-yellow-500 rounded-2xl btn text-white cursor-pointer outline-none  py-1 px-4  overflow-hidden whitespace-nowrap  z-0 border-none  leading-6   align-middle select-none transform transition duration-300 hover:scale-105 hover:shadow-lg focus:ring-2  focus:outline-none active:scale-95  font-bold"
+                                                        wire:click="setCurrentImage({{ $currentImageIndex - 1 }})">
+                                                        <i class="fas fa-chevron-left"></i> {{ __('lang.Previous') }}
+                                                    </button>
+                                                    <button
+                                                        class="btn bg-violet-500 hover:bg-yellow-500 rounded-2xl btn  text-white cursor-pointer outline-none  py-1 px-4  overflow-hidden whitespace-nowrap  z-0 border-none  leading-6   align-middle select-none transform transition duration-300 hover:scale-105 hover:shadow-lg focus:ring-2  focus:outline-none active:scale-95  font-bold"
+                                                        wire:click="setCurrentImage({{ $currentImageIndex + 1 }})">
+                                                        {{ __('lang.Next') }} <i class="fas fa-chevron-right"></i>
+                                                    </button>
+                                                </div>
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             </div>
                         @endif
                     </div>
 
-                    <div class="col-md-8">
+
+                    <div class="col-md-8  ">
                         <div class="card shadow-xl rounded-xl mb-4">
                             <div class="card-body">
                                 @if ($hotel)
@@ -321,10 +327,9 @@
                                                     </div>
                                                     <div class="text-right">
                                                         <h3 class="text-base font-bold text-black">
-                                                            {{ $room->total_price }} {{ __('lang.TND') }} /
+                                                            {{ $room->total_price }} {{ __('lang.TND') }}
                                                             <sub class="text-red-500">
-                                                                <del class="text-sm text-muted ">{{ $room->price }}
-                                                                    {{ __('lang.TND') }}</del>
+
                                                             </sub>
 
                                                         </h3>

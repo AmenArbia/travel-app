@@ -207,6 +207,12 @@ button {
     box-sizing: border-box;
 }
 
+@media (min-width: 768px) {
+    .parent:has(.hidden + .col-md-4) .col-md-8 {
+        flex: 0 0 100%;
+        width: 100%;
+    }
+}
 
 
 @media (max-width: 767px) {
@@ -272,5 +278,6 @@ section {
 .section_padding {
     padding: 100px 0;
 }
+
 
 

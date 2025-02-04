@@ -251,7 +251,7 @@
 
                                 </div>
                                 <div
-                                    class=" border border-b-2 border-gray-200 pb-2 w-4/5 border-t-0 border-r-0 border-l-0 left-20 relative ">
+                                    class=" border border-b-2 border-gray-200 pb-2 w-4/5 border-t-0 border-r-0 border-l-0 left-20  ">
 
                                 </div>
                                 <h3

@@ -4,8 +4,8 @@
 
     <title>{{ $title ?? 'Travel-App' }}</title>
 
-    <div class="container-fluid py-5 bg-light">
-        <div class="container">
+    <div class="container-fluid py-5 bg-light" style="padding-right: 0px; padding-left: 0px; width: 100%;">
+        <div class="container mb-5">
             <div class="row ">
                 <!-- Sidebar Filters (Left Column) -->
                 <div class="col-lg-3 mt-16">
@@ -106,7 +106,7 @@
                                     <div class="row ">
                                         <div class="col-lg-4">
                                             <img src="{{ url('storage/' . $hotel->image_cover) }}"
-                                                alt="{{ $hotel->slug }}" class="card-img-top h-100">
+                                                alt="{{ $hotel->slug }}" class="card-img-top h-100 object-cover">
                                         </div>
                                         <div class="col-lg-8">
                                             <div class="card-body">
@@ -137,7 +137,7 @@
                                                     </span>
                                                 </div>
 
-                                                <div class="">
+                                                <div>
                                                     <span class="font-bold ">{{ __('lang.Status') }}
                                                         :</span>
                                                     <span class="badge bg-primary  ">
@@ -155,44 +155,51 @@
                                                     <ul class="list-inline">
                                                         @foreach ($hotel->amenities as $amenity)
                                                             @if ($amenity->status === 'Active')
-                                                                <li class="list-inline-item">
+                                                                <ul class="list-inline-item">
                                                                     <i class="pl-2"> @svg($amenity->icon ?? 'heroicon-o-cog', ['class' => 'w-10 h-10 text-black p-2'])
                                                                     </i>
-
                                                                     {{ $amenity->title }}
-                                                                </li>
+                                                                </ul>
                                                             @endif
                                                         @endforeach
                                                     </ul>
                                                 </div>
 
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    @if ($hotel->roomtype->isNotEmpty() && $hotel->roomtype->min('price') > 0)
-                                                        <span class="text-muted font-bold">
-                                                            {{ __('lang.Price start from :') }}
-                                                            <span class="text-yellow-600  font-weight-bold h5 ml-1">
-                                                                {{ $hotel->roomtype->min('price') }}
-                                                                {{ __('lang.TND') }}
-                                                                <sub
-                                                                    class="text-yellow-600 font-weight-bold">{{ __('lang./Per night') }}</sub>
+                                                    <div class="mt-2">
+                                                        @if ($hotel->roomtype->isNotEmpty() && $hotel->roomtype->min('price') > 0)
+                                                            <span class="text-muted font-bold">
+                                                                {{ __('lang.Price start from :') }}
+                                                                <span class="text-yellow-600  font-bold text-lg ">
+                                                                    {{ $hotel->roomtype->min('price') }}
+                                                                    {{ __('lang.TND') }}
+                                                                    <sub
+                                                                        class="text-yellow-600 font-weight-bold">{{ __('lang./Per night') }}</sub>
+                                                                </span>
                                                             </span>
-                                                        </span>
-                                                    @else
-                                                        <span class="text-yellow-600 font-bold pl-52">
-                                                            {{ __('lang.No rooms available.') }}
-                                                        </span>
-                                                    @endif
+                                                        @else
+                                                            <div class="ml-2">
+                                                                <span class="text-yellow-600 font-bold">
+                                                                    {{ __('lang.No rooms available.') }}
+                                                                </span>
+                                                            </div>
+                                                        @endif
+                                                    </div>
 
-                                                    @if (!empty($hotel->slug))
-                                                        <a href="{{ route('details.slug.' . app()->getLocale(), $hotel->slug) }}"
-                                                            class="bg-violet-500 hover:bg-yellow-500 rounded-2xl btn btn-primary cursor-pointer outline-none  py-1 px-4  overflow-hidden whitespace-nowrap  z-0 border-none  leading-6   align-middle select-none transform transition duration-300 hover:scale-105 hover:shadow-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none active:scale-95  font-bold">
-                                                            {{ __('lang.Check Details') }}
-                                                        </a>
-                                                    @else
-                                                        <span class="btn btn-secondary disabled">
-                                                            No Details Available
-                                                        </span>
-                                                    @endif
+
+                                                    <div class="mt-2">
+                                                        @if (!empty($hotel->slug))
+                                                            <a href="{{ route('details.slug.' . app()->getLocale(), $hotel->slug) }}"
+                                                                class="bg-violet-500 hover:bg-yellow-500 rounded-2xl btn btn-primary cursor-pointer outline-none  py-1 px-4  overflow-hidden whitespace-nowrap  z-0 border-none  leading-6   align-middle select-none transform transition duration-300 hover:scale-105 hover:shadow-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none active:scale-95  font-bold">
+                                                                {{ __('lang.Check Details') }}
+                                                            </a>
+                                                        @else
+                                                            <span class="btn btn-secondary disabled">
+                                                                No Details Available
+                                                            </span>
+                                                        @endif
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>

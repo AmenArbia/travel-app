@@ -5,7 +5,7 @@
     <title>{{ $title ?? 'Travel-App' }}</title>
 
     <div>
-        <div class="container" style="max-width: 1388px; margin-top: 40px;">
+        <div class="container" style="max-width: 1388px; margin-top: 40px; padding-left: 0px; padding-right: 0px;">
             <div class="row">
                 <div class="col-md-4">
                     <div class="row
@@ -51,9 +51,9 @@
                                 </span>
 
                                 @foreach ($room->hotel->amenities->chunk(4) as $amenityChunk)
-                                    <ul class="list-none m-0 p-0 flex flex-wrap gap-4 pb-2 pt-1 ml-4">
+                                    <ul class="list-none m-0 p-2 flex flex-wrap gap-4 pb-2 pt-1">
                                         @foreach ($amenityChunk as $amenity)
-                                            <li class="flex items-center gap-2  ml-2 ">
+                                            <li class="flex items-center gap-2  ml-2  ">
                                                 @svg($amenity->icon ?? 'heroicon-o-cog', ['class' => 'w-4 h-4 text-black'])
                                                 <p class="text-gray-500">
                                                     @if ($amenity->type === 'Internet')
@@ -79,57 +79,60 @@
                                     {{ __('lang.Reservation details') }}
                                 </h5>
                                 <div class="grid grid-cols-3 items-center gap-4 ml-16 mr-16   pb-0">
-                                    <div
-                                        class="text-center flex flex-col items-center justify-center w-56 relative right-12 m-2">
-                                        <h5 class="text-violet-500  font-semibold right-16 relative">
-                                            {{ __('lang.Check in date :') }}
-                                        </h5>
-                                        <span
-                                            class="text-gray-600 flex items-center justify-center w-30 pr-10   text-sm relative  inset-x-0 right-7">{{ \Carbon\Carbon::parse($checkInDate)->format('l, d F Y') }}</span>
-                                    </div>
+                                    <div class="col-md-12">
 
-                                    <div class="h-full border-l border-gray-300 relative left-12 "></div>
-                                    <div
-                                        class=" text-center flex flex-col items-center justify-center relative w-56 right-10 bottom-1 m-2 ">
-                                        <h5 class="text-violet-500 font-semibold relative right-16">
-                                            {{ __('lang.Check out date :') }}
-                                        </h5>
-                                        <span
-                                            class="text-gray-600 flex items-center justify-center w-30 pr-12   text-sm relative  inset-x-0 right-7">{{ \Carbon\Carbon::parse($checkOutDate)->format('l, d F Y') }}</span>
+                                        <div
+                                            class="text-center flex flex-col items-center justify-center w-56 relative right-12 m-2">
+                                            <h5 class="text-violet-500  font-semibold right-16 relative">
+                                                {{ __('lang.Check in date :') }}
+                                            </h5>
+                                            <span
+                                                class="text-gray-600 flex items-center justify-center w-30 pr-10   text-sm relative  inset-x-0 right-7">{{ \Carbon\Carbon::parse($checkInDate)->format('l, d F Y') }}</span>
 
-                                    </div>
-                                    <h5
-                                        class="text-center items-center justify-center w-56 relative right-16 ml-2 bottom-2 text-violet-500 font-semibold text-base">
-                                        {{ __('lang.Period of stay :') }} <span
-                                            class="text-sm  font-semibold text-gray-500  ">
-                                            {{ \Carbon\Carbon::parse($checkInDate)->diffInDays(\Carbon\Carbon::parse($checkOutDate)) }}
-                                            {{ __('lang.nights') }}
-                                        </span>
+                                        </div>
 
-                                    </h5>
+                                        <div class="h-full border-l border-gray-300 relative left-12 "></div>
+                                        <div
+                                            class=" text-center flex flex-col items-center justify-center relative w-56 right-10 bottom-1 m-2 ">
+                                            <h5 class="text-violet-500 font-semibold relative right-16">
+                                                {{ __('lang.Check out date :') }}
+                                            </h5>
+                                            <span
+                                                class="text-gray-600 flex items-center justify-center w-30 pr-12   text-sm relative  inset-x-0 right-7">{{ \Carbon\Carbon::parse($checkOutDate)->format('l, d F Y') }}</span>
 
-                                    <div>
+                                        </div>
                                         <h5
-                                            class="text-center items-center justify-center w-56 relative   ml-2 bottom-2 text-violet-500 font-semibold text-base pl-2">
-                                            {{ __('lang.N° of Guests :') }} <span
-                                                class="text-sm  font-semibold text-gray-500 w-20">
-                                                <ul class="ml-1 ">
-                                                    <li class="text-black">Adults :
-                                                        {{ $adults }}
-                                                    </li>
-                                                    <li class="relative text-black left-1">Children :
-                                                        {{ $children }}</li>
-                                                    <li class="text-black">Infants :
-                                                        {{ $infants }}
-                                                    </li>
-                                                </ul>
+                                            class="text-center items-center justify-center w-56 relative right-16 ml-2 bottom-2 text-violet-500 font-semibold text-base">
+                                            {{ __('lang.Period of stay :') }} <span
+                                                class="text-sm  font-semibold text-gray-500  ">
+                                                {{ \Carbon\Carbon::parse($checkInDate)->diffInDays(\Carbon\Carbon::parse($checkOutDate)) }}
+                                                {{ __('lang.nights') }}
                                             </span>
 
                                         </h5>
+
+                                        <div>
+                                            <h5
+                                                class="text-center items-center justify-center w-56 relative   ml-2 bottom-2 text-violet-500 font-semibold text-base pl-2">
+                                                {{ __('lang.N° of Guests :') }}
+                                                <span class="text-sm  font-semibold text-gray-500 w-20">
+                                                    <ul class="ml-1 ">
+                                                        <li class="text-black">Adults :
+                                                            {{ $adults }}
+                                                        </li>
+                                                        <li class="relative text-black left-1">Children :
+                                                            {{ $children }}</li>
+                                                        <li class="text-black">Infants :
+                                                            {{ $infants }}
+                                                        </li>
+                                                    </ul>
+                                                </span>
+
+                                            </h5>
+                                        </div>
+
+
                                     </div>
-
-
-
 
                                 </div>
                                 <div class="ml-2 mt-1">
@@ -164,16 +167,23 @@
                                 </div>
 
                             </div>
-                            <div class="ml-1 mt-2 bg-violet-100 h-20 border border-gray-200 rounded-md mb-4  ">
-                                <h5 class="relative top-6  ml-4 text-2xl font-bold">
-                                    {{ __('lang.Total Price :') }} <span
-                                        class="text-black font-semibold relative left-12 ">{{ __('lang.TND') }}
-                                        {{ $roomPrice + $amenity->hotels->first()->pivot->price }}/<del
-                                            class="text-sm text-gray-500 relative top-1 decoration-red-600 decoration-2">
-                                            {{ $room->price }} {{ __('lang.TND') }}
-                                        </del>
-                                    </span>
-                                </h5>
+                            <div class="col-md-12">
+                                <div class="ml-1 mt-2 bg-violet-100 h-20 border border-gray-200 rounded-md mb-4  ">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h5 class=" pt-2   ml-4 text-2xl font-bold  ">
+                                                {{ __('lang.Total Price :') }} <span
+                                                    class="text-black font-semibold relative left-12 ">{{ __('lang.TND') }}
+                                                    {{ $roomPrice + $amenity->hotels->first()->pivot->price }}
+                                                    </del>
+                                                </span>
+                                            </h5>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
                             </div>
 
                         </div>
@@ -249,18 +259,7 @@
                                     {{ __('lang.Your address') }}
                                 </h3>
                                 <div class="grid grid-cols-2 sm:col-span-4 lg:col-span-2">
-                                    <div class="pb-4 ml-5" style="width: 350px">
-                                        <label for="address"
-                                            class="pb-2 font-semibold">{{ __('lang.Address') }}</label>
-                                        <input type="text" id="address" wire:model="address"
-                                            class="w-80 pt-2 pl-2 pb-2 mt-1 border border-gray-200"
-                                            placeholder="Complete address" required>
-                                        <div>
-                                            @error('address')
-                                                <span class="error text-red-600">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
+
 
                                     <div class="pb-4 ml-5" style="width: 350px">
                                         <label for="address"
@@ -279,9 +278,9 @@
                                     <div class="pb-4 ml-5" style="width: 350px">
                                         <label for="country"
                                             class="pb-2 font-semibold">{{ __('lang.Country/Region') }}</label>
-                                        <select wire:model="countryId"
+                                        <select wire:model="z" wire:change="getCities"
                                             class="w-80 pt-2 pl-2 pb-2 mt-1 border border-gray-200" required>
-                                            <option value="" disabled selected>Choose your country</option>
+                                            <option value="" selected>Choose your country</option>
                                             @foreach ($countries as $country)
                                                 <option value="{{ $country->id }}">{{ $country->name }}</option>
                                             @endforeach
@@ -298,9 +297,9 @@
                                     <div class="pb-4 ml-5" style="width: 350px">
                                         <label for="city"
                                             class="pb-2 font-semibold">{{ __('lang.City') }}</label>
-                                        <select wire:model="cityId"
-                                            class="w-80 pt-2 pl-2 pb-2 mt-1 border border-gray-200" required>
-                                            <option value="" disabled selected>
+                                        <select wire:model="x" class="w-80 pt-2 pl-2 pb-2 mt-1 border border-gray-200"
+                                            required>
+                                            <option value="" selected>
                                                 {{ __('lang.Choose your city') }}</option>
                                             @foreach ($cities as $city)
                                                 <option value="{{ $city->id }}">{{ $city->name }}</option>
@@ -314,32 +313,51 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div>
+                                        <div class="pb-4 ml-5" style="width: 350px">
 
-
-                                    <div class="relative top-2  left-7 ">
-
-                                        <h3 class="relative top-3 pt-2 pb-2 font-semibold text-black">Add Amenities
-                                        </h3>
-                                        <div class="  right-2 relative top-3 " style="width: 130px;">
-                                        </div>
-                                        @foreach ($amenities as $amenity)
-                                            <div class="top-3 relative max-h-10">
-                                                <label>
-                                                    <input type="checkbox" wire:model="selectedAmenities"
-                                                        value="{{ $amenity->id }}" wire:change="calculPrice"
-                                                        class="pr-2">
-                                                    {{ $amenity->title }} :
-                                                </label>
-                                                <p class="pl-4 relative left-20 bottom-6">
-                                                    {{ $amenity->description }}
-                                                </p>
-                                                <p class="relative left-full text-left pl-2 bottom-12 ">Price :
-                                                    {{ $amenity->hotels->first()->pivot->price }}
-                                                    {{ __('lang.TND') }}
-                                                </p>
+                                            <input type="text" id="address" wire:model="address"
+                                                class="w-80 pt-2 pl-2 pb-2 mt-1 border border-gray-200"
+                                                placeholder="Complete address" required hidden>
+                                            <div>
+                                                @error('address')
+                                                    <span class="error text-red-600">{{ $message }}</span>
+                                                @enderror
                                             </div>
-                                        @endforeach
+                                        </div>
+
                                     </div>
+
+                                    @if ($amenities->isNotEmpty())
+
+                                        <div class="relative top-2  left-7 ">
+                                            <h3 class="relative top-3 pt-2 pb-2 font-semibold text-black">
+                                                {{ __('lang.Add Amenities') }}
+                                            </h3>
+                                            <div class="  right-2 relative top-3 " style="width: 130px;">
+                                            </div>
+                                            @foreach ($amenities as $amenity)
+                                                <div class="top-3 relative max-h-10">
+                                                    <label>
+                                                        <input type="checkbox" wire:model="selectedAmenities"
+                                                            value="{{ $amenity->id }}" wire:change="calculPrice"
+                                                            class="pr-2">
+                                                        {{ $amenity->title }} :
+                                                    </label>
+                                                    <p class="pl-4 relative left-20 bottom-6">
+                                                        {{ $amenity->description }}
+                                                    </p>
+                                                    <p class="relative left-full text-left pl-2 bottom-12 ">
+                                                        {{ __('lang.Price :') }}
+                                                        {{ $amenity->hotels->first()->pivot->price }}
+                                                        {{ __('lang.TND') }}
+                                                    </p>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endif
+
+
 
 
 
@@ -421,7 +439,7 @@
                                                 d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
                                                 fill="currentColor" />
                                         </svg>
-                                        Loading...
+                                        {{ __('lang.Loading...') }}
                                     </span>
                                 </button>
                             </div>

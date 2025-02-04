@@ -1,1 +1,27 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css");
+.form-check-input:checked {
+    background-color: #6D28D9;
+    border-color: #6D28D9;
+}
+
+.form-check-input:checked ~ .form-check-label {
+    color: #6D28D9;
+}
+
+.form-check-input:checked ~ .form-check-label::before {
+    color: #6D28D9;
+}
+
+.form-check-input {
+    background-color: #F3F4F6;
+    border-color: #D1D5DB;
+}
+.form-check:hover {
+    margin-bottom: 0.5rem;
+    color: #6D28D9;
+}
+
+.form-check-label {
+    margin-left: 0.5rem;
+    color: #4B5563;
+}

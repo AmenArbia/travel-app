@@ -7,14 +7,14 @@
         <section id="tour_details_main" class="py-5">
             <div class="container " style="max-width: 1388px;">
                 <div class="row">
-                    <div class="col-md-4 ">
-                        @if ($hotel)
+                    @if ($hotel->roomtype->isNotEmpty() || count($hotel->amenities) !== 0 || count($hotel->photo) !== 0)
+                        <div class="col-md-4 ">
+
                             <div class="card shadow-xl mb-4 rounded-xl">
-                                @if ($hotel->roomtype->isNotEmpty())
 
 
-                                    <div class="card-body" id="card-body">
-
+                                <div class="card-body" id="card-body">
+                                    @if ($hotel->roomtype->isNotEmpty())
                                         <div class="card-title border-b border-violet-600  pb-2">
                                             <h3 class="font-bold text-lg">{{ __('lang.Price starts from :') }}</h3>
                                         </div>
@@ -25,6 +25,9 @@
                                                     {{ __('lang./Per night') }}</sub>
                                             </h3>
                                         </div>
+                                    @endif
+                                    @if (count($hotel->amenities) !== 0)
+
                                         <div class="border-top border-bottom py-3 d-flex justify-content-between">
                                             @foreach ($hotel->amenities as $amenity)
                                                 <div class="d-flex align-items-center">
@@ -49,45 +52,49 @@
                                                 </div>
                                             @endforeach
                                         </div>
+                                    @endif
+                                    @if (count($hotel->photo) !== 0)
                                         <div class="mt-3">
-                                            @if (count($hotel->photo) !== 0)
-                                                <div class="mb-4">
-                                                    <img src="{{ asset('storage/' . $hotel->photo[$currentImageIndex]->photos) }}"
-                                                        class="img-fluid w-full   h-56 rounded-xl"
-                                                        alt="{{ $hotel->name }}">
-                                                </div>
-                                                <div class="row">
-                                                    @foreach ($hotel->photo as $index => $photo)
-                                                        <div class="col-2 mb-2">
-                                                            <img src="{{ asset('storage/' . $photo->photos) }}"
-                                                                alt="{{ $hotel->name }}"
-                                                                class="img-fluid rounded-lg w-20 h-20 object-cover cursor-pointer"
-                                                                wire:click="setCurrentImage({{ $index }})">
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                                <div class="d-flex justify-content-between mt-3">
-                                                    <button
-                                                        class="bg-violet-500 hover:bg-yellow-500 rounded-2xl btn text-white cursor-pointer outline-none  py-1 px-4  overflow-hidden whitespace-nowrap  z-0 border-none  leading-6   align-middle select-none transform transition duration-300 hover:scale-105 hover:shadow-lg focus:ring-2  focus:outline-none active:scale-95  font-bold"
-                                                        wire:click="setCurrentImage({{ $currentImageIndex - 1 }})">
-                                                        <i class="fas fa-chevron-left"></i> {{ __('lang.Previous') }}
-                                                    </button>
-                                                    <button
-                                                        class="btn bg-violet-500 hover:bg-yellow-500 rounded-2xl btn  text-white cursor-pointer outline-none  py-1 px-4  overflow-hidden whitespace-nowrap  z-0 border-none  leading-6   align-middle select-none transform transition duration-300 hover:scale-105 hover:shadow-lg focus:ring-2  focus:outline-none active:scale-95  font-bold"
-                                                        wire:click="setCurrentImage({{ $currentImageIndex + 1 }})">
-                                                        {{ __('lang.Next') }} <i class="fas fa-chevron-right"></i>
-                                                    </button>
-                                                </div>
-                                            @endif
+
+                                            <div class="mb-4">
+                                                <img src="{{ asset('storage/' . $hotel->photo[$currentImageIndex]->photos) }}"
+                                                    class="img-fluid w-full   h-56 rounded-xl"
+                                                    alt="{{ $hotel->name }}">
+                                            </div>
+                                            <div class="row">
+                                                @foreach ($hotel->photo as $index => $photo)
+                                                    <div class="col-2 mb-2">
+                                                        <img src="{{ asset('storage/' . $photo->photos) }}"
+                                                            alt="{{ $hotel->name }}"
+                                                            class="img-fluid rounded-lg w-20 h-20 object-cover cursor-pointer"
+                                                            wire:click="setCurrentImage({{ $index }})">
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                            <div class="d-flex justify-content-between mt-3">
+                                                <button
+                                                    class="bg-violet-500 hover:bg-yellow-500 rounded-2xl btn text-white cursor-pointer outline-none  py-1 px-4  overflow-hidden whitespace-nowrap  z-0 border-none  leading-6   align-middle select-none transform transition duration-300 hover:scale-105 hover:shadow-lg focus:ring-2  focus:outline-none active:scale-95  font-bold"
+                                                    wire:click="setCurrentImage({{ $currentImageIndex - 1 }})">
+                                                    <i class="fas fa-chevron-left"></i> {{ __('lang.Previous') }}
+                                                </button>
+                                                <button
+                                                    class="btn bg-violet-500 hover:bg-yellow-500 rounded-2xl btn  text-white cursor-pointer outline-none  py-1 px-4  overflow-hidden whitespace-nowrap  z-0 border-none  leading-6   align-middle select-none transform transition duration-300 hover:scale-105 hover:shadow-lg focus:ring-2  focus:outline-none active:scale-95  font-bold"
+                                                    wire:click="setCurrentImage({{ $currentImageIndex + 1 }})">
+                                                    {{ __('lang.Next') }} <i class="fas fa-chevron-right"></i>
+                                                </button>
+                                            </div>
+
                                         </div>
-                                    </div>
-                                @endif
+                                    @endif
+                                </div>
+
                             </div>
-                        @endif
-                    </div>
 
+                        </div>
+                    @endif
 
-                    <div class="col-md-8  ">
+                    <div
+                        class="col-md-{{ $hotel->roomtype->isNotEmpty() || count($hotel->amenities) !== 0 || count($hotel->photo) !== 0 ? '8' : '12' }}  ">
                         <div class="card shadow-xl rounded-xl mb-4">
                             <div class="card-body">
                                 @if ($hotel)

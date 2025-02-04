@@ -176,7 +176,14 @@ class HotelResource extends Resource
                                             ->native(false)
                                             ->searchable()
                                             ->preload()
-                                            ->required(),
+                                            ->required()
+                                            ->options(function (callable $get) {
+                                                $countryId = $get('country_id');
+                                                if (!$countryId) {
+                                                    return [];
+                                                }
+                                                return \App\Models\City::where('country_id', $countryId)->pluck('name', 'id');
+                                            }),
                                         Select::make('chaine_id')
                                             ->label('Hotel chaine')
                                             ->relationship('chaine', 'name')

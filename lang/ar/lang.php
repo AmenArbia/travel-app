@@ -165,7 +165,7 @@ return [
     'Hotel room with ease using our app. Browse a wide selection of rooms, check real-time availability, and enjoy exclusive deals. Book your next stay effortlessly and securely today!' => 'احجز غرفة الفندق بسهولة باستخدام تطبيقنا. تصفح مجموعة واسعة من الغرف، وتحقق من التوفر في الوقت الحقيقي، واستمتع بصفقات حصرية. احجز إقامتك القادمة بسهولة وبأمان اليوم!',
     'Rooms, Hotels, and Destinations for Your Next Trip.' => ' غرف، فنادق، ووجهات لرحلتك القادمة.',
     'Find the Best' => 'ابحث عن الأفضل',
-
+    'Loading...' => 'جار التحميل...',
 
 
 ];

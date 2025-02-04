@@ -167,4 +167,5 @@ return [
         securely today! ',
     'Rooms, Hotels, and Destinations for Your Next Trip.' => ' Rooms, Hotels, and Destinations for Your Next Trip.',
     'Find the Best' => 'Find the Best',
+    'Loading...' => 'Loading...',
 ];

@@ -17,10 +17,14 @@ Travel-Demo is a web application designed to help users book hotels and rooms. I
 
 ## Requirements
 Before you begin, ensure you have the following installed on your system:
-- PHP 8.3
+- PHP 8.3+
+- Laravel v10.0+
+- Livewire v3.0+
 - Composer (dependency management)
 - MySQL or PostgreSQL (or another supported database , I advise PostgreSQL)
 - npm or yarn
+- filament
+- Tailwind
 
 ## Installation
 
@@ -42,9 +46,14 @@ To get started with Travel-Demo, follow these steps:
     npm install
     ```
 
-4. Copy the [.env.example](http://_vscodecontentref_/1) file to [.env](http://_vscodecontentref_/2) and configure your environment variables:
-    ```sh
-    cp .env.example .env
+4.  Update the [.env] file in your application with your database configuration:
+    ```env
+    DB_CONNECTION=*your database*
+    DB_HOST=127.0.0.1
+    DB_PORT=*your port*
+    DB_DATABASE=*name of your database*
+    DB_USERNAME=*username* 
+    DB_PASSWORD=*password*
     ```
 
 5. Build the application for production:

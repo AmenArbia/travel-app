@@ -14,7 +14,13 @@ Travel-Demo is a web application designed to help users book hotels and rooms. I
 - Multi-language support (Arabic and English)
 - Dynamic breadcrumb navigation
 - User-friendly interface
-- Comprehensive video tutorials and documentation
+
+## Requirements
+Before you begin, ensure you have the following installed on your system:
+- PHP 8.3
+- Composer (dependency management)
+- MySQL or PostgreSQL (or another supported database , I advise PostgreSQL)
+- npm or yarn
 
 ## Installation
 
@@ -41,22 +47,16 @@ To get started with Travel-Demo, follow these steps:
     cp .env.example .env
     ```
 
-5. Generate the application key:
+5. Build the application for production:
     ```sh
-    php artisan key:generate
+    npm run build
+    ```
+6. Serve the application in development mode:
+    ```sh
+    npm run dev
     ```
 
-6. Run the database migrations:
-    ```sh
-    php artisan migrate
-    ```
-
-7. Seed the database with initial data:
-    ```sh
-    php artisan db:seed
-    ```
-
-8. Start the development server:
+7. Start the development server:
     ```sh
     php artisan serve
     ```
@@ -72,11 +72,3 @@ Laravel has the most extensive and thorough [documentation](https://laravel.com/
 You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
 If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Contributing
-
-Thank you for considering contributing to Travel-Demo! If you would like to contribute, please fork the repository and submit a pull request.
-
-## License
-
-Travel-Demo is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

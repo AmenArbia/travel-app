@@ -19,7 +19,7 @@ class BookingDetailsPage extends Component
     public function render()
     {
 
-        $bookingquery = Booking::with('hotel', 'room', 'roomtype', 'roomtype.room', 'amenities', 'country', 'city');
+        $bookingquery = Booking::with('hotel', 'room', 'roomtype', 'roomtype.room', 'amenities', 'country', 'city')->orderBy('created_at', 'desc');
 
         $bookingCount = $bookingquery->count();
         return view('livewire.booking-details-page', [

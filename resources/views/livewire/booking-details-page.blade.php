@@ -4,20 +4,21 @@
 
     <title>{{ $title ?? 'Travel-App' }}</title>
 
-    <section id="dashboard_main_arae" class="section_padding">
+    <section id="dashboard_main_arae" class="py-5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    <div class="dashboard_common_table bg-white shadow-2xl p-10 rounded-2xl  ">
-                        <h3 class="font-bold">{{ __('lang.Booking history') }}</h3>
+                    <div class="bg-white shadow-lg p-4 rounded">
+                        <h3 class="font-bold mb-5">{{ __('lang.Booking history') }}</h3>
 
-                        <button
-                            class="px-4 py-2 font-bold text-white rounded-full hover:bg-yellow-500 bg-violet-600 relative no-underline  btn btn-primary cursor-pointer outline-none    overflow-hidden whitespace-nowrap  z-0 border-none  leading-6   align-middle select-none transform transition duration-300 hover:scale-105 hover:shadow-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none active:scale-95 ">
-                            <a href="{{ route('hotels.' . app()->getLocale()) }}"
-                                class="text-white no-underline">{{ __('lang.Book Room') }}</a>
-                        </button>
-                        <div class="table-responsive-lg table_common_area">
-                            <table class="table">
+                        <a href="{{ route('hotels.' . app()->getLocale()) }}"
+                            class="btnbtn  hover:bg-yellow-500 hover:font-bold font-medium text-white rounded-full px-4 py-2 mb-2
+                                    bg-violet-600 no-underline transform transition duration-300 hover:scale-105 hover:shadow-lg mt-5">
+                            {{ __('lang.Book Room') }}
+                        </a>
+
+                        <div class="table-responsive mt-3 mb-3">
+                            <table class="table ">
                                 <thead>
                                     <tr>
                                         <th>{{ __('lang.Hotel Name') }}</th>
@@ -32,63 +33,61 @@
                                 <tbody>
                                     @foreach ($bookings as $booking)
                                         <tr>
-                                            <td class=" inline-block">{{ $booking->hotel->name ?? 'N/A' }}</td>
+                                            <td>{{ $booking->hotel->name ?? 'N/A' }}</td>
                                             <td>{{ $booking->roomtype->name ?? 'N/A' }}</td>
-                                            <td class="relative inline-block px-2 font-bold text-black text-md">
+                                            <td>
                                                 @if ($booking->roomtype->room->type === 'Standard ')
                                                     <span
-                                                        class="pending bg-green-500 inline-block px-2 font-bold text-white rounded-2xl text-md">
+                                                        class="badge badge-success pending bg-green-500 inline-block px-2 font-bold text-white rounded-2xl text-md">
                                                         {{ __('lang.Standard ') }}
                                                     </span>
                                                 @elseif ($booking->roomtype->room->type === 'Deluxe ')
                                                     <span
-                                                        class="approved bg-blue-500 inline-block px-2 font-bold text-white rounded-2xl text-md">
+                                                        class="badge badge-primary approved bg-blue-500 inline-block px-2 font-bold text-white rounded-2xl text-md">
                                                         {{ __('lang.Deluxe ') }}
                                                     </span>
                                                 @elseif ($booking->roomtype->room->type === 'Suite ')
                                                     <span
-                                                        class="cancelled bg-yellow-500 inline-block px-2 font-bold text-white rounded-2xl text-md">
+                                                        class="badge badge-warning cancelled bg-yellow-500 inline-block px-2 font-bold text-white rounded-2xl text-md">
                                                         {{ __('lang.Suite ') }}
                                                     </span>
                                                 @endif
                                             </td>
                                             <td>{{ $booking->roomtype->price ?? 'N/A' }} {{ __('lang.TND') }}</td>
-                                            <td class="complete">
+                                            <td>
                                                 {{ $booking->check_in_date ?? 'N/A' }} /
                                                 {{ $booking->check_out_date ?? 'N/A' }}
                                             </td>
                                             <td>{{ $booking->total_price ?? 'N/A' }} {{ __('lang.TND') }}</td>
-                                            <td class="px-2 inline-block">
+                                            <td>
                                                 @if ($booking->booking_status == 'pending')
                                                     <span
-                                                        class="pending bg-blue-500 inline-block px-2 font-bold text-white rounded-2xl text-md">
+                                                        class="badge badge-info pending bg-green-500 inline-block px-2 font-bold text-white rounded-2xl text-md">
                                                         {{ __('lang.Pending') }}
                                                     </span>
                                                 @elseif ($booking->booking_status == 'approved')
                                                     <span
-                                                        class="approved bg-green-500 inline-block px-2 font-bold text-white rounded-2xl text-md">
+                                                        class="badge badge-success approved bg-blue-500 inline-block px-2 font-bold text-white rounded-2xl text-md">
                                                         {{ __('lang.Approved') }}
                                                     </span>
                                                 @elseif ($booking->booking_status == 'cancelled')
                                                     <span
-                                                        class="cancelled bg-red-500 inline-block px-2 font-bold text-white rounded-2xl text-md">
+                                                        class="badge badge-danger cancelled bg-yellow-500 inline-block px-2 font-bold text-white rounded-2xl text-md">
                                                         {{ __('lang.Rejected') }}
                                                     </span>
                                                 @endif
                                             </td>
-
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="flex justify-end mt-6 ">
-                        {{ $bookings->links('pagination::tailwind', ['class' => 'pagination-class']) }}
+                    <div class="d-flex justify-content-end mt-4">
+                        {{ $bookings->links('pagination::bootstrap-4') }}
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
 </div>

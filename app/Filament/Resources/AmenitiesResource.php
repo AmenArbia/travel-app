@@ -120,8 +120,8 @@ class AmenitiesResource extends Resource
                         'warning' => 'Kitchen',
                         'danger' => 'Bedroom',
                         'info' => 'Living Area',
-                        'secondary' => 'Media and Technology',
-                        'gray' => 'Other',
+                        'gray' => 'Media and Technology',
+                        '' => 'Other',
                     ])
                     ->formatStateUsing(fn($record) => $record->type === 'Other' ? $record->other_type : $record->type),
                 Tables\Columns\TextColumn::make('status')

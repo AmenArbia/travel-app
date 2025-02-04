@@ -46,4 +46,8 @@ class TypeRoom extends Model
     {
         return $this->hasMany(Booking::class);
     }
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
 }

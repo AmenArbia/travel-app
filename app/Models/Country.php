@@ -30,4 +30,9 @@ class Country extends Model
     {
         return $this->hasMany(Booking::class);
     }
+
+    public function roomtype()
+    {
+        return $this->hasMany(TypeRoom::class);
+    }
 }

@@ -36,6 +36,6 @@ class AppServiceProvider extends ServiceProvider
         }
         app()->setLocale($setLocale);
 
-
+        //dd(app()->getLocale());
     }
 }

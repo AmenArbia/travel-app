@@ -67,13 +67,14 @@ class RoomsResource extends Resource
 
                 MarkdownEditor::make('description')
                     ->label('Description')
+                    ->maxLength(255)
                     ->columnSpan('full'),
 
                 Section::make('Occupancy')
                     ->columns(6)
                     ->schema([
                         Toggle::make('is_default')
-                            ->label('Set as Default')
+                            ->label('Set to Default')
                             ->reactive()
                             ->columnSpan(1)
                             ->afterStateUpdated(function (callable $set, $state) {

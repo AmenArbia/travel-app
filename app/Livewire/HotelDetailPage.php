@@ -35,7 +35,7 @@ class HotelDetailPage extends Component
     public $children = 0;
     public $infants = 0;
 
-    public $maxAdults = 5;
+    public $maxAdults = 4;
     public $maxChildren = 3;
     public $maxInfants = 2;
 

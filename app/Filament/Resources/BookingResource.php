@@ -284,7 +284,7 @@ class BookingResource extends Resource
                         InfolistGroup::make()
                             ->columns(3)
                             ->schema([
-                                TextEntry::make('address.street')->label('Street Address'),
+                                //TextEntry::make('address.street')->label('Street Address'),
                                 TextEntry::make('country.name')->label('Country'),
                                 TextEntry::make('city.name')->label('City'),
                             ]),

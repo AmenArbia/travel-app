@@ -67,12 +67,12 @@
                 <div class="content-container">
                     <div class="container">
                         <div class="text-violet-800 font-bold text-5xl pt-3 rounded-full   "
-                            style="background: #ffffff4d;">
+                            style="background: #fcfcfc60;">
                             <div class="row">
                                 <div class="flex flex-col items-center text-center">
-                                    <div class="mb-2 transform transition duration-300 hover:scale-105 ">
+                                    <div class=" transform transition duration-300 hover:scale-105 ">
                                         <a href="/"
-                                            class="text-violet-800 font-bold p-5 rounded-md no-underline text-3xl hover:text-yellow-600 ">
+                                            class="text-gray-700 font-bold p-5 rounded-md no-underline text-3xl hover:text-yellow-500 ">
                                             {{ __('lang.Travel Shaper') }}
                                         </a>
                                     </div>
@@ -80,7 +80,7 @@
                                         <ol class="inline-flex items-center space-x-1 md:space-x-1 rtl:space-x-reverse">
                                             <li class="inline-flex items-center">
                                                 <a href="/"
-                                                    class="inline-flex items-center text-sm font-medium text-violet-700  dark:hover:text-yellow-600 transform transition duration-300 hover:scale-105">
+                                                    class="inline-flex items-center text-sm font-medium text-gray-700 no-underline  dark:hover:text-yellow-600 transform transition duration-300 hover:scale-105">
                                                     <svg class="w-3 h-3 me-2.5" aria-hidden="true"
                                                         xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                         viewBox="0 0 20 20">

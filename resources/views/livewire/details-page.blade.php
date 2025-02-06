@@ -54,6 +54,7 @@
                                         </div>
                                     @endif
                                     @if (count($hotel->photo) !== 0)
+
                                         <div class="mt-3">
 
                                             <div class="mb-4">
@@ -155,7 +156,8 @@
                                                 <div class="form-group">
                                                     <label
                                                         class="text-sm text-slate-500 font-normal pb-2">{{ __('lang.Check In date') }}</label>
-                                                    <input type="date" class="form-control bg-violet-200"
+                                                    <input type="date"
+                                                        class="form-control bg-violet-200 text-gray-400 hover:text-gray-700 hover:font-semibold"
                                                         wire:model.defer="checkInDate" wire:change="calculPrice">
                                                     @error('checkInDate')
                                                         <span class="text-danger">{{ $message }}</span>
@@ -166,7 +168,8 @@
                                                 <div class="form-group">
                                                     <label
                                                         class="text-sm text-slate-500 font-normal pb-2">{{ __('lang.Check Out date') }}</label>
-                                                    <input type="date" class="form-control bg-violet-200"
+                                                    <input type="date"
+                                                        class="form-control bg-violet-200 text-gray-400 hover:text-gray-700 hover:font-semibold"
                                                         wire:model.defer="checkOutDate" wire:change="calculPrice">
                                                     @error('checkOutDate')
                                                         <span class="text-danger">{{ $message }}</span>
@@ -303,7 +306,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="text-right mt-3 col-md-7">
+                                            <div class="text-right  col-md-7 mt-4">
                                                 <button
                                                     class="btn cursor-pointer   hover:text-white bg-violet-100 shadow-none overflow-hidden whitespace-nowrap relative z-0 border-none inline-block  leading-6 text-center no-underline hover:bg-yellow-500 align-middle select-none rounded-md transform transition duration-300  hover:scale-105 hover:shadow-lg  focus:outline-none active:scale-95"
                                                     type="button" wire:click="checkAvailability">

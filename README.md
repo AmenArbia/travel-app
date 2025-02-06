@@ -45,7 +45,7 @@ To get started with Travel-Demo, follow these steps:
     cp .env.example .env
     ```
 5.  Update the [.env] file in your application with your database configuration:
-    ```env
+    ```sh
     DB_CONNECTION="your database(pgsql Or mysql)"
     DB_HOST=127.0.0.1
     DB_PORT="your port"

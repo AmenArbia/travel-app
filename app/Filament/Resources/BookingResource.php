@@ -372,15 +372,15 @@ class BookingResource extends Resource
  }*/
 
     /*protected static function calculateDiscount(?string $couponCode): float
-    {
-        $coupons = [
-            'DISCOUNT10' => 10,
-            'DISCOUNT20' => 20,
-            'SUMMER50' => 50,
-        ];
+   {
+       $coupons = [
+           'DISCOUNT10' => 10,
+           'DISCOUNT20' => 20,
+           'SUMMER50' => 50,
+       ];
 
-        return $couponCode && isset($coupons[$couponCode]) ? $coupons[$couponCode] : 0;
-    }*/
+       return $couponCode && isset($coupons[$couponCode]) ? $coupons[$couponCode] : 0;
+   }*/
 
     /*public static function formatAddress(?string $country, ?string $city): string
     {

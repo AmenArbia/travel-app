@@ -10,8 +10,8 @@
                 <!-- Sidebar Filters (Left Column) -->
                 <div class="col-lg-3 mt-16">
 
-                    <div class="card shadow-lg mb-4">
-                        <div class="card-body">
+                    <div class="card shadow-lg mb-4 rounded-2xl">
+                        <div class="card-body ">
                             <h2 class=" font-bold text-xl text-violet-700 ">{{ __('lang.Hotel Type') }}</h2>
                             <hr class="border-primary">
                             <ul class="list-unstyled mt-2">
@@ -37,7 +37,7 @@
                         </div>
                     </div>
 
-                    <div class="card shadow-lg mb-4">
+                    <div class="card shadow-lg mb-4 rounded-2xl ">
                         <div class="card-body">
                             <h2 class="font-bold text-xl  text-violet-700">{{ __('lang.Hotels Status') }}</h2>
                             <hr class="border-primary">
@@ -66,7 +66,7 @@
                         </div>
                     </div>
 
-                    <div class="card shadow-lg mb-4">
+                    <div class="card shadow-lg mb-4 rounded-2xl">
                         <div class="card-body">
                             <h2 class="font-bold text-xl  text-violet-700">{{ __('lang.Hotel Amenities') }}</h2>
                             <hr class="border-primary">
@@ -90,19 +90,21 @@
                 </div>
                 <!-- Hotel Listings (Right Column) -->
                 <div class="col-lg-9 ">
-                    <div class="row mb-4">
+                    <div class="row mb-3">
                         <div class="col-12">
+
                             <h2 class="font-bold  text-violet-700  text-center">
                                 {{ $hotelsCount }}
                                 {{ __('lang.Hotels found') }}</h2>
+
                         </div>
                     </div>
 
                     <div class="row">
 
                         @foreach ($hotels as $hotel)
-                            <div class="col-md-12 mb-4" wire:key='{{ $hotel->id }}'>
-                                <div class="card shadow-2xl h-100">
+                            <div class="col-md-12 mb-4 " wire:key='{{ $hotel->id }}'>
+                                <div class="card shadow-2xl h-100 rounded-3xl">
                                     <div class="row ">
                                         <div class="col-lg-4">
                                             <img src="{{ url('storage/' . $hotel->image_cover) }}"

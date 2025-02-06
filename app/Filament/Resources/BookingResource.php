@@ -412,7 +412,8 @@ class BookingResource extends Resource
                     ->label(' Amenities added')
                     ->searchable()
                     ->badge()
-                    ->sortable(),
+                    ->sortable()
+                    ->placeholder('Nothing'),
 
 
 

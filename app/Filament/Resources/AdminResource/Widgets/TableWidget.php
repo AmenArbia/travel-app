@@ -28,7 +28,7 @@ class TableWidget extends BaseWidget
             ->defaultPaginationPageOption(4)
             ->defaultSort('created_at', 'desc')
             ->recordUrl(
-                fn (Booking $record) => BookingResource::getUrl('index')
+                fn(Booking $record) => BookingResource::getUrl('index')
             )
             ->columns([
                 TextColumn::make('name')
@@ -74,7 +74,7 @@ class TableWidget extends BaseWidget
                         'warning' => 'pending',
                     ])
                     ->label('Booking Status'),
-                TextColumn::make('is_confirmed')
+                /*TextColumn::make('is_confirmed')
                     ->sortable()
                     ->searchable()
                     ->badge()
@@ -86,7 +86,7 @@ class TableWidget extends BaseWidget
                         'success' => fn($state, $record): bool => $record->booking_status === 'approved',
                         'danger' => fn($state, $record): bool => $record->booking_status === 'pending',
                     ])
-                    ->label('Confirmation'),
+                    ->label('Confirmation'),*/
             ]);
 
     }

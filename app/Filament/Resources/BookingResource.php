@@ -316,7 +316,7 @@ class BookingResource extends Resource
     }
 
 
-    protected static function updateTotalPrice($set, $get)
+    /*protected static function updateTotalPrice($set, $get)
     {
         $checkIn = $get('check_in_date');
         $checkOut = $get('check_out_date');
@@ -351,25 +351,25 @@ class BookingResource extends Resource
             'SUMMER50' => 50,   // 50% discount
         ];*/
 
-        /*if ($couponCode && isset($coupons[$couponCode])) {
-            $discountPercentage = $coupons[$couponCode];
-        }*/
+    /*if ($couponCode && isset($coupons[$couponCode])) {
+        $discountPercentage = $coupons[$couponCode];
+    }*/
 
-        if ($checkIn && $checkOut && $pricePerNight) {
-            $checkInDate = new \DateTime($checkIn);
-            $checkOutDate = new \DateTime($checkOut);
-            $interval = $checkInDate->diff($checkOutDate);
-            $nights = $interval->days;
+    /* if ($checkIn && $checkOut && $pricePerNight) {
+         $checkInDate = new \DateTime($checkIn);
+         $checkOutDate = new \DateTime($checkOut);
+         $interval = $checkInDate->diff($checkOutDate);
+         $nights = $interval->days;
 
 
-            $subtotal = ($nights * $pricePerNight) + $amenityPrice;
-            $discount = ($discountPercentage / 100) * $subtotal;
-            $totalPrice = $subtotal - $discount;
-            $set('total_price', $totalPrice);
-        } else {
-            $set('total_price', null);
-        }
-    }
+         $subtotal = ($nights * $pricePerNight) + $amenityPrice;
+         $discount = ($discountPercentage / 100) * $subtotal;
+         $totalPrice = $subtotal - $discount;
+         $set('total_price', $totalPrice);
+     } else {
+         $set('total_price', null);
+     }
+ }*/
 
     /*protected static function calculateDiscount(?string $couponCode): float
     {
@@ -382,10 +382,10 @@ class BookingResource extends Resource
         return $couponCode && isset($coupons[$couponCode]) ? $coupons[$couponCode] : 0;
     }*/
 
-    public static function formatAddress(?string $country, ?string $city): string
+    /*public static function formatAddress(?string $country, ?string $city): string
     {
         return trim(($country ? $country : '') . ($city ? ', ' . $city : ''));
-    }
+    }*/
 
     public static function table(Table $table): Table
     {
@@ -413,7 +413,7 @@ class BookingResource extends Resource
                     ->searchable()
                     ->badge()
                     ->sortable()
-                    ->placeholder('Nothing'),
+                    ->placeholder('No amenities added'),
 
 
 

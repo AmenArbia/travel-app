@@ -46,12 +46,12 @@ To get started with Travel-Demo, follow these steps:
     ```
 5.  Update the [.env] file in your application with your database configuration:
     ```env
-    DB_CONNECTION=*your database*
+    DB_CONNECTION="your database(pgsql Or mysql)"
     DB_HOST=127.0.0.1
-    DB_PORT=*your port*
-    DB_DATABASE=*name of your database*
-    DB_USERNAME=*username* 
-    DB_PASSWORD=*password*
+    DB_PORT="your port"
+    DB_DATABASE="name of your database"
+    DB_USERNAME="your database username" 
+    DB_PASSWORD="your database password"
     ```
 6. Generate a new application key : 
     ```sh

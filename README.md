@@ -1,11 +1,5 @@
 # Travel-Demo
 
-![Total Downloads](https://img.shields.io/packagist/dt/laravel/framework)
-![Latest Stable Version](https://img.shields.io/packagist/v/laravel/framework)
-![License](https://img.shields.io/packagist/l/laravel/framework)
-
-## About Travel-Demo
-
 Travel-Demo is a web application designed to help users book hotels and rooms. It is built using the Laravel framework, which is known for its elegant syntax and powerful features.
 
 ## Features

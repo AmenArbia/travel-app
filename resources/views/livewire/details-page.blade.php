@@ -53,6 +53,8 @@
                                             @endforeach
                                         </div>
                                     @endif
+
+
                                     @if (count($hotel->photo) !== 0)
 
                                         <div class="mt-3">
@@ -73,16 +75,18 @@
                                                 @endforeach
                                             </div>
                                             <div class="d-flex justify-content-between mt-3">
-                                                <button
-                                                    class="bg-violet-500 hover:bg-yellow-500 rounded-2xl btn text-white cursor-pointer outline-none  py-1 px-4  overflow-hidden whitespace-nowrap  z-0 border-none  leading-6   align-middle select-none transform transition duration-300 hover:scale-105 hover:shadow-lg focus:ring-2  focus:outline-none active:scale-95  font-bold"
-                                                    wire:click="setCurrentImage({{ $currentImageIndex - 1 }})">
-                                                    <i class="fas fa-chevron-left"></i> {{ __('lang.Previous') }}
-                                                </button>
-                                                <button
-                                                    class="btn bg-violet-500 hover:bg-yellow-500 rounded-2xl btn  text-white cursor-pointer outline-none  py-1 px-4  overflow-hidden whitespace-nowrap  z-0 border-none  leading-6   align-middle select-none transform transition duration-300 hover:scale-105 hover:shadow-lg focus:ring-2  focus:outline-none active:scale-95  font-bold"
-                                                    wire:click="setCurrentImage({{ $currentImageIndex + 1 }})">
-                                                    {{ __('lang.Next') }} <i class="fas fa-chevron-right"></i>
-                                                </button>
+                                                @if (count($hotel->photo) > 1)
+                                                    <button
+                                                        class="bg-violet-500 hover:bg-yellow-500 rounded-2xl btn text-white cursor-pointer outline-none  py-1 px-4  overflow-hidden whitespace-nowrap  z-0 border-none  leading-6   align-middle select-none transform transition duration-300 hover:scale-105 hover:shadow-lg focus:ring-2  focus:outline-none active:scale-95  font-bold"
+                                                        wire:click="setCurrentImage({{ $currentImageIndex - 1 }})">
+                                                        <i class="fas fa-chevron-left"></i> {{ __('lang.Previous') }}
+                                                    </button>
+                                                    <button
+                                                        class="btn bg-violet-500 hover:bg-yellow-500 rounded-2xl btn  text-white cursor-pointer outline-none  py-1 px-4  overflow-hidden whitespace-nowrap  z-0 border-none  leading-6   align-middle select-none transform transition duration-300 hover:scale-105 hover:shadow-lg focus:ring-2  focus:outline-none active:scale-95  font-bold"
+                                                        wire:click="setCurrentImage({{ $currentImageIndex + 1 }})">
+                                                        {{ __('lang.Next') }} <i class="fas fa-chevron-right"></i>
+                                                    </button>
+                                                @endif
                                             </div>
 
                                         </div>
@@ -317,7 +321,7 @@
 
                                     </form>
                                 </div>
-                                <div class="mt-4">
+                                <div class="mt-6">
                                     @if ($availableRooms && $availableRooms->isNotEmpty())
                                         <form wire:submit>
                                             @foreach ($availableRooms as $room)

@@ -1,6 +1,13 @@
 <?php
 
 namespace Database\Seeders;
+use Database\Seeders\CountrySeeder;
+use Database\Seeders\CitySeeder;
+use Database\Seeders\ChaineSeeder;
+use Database\Seeders\AmenitiesTableSeeder;
+use Database\Seeders\HotelSeeder;
+use Database\Seeders\RoomSeeder;
+
 
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -15,11 +22,13 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         $this->call([
-            AmenitiesTableSeeder::class,
+
                 //BookingSeeder::class,
-            ChaineSeeder::class,
+
             CountrySeeder::class,
             CitySeeder::class,
+            ChaineSeeder::class,
+            AmenitiesTableSeeder::class,
             HotelSeeder::class,
             RoomSeeder::class,
         ]);

@@ -92,6 +92,7 @@ To get started with Travel-Demo, follow these steps:
 ## Database seeding 
 You may populate the database to help you get started quickly by running the database seeder. Default login information : 
     ```sh
+    
         # Default admin user
         email: admin@gmail.com
         password: admin

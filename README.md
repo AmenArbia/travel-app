@@ -87,6 +87,34 @@ To get started with Travel-Demo, follow these steps:
     php artisan serve
     ```
 
+
+
+## Database seeding 
+You may populate the database to help you get started quickly by running the database seeder. Default login information : 
+    ```sh
+        # Default admin user
+        email: admin@gmail.com
+        password: admin
+
+        # Create a new user
+        php artisan make:user
+    ```
+
+Run the database seeder 
+    ```sh
+    php artisan db:seed
+    ```
+**Note:** It's recommended to have a clean database before seeding . You can reset your database to a clean state at any point by runng the follwing commend : 
+    ```sh
+    php artisan migrate:fresh
+    ```
+**Note:** After seeding the database and acces to the admin panel , you'll need to:
+1. Add amenities to the hotels (WiFi, Parking, Bedroom ,etc.)
+2. Upload hotel and room photos
+3. Assign rooms to hotels
+
+These steps are necessary to experience the full booking functionality and view detailed hotel information in the frontend.
+
 ## Usage
 
 Once the development server is running, you can access the application at `http://localhost:8000`. You can navigate through the application to book hotels and rooms, and switch between Arabic and English languages.

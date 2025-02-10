@@ -105,7 +105,7 @@ Run the database seeder : php artisan db:seed
 It's recommended to have a clean database before seeding . You can reset your database to a clean state at any point by running the follwing commend : 
     
     php artisan migrate:fresh
-**Note:** After seeding the database and acces to the admin panel , you'll need to:
+## Note :  After seeding the database and acces to the admin panel , you'll need to:
 1. Add amenities to the hotels (WiFi, Parking, Bedroom ,etc.)
 2. Upload hotel and room photos
 3. Assign rooms to hotels

@@ -99,9 +99,8 @@ You may populate the database to help you get started quickly by running the dat
     ```
 
 Run the database seeder 
-    ```sh
     php artisan db:seed
-    ```
+    
 It's recommended to have a clean database before seeding . You can reset your database to a clean state at any point by runng the follwing commend : 
     
     php artisan migrate:fresh

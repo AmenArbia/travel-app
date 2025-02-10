@@ -40,7 +40,8 @@ class PhotoRelationManager extends RelationManager
                     ])
                     ->default('Standard'),*/
                 MarkdownEditor::make('caption')
-                    ->label('Caption'),
+                    ->label('Caption')
+                    ->maxLength(255),
             ]);
     }
 
@@ -50,17 +51,7 @@ class PhotoRelationManager extends RelationManager
             ->recordTitleAttribute('id')
             ->columns([
 
-                TextColumn::make('type')
-                    ->label('Hotel Type')
-                    ->sortable()
-                    ->searchable()
-                    ->badge()
-                    ->colors([
-                        'success' => 'Hotel',
-                        'info' => 'Resort',
-                        'warning' => 'Guest House',
-                    ])
-                    ->default('gray'),
+
                 TextColumn::make('caption')
                     ->label('Caption')
                     ->sortable()

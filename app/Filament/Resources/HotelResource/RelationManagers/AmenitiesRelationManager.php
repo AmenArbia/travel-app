@@ -127,7 +127,10 @@ class AmenitiesRelationManager extends RelationManager
                     ),
 
                 TextColumn::make('room.code')
-                    ->label('Room Code'),
+                    ->label('Room Code')
+                    ->searchable()
+                    ->sortable()
+                    ->placeholder('No Room Assigned to this Amenity'),
 
 
                 Tables\Columns\TextColumn::make('created_at')

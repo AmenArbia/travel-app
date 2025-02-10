@@ -98,7 +98,7 @@ You may populate the database to help you get started quickly by running the dat
         php artisan make:user
     ```
 
-Run the database seeder 
+Run the database seeder :
     ```sh
        php artisan db:seed
     ```

@@ -104,7 +104,7 @@ Run the database seeder
     ```sh
     php artisan db:seed
     ```
-**Note:** It's recommended to have a clean database before seeding . You can reset your database to a clean state at any point by runng the follwing commend : 
+It's recommended to have a clean database before seeding . You can reset your database to a clean state at any point by runng the follwing commend : 
     ```sh
     php artisan migrate:fresh
     ```

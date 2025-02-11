@@ -174,7 +174,8 @@
                                             <h5 class=" pt-2   ml-4 text-2xl font-bold  ">
                                                 {{ __('lang.Total Price :') }} <span
                                                     class="text-black font-semibold relative left-12 ">{{ __('lang.TND') }}
-                                                    {{ $roomPrice + $amenity->hotels->first()->pivot->price }}
+                                                    {{ $roomPrice }}
+                                                    <!-- + $amenity->hotels->first()->pivot->price -->
                                                     </del>
                                                 </span>
                                             </h5>

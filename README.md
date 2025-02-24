@@ -35,10 +35,10 @@ To get started with Travel-Demo, follow these steps:
     ```
 
 3. Install the dependencies using composer and npm :
-    ```sh
+   
     composer install
     npm install
-    ```
+    
 
 4. Copy the example env file and make the required configuration changes in the .env file : 
     ```sh

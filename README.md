@@ -35,10 +35,10 @@ To get started with Travel-Demo, follow these steps:
     ```
 
 3. Install the dependencies using composer and npm :
-   
+    ```sh
     composer install
     npm install
-    
+    ```
 
 4. Copy the example env file and make the required configuration changes in the .env file : 
     ```sh
@@ -91,14 +91,16 @@ To get started with Travel-Demo, follow these steps:
 
 ## Database seeding 
 You may populate the database to help you get started quickly by running the database seeder. Default login information :
-**Note** Default admin user:  email: admin@gmail.com password: admin
-
-    Create new user : 
+**Note** Default admin user: 
+ ```sh
+email: admin@gmail.com password: admin
+  ```
+**Note** Create new user : 
     ```sh
         php artisan make:user
     ```
 
-Run the database seeder : php artisan db:seed
+**Note**Run the database seeder : php artisan db:seed
     
        
    

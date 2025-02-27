@@ -24,7 +24,7 @@ use Mokhosh\FilamentRating\RatingTheme;
 class TypeRoomRelationManager extends RelationManager
 {
     protected static string $relationship = 'roomtype';
-    protected static ?string $title = 'Room ';
+    protected static ?string $title = 'Room Type';
     protected static ?string $icon = 'heroicon-o-building-storefront';
 
 

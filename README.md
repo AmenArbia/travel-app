@@ -100,7 +100,7 @@ email: admin@gmail.com password: admin
         php artisan make:user
     ```
 
-**Note**Run the database seeder : php artisan db:seed
+**Note** Run the database seeder : php artisan db:seed
     
        
    

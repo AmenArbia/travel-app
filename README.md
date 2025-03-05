@@ -97,7 +97,7 @@ email: admin@gmail.com password: admin
   ```
 **Note** Create new user : 
     ```sh
-        php artisan make:user
+        php artisan  make:filament-user
     ```
 
 **Note** Run the database seeder : php artisan db:seed
